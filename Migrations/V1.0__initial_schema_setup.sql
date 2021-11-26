@@ -57,6 +57,7 @@ CREATE TABLE IF NOT EXISTS public.BoatTypes(
 CREATE TABLE IF NOT EXISTS public.Boats(
     id          serial
             primary key,
+    name        VARCHAR(256),
     typeId      integer REFERENCES public.BoatTypes (id),
     classId     integer REFERENCES public.Class (id),
     ownderId    integer NULL REFERENCES public.Members (id),

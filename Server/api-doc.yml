@@ -60,6 +60,7 @@ paths:
                 - typeId
                 - classId
                 - ownerId
+                - name
               properties:
                 typeId:
                   type: integer
@@ -71,6 +72,8 @@ paths:
                 typeID:
                   type: integer
                   nullable: true
+                name: 
+                  type: string
   /boat/{id}:
     get:
       tags:
@@ -101,6 +104,8 @@ paths:
                   teamID:
                      type: integer
                      nullable: true
+                  name:
+                     type: string
   
   
 
@@ -129,6 +134,7 @@ paths:
                 - classId
                 - ownerId
                 - teamId
+                - name
               properties:
                 id:
                   type: integer
@@ -145,6 +151,8 @@ paths:
                   type: integer
                   items:
                     type: integer
+                name: 
+                  type: string
 
       responses:
         204:
@@ -337,11 +345,6 @@ paths:
       summary: Returns a list of specific all boats that competed in a particular race - used to calculate positions and results.
       parameters:
       - in: path
-        name: BoatId
-        schema:
-          type: integer
-        description: The id corresponding to the specific boat the user wants returned
-      - in: path
         name: RaceId
         schema:
           type: integer
@@ -354,6 +357,8 @@ paths:
             application/json:
               schema:
                 properties:
+                  boatId:
+                    type: integer
                   startTime:
                     type: string
                     format: date
@@ -464,7 +469,15 @@ paths:
                     type: integer
                   name:
                     type: string
-
+                  members:
+                    type: array
+                    items:
+                      type: object      # <----------
+                      properties:       # <----------
+                        memberId:
+                          type: integer
+                        name:
+                          type: string                  
 
   /team/{Id}:
     put:
@@ -494,8 +507,6 @@ paths:
                   format: int32
                 name:
                   type: string
-
-
 
     delete:
         tags:
@@ -625,6 +636,8 @@ paths:
                     type: integer
                   eventTypeId:
                     type: integer
+                  eventTypeDescription:
+                    type: string
                   startTime:
                     type: string
                     format: date
@@ -736,72 +749,6 @@ paths:
                     type: integer
                   name:
                     type: string
-    post:
-          tags:
-            - Event
-          summary: This will add a new event type
-          responses:
-            201:
-              description: Successfully added event type.
-          requestBody:
-            content:
-              application/json:
-                schema:
-                  type: object
-                  required:
-                    - name
-                  properties:
-                    id:
-                      type: integer
-                    name:
-                      type: string
-  /event/type/{Id}:
-    put:
-      tags:
-        - Event
-      summary: Updates a event type
-      description: Updates a event type
-      parameters:
-      - in: path
-        name: id 
-        required: true
-        schema:
-          type: integer
-          minimum: 1
-        description: The event type ID
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - id
-                - name
-              properties:
-                id:
-                  type: integer
-                name:
-                  type: string
-
-
-                    
-    delete:
-        tags:
-          - Event  
-        summary: Deletes an Event tyoe
-        description: Deletes an Event type
-        parameters:
-        - in: path
-          name: id 
-          required: true
-          schema:
-            type: integer
-            minimum: 1
-          description: The Event type ID
-
-        responses:
-          200:
-            description: Successfully deleted event type
 
   /member:
     get:
@@ -882,6 +829,8 @@ paths:
                     type: string
                   roleID:
                     type: integer
+                  roleName:
+                    type: string
 
   /member/{Id}:
     put:
@@ -974,51 +923,3 @@ paths:
                   properties:
                     role:
                       type: string
-  /member/role/{Id}:
-    put:
-      tags:
-        - Member
-      summary: Updates a role value
-      description: Updates a role value
-      parameters:
-      - in: path
-        name: id 
-        required: true
-        schema:
-          type: integer
-          minimum: 1
-        description: The role ID
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-                - id
-                - role
-              properties:
-                id:
-                  type: integer
-                role:
-                  type: string
-
- 
-                      
-    delete:
-        tags:
-          - Member  
-        summary: Deletes a role
-        description: Deletes a role
-        parameters:
-        - in: path
-          name: id 
-          required: true
-          schema:
-            type: integer
-            minimum: 1
-          description: The role ID
-
-        responses:
-          200:
-            description: Successfully deleted member
-
