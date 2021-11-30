@@ -1,21 +1,15 @@
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
+
 function randomInteger(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 const getAllTeams = async (req, res) => {
 	try {
+		const teams = await prisma.teams.findMany();
 		res.status(200).json({
-			data: [
-				{
-					name: "QUB sailing",
-				},
-				{
-					name: "TUD sailing",
-				},
-				{
-					name: "NUIG Sailing",
-				},
-			],
+			teams,
 		});
 	} catch (error) {
 		res.status(400).json({ error: "database error" });
@@ -24,25 +18,24 @@ const getAllTeams = async (req, res) => {
 
 const getTeamByID = async (req, res) => {
 	try {
-		const id = req.params.id;
-		res.status(200).json({
-			data: [
-				{
-					id: id,
-					name: "QUB Sailing",
-					members: [
-						{ memberId: 23, name: "Conor Walters" },
-						{ memberId: 45, name: "Niall Walters" },
-						{ memberId: 55, name: "Tom Purdon" },
-						{ memberId: 233, name: "Patrick Walsh" },
-						{ memberId: 76, name: "mark Brown" },
-						{ memberId: 5746, name: "Tom Finnagan" },
-					],
+		const team = await prisma.teams.findMany({
+			where: {
+				id: parseInt(req.params.id),
+			},
+			include: {
+				teammembers: {
+					select: {
+						members: true,
+					},
 				},
-			],
+			},
+		});
+		res.status(200).json({
+			team,
 		});
 	} catch (error) {
-		res.status(400).json({ error: "database error" });
+		console.log(error);
+		res.status(500).json({ error: "Internal Server Error" });
 	}
 };
 

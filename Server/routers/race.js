@@ -6,19 +6,11 @@ const {
 	deleteRace,
 	updateRace,
 	getRaceByID,
-	getAllRaceBoats,
 	postRaceBoats,
 } = require("../controllers/race");
 const { validator } = require("../middleware/expressValidator");
 const { body, param } = require("express-validator");
 
-router.route("/:id/boat").get(
-	[param("id").isNumeric().withMessage("The id must be a numeric value")],
-	(req, res, next) => {
-		validator(req, res, next);
-	},
-	getAllRaceBoats
-);
 router.route("/:id/boat").post(
 	[
 		param("id").isNumeric().withMessage("The id must be a numeric value"),

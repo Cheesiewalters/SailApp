@@ -1,69 +1,67 @@
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
+const okStatus = 200;
+const serverErrorStatus = 500;
+
 function randomInteger(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 const getEventTypes = async (req, res) => {
+	const eventTypes = await prisma.eventtypes.findMany();
 	try {
-		const id = randomInteger(0, 10);
-		res.status(200).json({
-			eventType: {
-				id: id,
-				name: "Fleet racing",
-			},
+		res.status(okStatus).json({
+			eventTypes,
 		});
 	} catch (error) {
-		res.status(400).json({ error: "database error" });
+		res.status(500).json({ error: "Internal Server Error" });
 	}
 };
 
 const getAllEvents = async (req, res) => {
+	const events = await prisma.events.findMany();
 	try {
-		res.status(200).json({
-			data: [
-				{
-					id: 1,
-					eventTypeId: 1,
-					startTime: "24-11-2021 15:00:00",
-					endDate: "24-11-2021 18:00:00",
-					name: "EDYC Youth topper race",
-					creatorId: 12,
-					description: "Weekly racing event held every wednesday night",
-				},
-				{
-					id: 2,
-					eventTypeId: 1,
-					startTime: "27-11-2021 15:15:00",
-					endDate: "24-11-2021 17:45:00",
-					name: "EDYC Cruiser wednesday night race",
-					creatorId: 12,
-					description: "Weekly racing event held every wednesday night",
-				},
-			],
+		res.status(okStatus).json({
+			events,
 		});
 	} catch (error) {
-		res.status(400).json({ error: "database error" });
+		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
 	}
 };
 
 const getEventByID = async (req, res) => {
 	try {
-		const id = req.params.id;
-		res.status(200).json({
-			data: [
-				{
-					id: id,
-					eventTypeId: 1,
-					eventTypeDescription: "Fleet racing",
-					startTime: "24-11-2021 15:00:00",
-					endDate: "24-11-2021 18:00:00",
-					name: "EDYC Youth topper race",
-					creatorId: 12,
-					description: "Weekly racing event held every wednesday night",
+		const event = await prisma.events.findMany({
+			where: {
+				id: parseInt(req.params.id),
+			},
+			include: {
+				races: {
+					select: {
+						starttime: true,
+						class: true,
+						raceboats: {
+							select: {
+								starttime: true,
+								finishtime: true,
+								boats: {
+									select: {
+										id: true,
+										name: true,
+										classid: true,
+									},
+								},
+							},
+						},
+					},
 				},
-			],
+			},
+		});
+		res.status(okStatus).json({
+			event,
 		});
 	} catch (error) {
-		res.status(400).json({ error: "database error" });
+		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
 	}
 };
 
@@ -76,7 +74,7 @@ const postEvent = async (req, res) => {
 		const creatorId = req.body.creatorId;
 		const description = req.body.description;
 		const id = randomInteger(0, 10);
-		res.status(200).json({
+		res.status(okStatus).json({
 			newEvent: {
 				id: id,
 				eventTypeId: eventTypeId,
@@ -88,7 +86,7 @@ const postEvent = async (req, res) => {
 			},
 		});
 	} catch (error) {
-		res.status(400).json({ error: "database error" });
+		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
 	}
 };
 
@@ -101,7 +99,7 @@ const updateEvent = async (req, res) => {
 		const name = req.body.name;
 		const creatorId = req.body.creatorId;
 		const description = req.body.description;
-		res.status(200).json({
+		res.status(okStatus).json({
 			updatedEvent: {
 				id: id,
 				eventTypeId: eventTypeId,
@@ -113,18 +111,18 @@ const updateEvent = async (req, res) => {
 			},
 		});
 	} catch (error) {
-		res.status(400).json({ error: "database error" });
+		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
 	}
 };
 
 const deleteEvent = async (req, res) => {
 	try {
 		const id = req.params.id;
-		res.status(200).json({
+		res.status(okStatus).json({
 			message: `Successfully deleted event with id: ${id}`,
 		});
 	} catch (error) {
-		res.status(400).json({ error: "database error" });
+		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
 	}
 };
 

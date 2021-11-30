@@ -73,10 +73,10 @@ CREATE TABLE IF NOT EXISTS public.Races(
 );
 
 CREATE TABLE IF NOT EXISTS public.RaceBoats(
+    id          serial primary key,
     raceId      integer REFERENCES public.Races (id),
     boatId      integer REFERENCES public.Boats (id),
     startTime   TIMESTAMP,
     finishTime  TIMESTAMP,
-    position integer,
-    PRIMARY KEY (raceId, boatId)
+    position integer
 );
