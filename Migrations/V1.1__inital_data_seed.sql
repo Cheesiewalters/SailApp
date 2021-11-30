@@ -18,6 +18,8 @@ INSERT INTO public.Members (name , roleId)
 VALUES ('Mark Brown' , 1);
 INSERT INTO public.Members (name , roleId)
 VALUES ('Tom Purdon' , 3);
+INSERT INTO public.Members (name , roleId)
+VALUES ('Sarah Jennings' , 3);
 
 INSERT INTO public.Events (eventTypeId, startTime, endDate, name, creatorId , description)
 VALUES (1, '2021-11-19 12:00:00', '2021-11-21 19:45:00', 'Wexford Uni team racing event', 1, 'This is a university sailing event');
@@ -35,7 +37,13 @@ VALUES ('DIT');
 
 INSERT INTO public.TeamMembers (memberId, teamId)
 VALUES (1, 3);
- INSERT INTO public.TeamMembers (memberId, teamId)
+INSERT INTO public.TeamMembers (memberId, teamId)
+VALUES (2, 3);
+INSERT INTO public.TeamMembers (memberId, teamId)
+VALUES (3, 3);
+INSERT INTO public.TeamMembers (memberId, teamId)
+VALUES (4, 3);
+INSERT INTO public.TeamMembers (memberId, teamId)
 VALUES (2, 4);
 
 INSERT INTO public.Class (name)

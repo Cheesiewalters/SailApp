@@ -35,9 +35,9 @@ CREATE TABLE IF NOT EXISTS Public.Teams(
     name        VARCHAR(255)
 );
 
-
-
 CREATE TABLE IF NOT EXISTS public.TeamMembers(
+    id          serial 
+            primary key,
     memberId      integer REFERENCES public.Members (id),
     teamId    integer REFERENCES public.Teams (id)
 );
@@ -77,5 +77,6 @@ CREATE TABLE IF NOT EXISTS public.RaceBoats(
     boatId      integer REFERENCES public.Boats (id),
     startTime   TIMESTAMP,
     finishTime  TIMESTAMP,
-    position integer
+    position integer,
+    PRIMARY KEY (raceId, boatId)
 );

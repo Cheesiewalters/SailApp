@@ -1,0 +1,125 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model boats {
+  id        Int           @id @default(autoincrement())
+  name      String?       @db.VarChar(256)
+  typeid    Int?
+  classid   Int?
+  ownderid  Int?
+  teamid    Int?
+  class     Renamedclass? @relation("boatsToclass", fields: [classid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  members   members?      @relation(fields: [ownderid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  teams     teams?        @relation(fields: [teamid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  boattypes boattypes?    @relation(fields: [typeid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  raceboats raceboats[]
+}
+
+model boattypes {
+  id         Int     @id @default(autoincrement())
+  typeofboat String? @db.VarChar(255)
+  boats      boats[]
+}
+
+/// This model has been renamed to 'Renamedclass' during introspection, because the original name 'class' is reserved.
+model Renamedclass {
+  id    Int     @id @default(autoincrement())
+  name  String? @db.VarChar(255)
+  boats boats[] @relation("boatsToclass")
+  races races[] @relation("classToraces")
+
+  @@map("class")
+}
+
+model events {
+  id          Int         @id @default(autoincrement())
+  eventtypeid Int?
+  starttime   DateTime?   @db.Timestamp(6)
+  enddate     DateTime?   @db.Timestamp(6)
+  name        String?     @db.VarChar(255)
+  creatorid   Int?
+  description String?     @db.VarChar(255)
+  members     members?    @relation(fields: [creatorid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  eventtypes  eventtypes? @relation(fields: [eventtypeid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  races       races[]
+}
+
+model eventtypes {
+  id     Int      @id @default(autoincrement())
+  name   String?  @db.VarChar(255)
+  events events[]
+}
+
+model flyway_schema_history {
+  installed_rank Int      @id(map: "flyway_schema_history_pk")
+  version        String?  @db.VarChar(50)
+  description    String   @db.VarChar(200)
+  type           String   @db.VarChar(20)
+  script         String   @db.VarChar(1000)
+  checksum       Int?
+  installed_by   String   @db.VarChar(100)
+  installed_on   DateTime @default(now()) @db.Timestamp(6)
+  execution_time Int
+  success        Boolean
+
+  @@index([success], map: "flyway_schema_history_s_idx")
+}
+
+model members {
+  id          Int           @id @default(autoincrement())
+  name        String?       @db.VarChar(255)
+  roleid      Int?
+  roles       roles?        @relation(fields: [roleid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  boats       boats[]
+  events      events[]
+  teammembers teammembers[]
+}
+
+model raceboats {
+  raceid     Int
+  boatid     Int
+  starttime  DateTime? @db.Timestamp(6)
+  finishtime DateTime? @db.Timestamp(6)
+  position   Int?
+  boats      boats     @relation(fields: [boatid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  races      races     @relation(fields: [raceid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([raceid, boatid])
+}
+
+model races {
+  id        Int           @id @default(autoincrement())
+  eventid   Int?
+  starttime DateTime?     @db.Timestamp(6)
+  classid   Int?
+  class     Renamedclass? @relation("classToraces", fields: [classid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  events    events?       @relation(fields: [eventid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  raceboats raceboats[]
+}
+
+model roles {
+  id      Int       @id @default(autoincrement())
+  role    String?   @db.VarChar(2550)
+  members members[]
+}
+
+model teammembers {
+  id       Int      @id @default(autoincrement())
+  memberid Int?
+  teamid   Int?
+  members  members? @relation(fields: [memberid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  teams    teams?   @relation(fields: [teamid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model teams {
+  id          Int           @id @default(autoincrement())
+  name        String?       @db.VarChar(255)
+  boats       boats[]
+  teammembers teammembers[]
+}

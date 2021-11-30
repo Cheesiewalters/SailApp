@@ -22,12 +22,12 @@ router.route("/:id/boat").get(
 router.route("/:id/boat").post(
 	[
 		param("id").isNumeric().withMessage("The id must be a numeric value"),
-		body("startTime")
-			.notEmpty({ format: "DD/MM/YYYY HH:MM:SS" })
-			.withMessage("the format is not correct, dd-mm-yyyy hh:mm:ss"),
-		body("finishTime")
-			.notEmpty({ format: "DD/MM/YYYY HH:MM:SS" })
-			.withMessage("the format is not correct, dd-mm-yyyy hh:mm:ss"),
+		body("startTime").isISO8601().toDate(),
+		// .notEmpty({ format: "DD/MM/YYYY HH:MM:SS" })
+		// .withMessage("the format is not correct, dd-mm-yyyy hh:mm:ss"),
+		body("finishTime").isISO8601().toDate(),
+		// .notEmpty({ format: "DD/MM/YYYY HH:MM:SS" })
+		// .withMessage("the format is not correct, dd-mm-yyyy hh:mm:ss"),
 		body("position")
 			.isNumeric()
 			.notEmpty()
@@ -48,9 +48,9 @@ router.route("/").post(
 		body("eventId")
 			.isNumeric()
 			.withMessage("eventTypeId Field must be a numeric value"),
-		body("startTime")
-			.notEmpty({ format: "DD/MM/YYYY HH:MM:SS" })
-			.withMessage("the format is not correct, dd-mm-yyyy hh:mm:ss"),
+		body("startTime").isISO8601().toDate(),
+		// .notEmpty({ format: "DD/MM/YYYY HH:MM:SS" })
+		// .withMessage("the format is not correct, dd-mm-yyyy hh:mm:ss"),
 		body("classId")
 			.exists()
 			.notEmpty()

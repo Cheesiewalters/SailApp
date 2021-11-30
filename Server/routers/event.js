@@ -21,12 +21,12 @@ router.route("/").post(
 		body("eventTypeId")
 			.isNumeric()
 			.withMessage("eventTypeId Field must be a numeric value"),
-		body("startTime")
-			.notEmpty({ format: "DD/MM/YYYY HH:MM:SS" })
-			.withMessage("the format is not correct, dd-mm-yyyy hh:mm:ss"),
-		body("endDate")
-			.notEmpty({ format: "DD/MM/YYYY HH:MM:SS" })
-			.withMessage("the format is not correct, dd-mm-yyyy hh:mm:ss"),
+		body("startTime").isISO8601().toDate(),
+		// .notEmpty({ format: "DD/MM/YYYY HH:MM:SS" })
+		// .withMessage("the format is not correct, dd-mm-yyyy hh:mm:ss"),
+		body("endDate").isISO8601().toDate(),
+		// .notEmpty({ format: "DD/MM/YYYY HH:MM:SS" })
+		// .withMessage("the format is not correct, dd-mm-yyyy hh:mm:ss"),
 		body("name").exists().isString(),
 		body("name")
 			.notEmpty()
@@ -41,7 +41,7 @@ router.route("/").post(
 		body("description").exists().isString(),
 		body("description")
 			.notEmpty()
-			.withMessage("This request requires a valid name field"),
+			.withMessage("This request requires a valid descrription field"),
 	],
 	(req, res, next) => {
 		validator(req, res, next);
@@ -85,7 +85,7 @@ router.route("/:id").put(
 		body("description").exists().isString(),
 		body("description")
 			.notEmpty()
-			.withMessage("This request requires a valid name field"),
+			.withMessage("This request requires a valid description field"),
 	],
 	(req, res, next) => {
 		validator(req, res, next);
