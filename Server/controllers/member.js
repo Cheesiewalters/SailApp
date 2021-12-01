@@ -1,5 +1,10 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const {
+	getAllMemberRolesService,
+	getAllMembersService,
+	getMembersbyIDService,
+} = require("../services/member");
 
 function randomInteger(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -7,19 +12,12 @@ function randomInteger(min, max) {
 
 const getAllMemberRoles = async (req, res) => {
 	try {
-		const memberRoles = await prisma.members.findMany({
-			include: {
-				roles: {
-					select: {
-						role: true,
-					},
-				},
-			},
-		});
+		const memberRoles = await getAllMemberRolesService();
 		res.status(200).json({
 			memberRoles,
 		});
 	} catch (error) {
+		console.log(error);
 		res.status(400).json({ error: "database error" });
 	}
 };
@@ -41,7 +39,7 @@ const postMemberRoles = async (req, res) => {
 
 const getAllMembers = async (req, res) => {
 	try {
-		const members = await prisma.members.findMany();
+		const members = await getAllMembersService();
 		res.status(200).json({
 			members,
 		});
@@ -52,18 +50,8 @@ const getAllMembers = async (req, res) => {
 
 const getMemberByID = async (req, res) => {
 	try {
-		const memberRoles = await prisma.members.findMany({
-			where: {
-				id: parseInt(req.params.id),
-			},
-			include: {
-				roles: {
-					select: {
-						role: true,
-					},
-				},
-			},
-		});
+		const memberRoles = await getMembersbyIDService(req.params.id);
+
 		res.status(200).json({
 			memberRoles,
 		});

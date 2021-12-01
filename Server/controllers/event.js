@@ -1,5 +1,10 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const {
+	getAllEventTypes,
+	getAllEventsService,
+	getEventByIDService,
+} = require("../services/event");
 const okStatus = 200;
 const serverErrorStatus = 500;
 
@@ -8,18 +13,18 @@ function randomInteger(min, max) {
 }
 
 const getEventTypes = async (req, res) => {
-	const eventTypes = await prisma.eventtypes.findMany();
+	const eventTypes = await getAllEventTypes();
 	try {
 		res.status(okStatus).json({
 			eventTypes,
 		});
 	} catch (error) {
-		res.status(500).json({ error: "Internal Server Error" });
+		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
 	}
 };
 
 const getAllEvents = async (req, res) => {
-	const events = await prisma.events.findMany();
+	const events = await getAllEventsService();
 	try {
 		res.status(okStatus).json({
 			events,
@@ -31,36 +36,12 @@ const getAllEvents = async (req, res) => {
 
 const getEventByID = async (req, res) => {
 	try {
-		const event = await prisma.events.findMany({
-			where: {
-				id: parseInt(req.params.id),
-			},
-			include: {
-				races: {
-					select: {
-						starttime: true,
-						class: true,
-						raceboats: {
-							select: {
-								starttime: true,
-								finishtime: true,
-								boats: {
-									select: {
-										id: true,
-										name: true,
-										classid: true,
-									},
-								},
-							},
-						},
-					},
-				},
-			},
-		});
+		const event = await getEventByIDService(req.params.id);
 		res.status(okStatus).json({
 			event,
 		});
 	} catch (error) {
+		console.log(error);
 		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
 	}
 };

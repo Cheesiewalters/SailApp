@@ -1,5 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const { getAllBoatsService, getBoatsByIdService } = require("../services/boat");
 const okStatus = 200;
 const serverErrorStatus = 500;
 
@@ -9,7 +10,7 @@ function randomInteger(min, max) {
 
 const getAllBoats = async (req, res) => {
 	try {
-		const boats = await prisma.boats.findMany();
+		const boats = await getAllBoatsService();
 		res.status(okStatus).json({
 			boats,
 		});
@@ -20,14 +21,8 @@ const getAllBoats = async (req, res) => {
 
 const getBoatByID = async (req, res) => {
 	try {
-		const boat = await prisma.boats.findMany({
-			where: {
-				id: parseInt(req.params.id),
-			},
-		});
-		res.status(okStatus).json({
-			boat,
-		});
+		const boat = await getBoatsByIdService(req.params.id);
+		res.status(okStatus).json({ boat });
 	} catch (error) {
 		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
 	}

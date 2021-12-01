@@ -1,5 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const { getAllRacesService, getRaceByIdService } = require("../services/race");
 
 function randomInteger(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -7,7 +8,7 @@ function randomInteger(min, max) {
 
 const getAllRaces = async (req, res) => {
 	try {
-		const race = await prisma.races.findMany();
+		const race = await getAllRacesService();
 		res.status(200).json({
 			race,
 		});
@@ -18,27 +19,7 @@ const getAllRaces = async (req, res) => {
 
 const getRaceByID = async (req, res) => {
 	try {
-		const race = await prisma.races.findMany({
-			where: {
-				id: parseInt(req.params.id),
-			},
-			include: {
-				raceboats: {
-					select: {
-						starttime: true,
-						finishtime: true,
-						boats: {
-							select: {
-								id: true,
-								name: true,
-								classid: true,
-							},
-						},
-					},
-				},
-			},
-		});
-		console.log(race);
+		const race = await getRaceByIdService(req.params.id);
 		res.status(200).json({
 			race,
 		});
