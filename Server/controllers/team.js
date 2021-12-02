@@ -5,6 +5,8 @@ const {
 	getAllTeamsService,
 	getTeamByIdService,
 	postTeamService,
+	updateTeamService,
+	deleteTeamService,
 } = require("../services/team");
 const okStatus = 200;
 const errorStatus = 500;
@@ -45,26 +47,25 @@ const postTeam = async (req, res) => {
 
 const updateTeam = async (req, res) => {
 	try {
-		const name = req.body.name;
-		const id = req.params.id;
+		const updatedTeam = await updateTeamService(req);
 		res.status(okStatus).json({
-			updatedTeam: {
-				id: id,
-				name: name,
-			},
+			updatedTeam,
 		});
 	} catch (error) {
+		console.log(error);
 		res.status(errorStatus).json({ error: "database error" });
 	}
 };
 
 const deleteTeam = async (req, res) => {
 	try {
-		const id = req.params.id;
+		const deleteTeam = await deleteTeamService(req.params.id);
 		res.status(okStatus).json({
-			message: `Successfully deleted team with id: ${id}`,
+			message: `Successfully deleted team with id: ${req.params.id}`,
+			deletedTeam: deleteTeam,
 		});
 	} catch (error) {
+		console.log(error);
 		res.status(errorStatus).json({ error: "database error" });
 	}
 };

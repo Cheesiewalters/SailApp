@@ -49,6 +49,20 @@ const postMemberRoleService = (req) => {
 	});
 };
 
+const updatedMemberService = (req) => {
+	const updatedMember = prisma.members.update({
+		where: {
+			id: parseInt(req.params.id),
+		},
+		data: {
+			name: req.body.name,
+			roleid: parseInt(req.body.roleId),
+		},
+	});
+	return updatedMember;
+};
+
+exports.updatedMemberService = updatedMemberService;
 exports.postMemberRoleService = postMemberRoleService;
 exports.postMemberService = postMemberService;
 exports.getMembersbyIDService = getMembersbyIDService;

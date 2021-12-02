@@ -1,4 +1,5 @@
 const { PrismaClient } = require("@prisma/client");
+const moment = require("moment");
 const prisma = new PrismaClient();
 
 const getAllRacesService = () => {
@@ -38,6 +39,21 @@ const postRaceService = (req) => {
 	});
 };
 
+const updateRaceService = (req) => {
+	const updatedRace = prisma.races.update({
+		where: {
+			id: parseInt(req.params.id),
+		},
+		data: {
+			eventid: parseInt(req.body.eventId),
+			classid: parseInt(req.body.classId),
+			starttime: moment.utc(req.body.startTime).toISOString(),
+		},
+	});
+	return updatedRace;
+};
+
+exports.updateRaceService = updateRaceService;
 exports.postRaceService = postRaceService;
 exports.getAllRacesService = getAllRacesService;
 exports.getRaceByIdService = getRaceByIdService;

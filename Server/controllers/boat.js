@@ -4,13 +4,10 @@ const {
 	getAllBoatsService,
 	getBoatsByIdService,
 	postBoatService,
+	updateBoatService,
 } = require("../services/boat");
 const okStatus = 200;
 const serverErrorStatus = 500;
-
-function randomInteger(min, max) {
-	return Math.floor(Math.random() * (max - min + 1)) + min;
-}
 
 const getAllBoats = async (req, res) => {
 	try {
@@ -46,23 +43,12 @@ const postBoat = async (req, res) => {
 
 const updateBoat = async (req, res) => {
 	try {
-		const typeId = req.body.typeId;
-		const classId = req.body.classId;
-		const ownerId = req.body.ownerId;
-		const name = req.body.name;
-		const teamId = req.body.teamId;
-		const id = req.params.id;
+		const updatedBoat = await updateBoatService(req);
 		res.status(okStatus).json({
-			updatedBoat: {
-				id: id,
-				typeId: typeId,
-				classId: classId,
-				ownerId: ownerId,
-				name: name,
-				teamId: teamId,
-			},
+			updatedBoat,
 		});
 	} catch (error) {
+		console.log(error);
 		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
 	}
 };

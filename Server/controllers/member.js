@@ -6,6 +6,7 @@ const {
 	getMembersbyIDService,
 	postMemberService,
 	postMemberRoleService,
+	updatedMemberService,
 } = require("../services/member");
 const okStatus = 200;
 const errorStatus = 500;
@@ -69,17 +70,12 @@ const postMember = async (req, res) => {
 
 const updateMember = async (req, res) => {
 	try {
-		const name = req.body.name;
-		const roleId = req.body.roleId;
-		const id = req.params.id;
+		const updatedMember = await updatedMemberService(req);
 		res.status(okStatus).json({
-			updatedMember: {
-				id: id,
-				name: name,
-				roleId: roleId,
-			},
+			updatedMember,
 		});
 	} catch (error) {
+		console.log(error);
 		res.status(errorStatus).json({ error: "database error" });
 	}
 };

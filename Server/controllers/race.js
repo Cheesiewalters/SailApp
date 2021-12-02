@@ -4,6 +4,7 @@ const {
 	getAllRacesService,
 	getRaceByIdService,
 	postRaceService,
+	updateRaceService,
 } = require("../services/race");
 const okStatus = 200;
 const errorStatus = 500;
@@ -47,19 +48,12 @@ const postRace = async (req, res) => {
 
 const updateRace = async (req, res) => {
 	try {
-		const eventId = req.body.eventId;
-		const startTime = req.body.startTime;
-		const classId = req.body.classId;
-		const id = req.params.id;
+		const updatedRace = await updateRaceService(req);
 		res.status(okStatus).json({
-			updatedRace: {
-				id: id,
-				eventId: eventId,
-				classId: classId,
-				startTime: startTime,
-			},
+			updatedRace,
 		});
 	} catch (error) {
+		console.log(error);
 		res.status(errorStatus).json({ error: "Internal Server error" });
 	}
 };

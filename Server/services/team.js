@@ -29,6 +29,29 @@ const postTeamService = (req) => {
 	return newTeam;
 };
 
+const updateTeamService = (req) => {
+	const updatedTeam = prisma.teams.update({
+		where: {
+			id: parseInt(req.params.id),
+		},
+		data: {
+			name: req.body.name,
+		},
+	});
+	return updatedTeam;
+};
+
+const deleteTeamService = (id) => {
+	const deleteTeam = prisma.teams.delete({
+		where: {
+			id: parseInt(id),
+		},
+	});
+	return deleteTeam;
+};
+
+exports.deleteTeamService = deleteTeamService;
+exports.updateTeamService = updateTeamService;
 exports.postTeamService = postTeamService;
 exports.getAllTeamsService = getAllTeamsService;
 exports.getTeamByIdService = getTeamByIdService;

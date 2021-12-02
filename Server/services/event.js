@@ -1,4 +1,5 @@
 const { PrismaClient } = require("@prisma/client");
+const moment = require("moment");
 const prisma = new PrismaClient();
 
 const getAllEventTypes = () => {
@@ -75,6 +76,28 @@ const postEventService = (req) => {
 	return newEvent;
 };
 
+const updateEventService = (req) => {
+	const updatedEventTypeID = parseInt(req.body.eventTypeId);
+	const updatedCreatorId = parseInt(req.body.creatorId);
+	const updatedId = parseInt(req.params.id);
+
+	const updatedEvent = prisma.events.update({
+		where: {
+			id: updatedId,
+		},
+		data: {
+			eventtypeid: updatedEventTypeID,
+			starttime: moment.utc(req.body.startTime).toISOString(),
+			enddate: moment.utc(req.body.endDate).toISOString(),
+			name: req.body.name,
+			creatorid: updatedCreatorId,
+			description: req.body.description,
+		},
+	});
+	return updatedEvent;
+};
+
+exports.updateEventService = updateEventService;
 exports.postEventService = postEventService;
 exports.getAllEventTypes = getAllEventTypes;
 exports.getAllEventsService = getAllEventsService;

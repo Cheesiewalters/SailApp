@@ -26,6 +26,24 @@ const postBoatService = (req) => {
 	return newBoat;
 };
 
+const updateBoatService = (req) => {
+	const updatedId = parseInt(req.params.id);
+	const updatedBoat = prisma.boats.update({
+		where: {
+			id: updatedId,
+		},
+		data: {
+			name: req.body.name,
+			typeid: parseInt(req.body.typeId),
+			classid: parseInt(req.body.classId),
+			ownerid: parseInt(req.body.ownerId),
+			teamid: parseInt(req.body.teamId),
+		},
+	});
+	return updatedBoat;
+};
+
+exports.updateBoatService = updateBoatService;
 exports.postBoatService = postBoatService;
 exports.getAllBoatsService = getAllBoatsService;
 exports.getBoatsByIdService = getBoatsByIdService;
