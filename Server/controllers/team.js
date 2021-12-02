@@ -1,27 +1,29 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-const { getAllTeamsService, getTeamByIdService } = require("../services/team");
-
-function randomInteger(min, max) {
-	return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+const {
+	getAllTeamsService,
+	getTeamByIdService,
+	postTeamService,
+} = require("../services/team");
+const okStatus = 200;
+const errorStatus = 500;
 
 const getAllTeams = async (req, res) => {
 	try {
 		const teams = await getAllTeamsService();
-		res.status(200).json({
+		res.status(okStatus).json({
 			teams,
 		});
 	} catch (error) {
-		res.status(400).json({ error: "database error" });
+		res.status(errorStatus).json({ error: "database error" });
 	}
 };
 
 const getTeamByID = async (req, res) => {
 	try {
 		const team = await getTeamByIdService(req.params.id);
-		res.status(200).json({
+		res.status(okStatus).json({
 			team,
 		});
 	} catch (error) {
@@ -32,16 +34,12 @@ const getTeamByID = async (req, res) => {
 
 const postTeam = async (req, res) => {
 	try {
-		const name = req.body.name;
-		const id = randomInteger(0, 10);
-		res.status(200).json({
-			newBoat: {
-				id: id,
-				name: name,
-			},
+		const newTeam = await postTeamService(req);
+		res.status(okStatus).json({
+			newTeam,
 		});
 	} catch (error) {
-		res.status(400).json({ error: "database error" });
+		res.status(errorStatus).json({ error: "database error" });
 	}
 };
 
@@ -49,25 +47,25 @@ const updateTeam = async (req, res) => {
 	try {
 		const name = req.body.name;
 		const id = req.params.id;
-		res.status(200).json({
+		res.status(okStatus).json({
 			updatedTeam: {
 				id: id,
 				name: name,
 			},
 		});
 	} catch (error) {
-		res.status(400).json({ error: "database error" });
+		res.status(errorStatus).json({ error: "database error" });
 	}
 };
 
 const deleteTeam = async (req, res) => {
 	try {
 		const id = req.params.id;
-		res.status(200).json({
+		res.status(okStatus).json({
 			message: `Successfully deleted team with id: ${id}`,
 		});
 	} catch (error) {
-		res.status(400).json({ error: "database error" });
+		res.status(errorStatus).json({ error: "database error" });
 	}
 };
 

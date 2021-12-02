@@ -32,6 +32,25 @@ const getMembersbyIDService = (id) => {
 	});
 };
 
+const postMemberService = (req) => {
+	return prisma.members.create({
+		data: {
+			name: req.body.name,
+			roleid: req.body.roleId,
+		},
+	});
+};
+
+const postMemberRoleService = (req) => {
+	return prisma.roles.create({
+		data: {
+			role: req.body.role,
+		},
+	});
+};
+
+exports.postMemberRoleService = postMemberRoleService;
+exports.postMemberService = postMemberService;
 exports.getMembersbyIDService = getMembersbyIDService;
 exports.getAllMemberRolesService = getAllMemberRolesService;
 exports.getAllMembersService = getAllMembersService;

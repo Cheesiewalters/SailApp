@@ -4,6 +4,7 @@ const {
 	getAllEventTypes,
 	getAllEventsService,
 	getEventByIDService,
+	postEventService,
 } = require("../services/event");
 const okStatus = 200;
 const serverErrorStatus = 500;
@@ -48,25 +49,12 @@ const getEventByID = async (req, res) => {
 
 const postEvent = async (req, res) => {
 	try {
-		const eventTypeId = req.body.eventTypeId;
-		const startTime = req.body.startTime;
-		const endDate = req.body.endDate;
-		const name = req.body.name;
-		const creatorId = req.body.creatorId;
-		const description = req.body.description;
-		const id = randomInteger(0, 10);
+		const newEvent = await postEventService(req);
 		res.status(okStatus).json({
-			newEvent: {
-				id: id,
-				eventTypeId: eventTypeId,
-				startTime: startTime,
-				endDate: endDate,
-				name: name,
-				creatorId: creatorId,
-				description: description,
-			},
+			newEvent,
 		});
 	} catch (error) {
+		console.log(error);
 		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
 	}
 };

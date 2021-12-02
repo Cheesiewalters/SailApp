@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS public.Boats(
     name        VARCHAR(256),
     typeId      integer REFERENCES public.BoatTypes (id),
     classId     integer REFERENCES public.Class (id),
-    ownderId    integer NULL REFERENCES public.Members (id),
+    ownerId    integer NULL REFERENCES public.Members (id),
     teamId      integer NULL REFERENCES public.Teams (id)
 );
 

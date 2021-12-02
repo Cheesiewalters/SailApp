@@ -6,7 +6,7 @@ const getAllTeamsService = () => {
 };
 
 const getTeamByIdService = (id) => {
-	prisma.teams.findMany({
+	return prisma.teams.findMany({
 		where: {
 			id: parseInt(id),
 		},
@@ -20,5 +20,15 @@ const getTeamByIdService = (id) => {
 	});
 };
 
+const postTeamService = (req) => {
+	const newTeam = prisma.teams.create({
+		data: {
+			name: req.body.name,
+		},
+	});
+	return newTeam;
+};
+
+exports.postTeamService = postTeamService;
 exports.getAllTeamsService = getAllTeamsService;
 exports.getTeamByIdService = getTeamByIdService;

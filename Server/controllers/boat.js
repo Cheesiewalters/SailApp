@@ -1,6 +1,10 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-const { getAllBoatsService, getBoatsByIdService } = require("../services/boat");
+const {
+	getAllBoatsService,
+	getBoatsByIdService,
+	postBoatService,
+} = require("../services/boat");
 const okStatus = 200;
 const serverErrorStatus = 500;
 
@@ -30,23 +34,12 @@ const getBoatByID = async (req, res) => {
 
 const postBoat = async (req, res) => {
 	try {
-		const typeId = req.body.typeId;
-		const classId = req.body.classId;
-		const ownerId = req.body.ownerId;
-		const name = req.body.name;
-		const teamId = req.body.teamId;
-		const id = randomInteger(0, 10);
+		const newBoat = await postBoatService(req);
 		res.status(okStatus).json({
-			newBoat: {
-				id: id,
-				typeId: typeId,
-				classId: classId,
-				ownerId: ownerId,
-				name: name,
-				teamId: teamId,
-			},
+			newBoat,
 		});
 	} catch (error) {
+		console.log(error);
 		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
 	}
 };

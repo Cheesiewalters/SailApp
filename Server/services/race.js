@@ -28,5 +28,16 @@ const getRaceByIdService = (id) => {
 	});
 };
 
+const postRaceService = (req) => {
+	return prisma.races.create({
+		data: {
+			eventid: req.body.eventId,
+			classid: req.body.classId,
+			starttime: req.body.startTime,
+		},
+	});
+};
+
+exports.postRaceService = postRaceService;
 exports.getAllRacesService = getAllRacesService;
 exports.getRaceByIdService = getRaceByIdService;

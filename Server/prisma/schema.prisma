@@ -12,10 +12,10 @@ model boats {
   name      String?       @db.VarChar(256)
   typeid    Int?
   classid   Int?
-  ownderid  Int?
+  ownerid   Int?
   teamid    Int?
   class     Renamedclass? @relation("boatsToclass", fields: [classid], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  members   members?      @relation(fields: [ownderid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  members   members?      @relation(fields: [ownerid], references: [id], onDelete: NoAction, onUpdate: NoAction)
   teams     teams?        @relation(fields: [teamid], references: [id], onDelete: NoAction, onUpdate: NoAction)
   boattypes boattypes?    @relation(fields: [typeid], references: [id], onDelete: NoAction, onUpdate: NoAction)
   raceboats raceboats[]
@@ -82,15 +82,14 @@ model members {
 }
 
 model raceboats {
-  raceid     Int
-  boatid     Int
+  id         Int       @id @default(autoincrement())
+  raceid     Int?
+  boatid     Int?
   starttime  DateTime? @db.Timestamp(6)
   finishtime DateTime? @db.Timestamp(6)
   position   Int?
-  boats      boats     @relation(fields: [boatid], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  races      races     @relation(fields: [raceid], references: [id], onDelete: NoAction, onUpdate: NoAction)
-
-  @@id([raceid, boatid])
+  boats      boats?    @relation(fields: [boatid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  races      races?    @relation(fields: [raceid], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model races {

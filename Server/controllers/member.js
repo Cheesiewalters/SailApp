@@ -4,47 +4,43 @@ const {
 	getAllMemberRolesService,
 	getAllMembersService,
 	getMembersbyIDService,
+	postMemberService,
+	postMemberRoleService,
 } = require("../services/member");
-
-function randomInteger(min, max) {
-	return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+const okStatus = 200;
+const errorStatus = 500;
 
 const getAllMemberRoles = async (req, res) => {
 	try {
 		const memberRoles = await getAllMemberRolesService();
-		res.status(200).json({
+		res.status(okStatus).json({
 			memberRoles,
 		});
 	} catch (error) {
 		console.log(error);
-		res.status(400).json({ error: "database error" });
+		res.status(errorStatus).json({ error: "database error" });
 	}
 };
 
 const postMemberRoles = async (req, res) => {
 	try {
-		const id = randomInteger(0, 10);
-		const role = req.body.role;
-		res.status(200).json({
-			newMemberRole: {
-				id: id,
-				role: role,
-			},
+		const newMemberRole = await postMemberRoleService(req);
+		res.status(okStatus).json({
+			newMemberRole,
 		});
 	} catch (error) {
-		res.status(400).json({ error: "database error" });
+		res.status(errorStatus).json({ error: "database error" });
 	}
 };
 
 const getAllMembers = async (req, res) => {
 	try {
 		const members = await getAllMembersService();
-		res.status(200).json({
+		res.status(okStatus).json({
 			members,
 		});
 	} catch (error) {
-		res.status(400).json({ error: "database error" });
+		res.status(errorStatus).json({ error: "database error" });
 	}
 };
 
@@ -52,28 +48,22 @@ const getMemberByID = async (req, res) => {
 	try {
 		const memberRoles = await getMembersbyIDService(req.params.id);
 
-		res.status(200).json({
+		res.status(okStatus).json({
 			memberRoles,
 		});
 	} catch (error) {
-		res.status(400).json({ error: "database error" });
+		res.status(errorStatus).json({ error: "database error" });
 	}
 };
 
 const postMember = async (req, res) => {
 	try {
-		const name = req.body.name;
-		const roleId = req.body.roleId;
-		const id = randomInteger(0, 10);
-		res.status(200).json({
-			newMember: {
-				id: id,
-				name: name,
-				roleId: roleId,
-			},
+		const newMember = await postMemberService(req);
+		res.status(okStatus).json({
+			newMember,
 		});
 	} catch (error) {
-		res.status(400).json({ error: "database error" });
+		res.status(errorStatus).json({ error: "database error" });
 	}
 };
 
@@ -82,7 +72,7 @@ const updateMember = async (req, res) => {
 		const name = req.body.name;
 		const roleId = req.body.roleId;
 		const id = req.params.id;
-		res.status(200).json({
+		res.status(okStatus).json({
 			updatedMember: {
 				id: id,
 				name: name,
@@ -90,18 +80,18 @@ const updateMember = async (req, res) => {
 			},
 		});
 	} catch (error) {
-		res.status(400).json({ error: "database error" });
+		res.status(errorStatus).json({ error: "database error" });
 	}
 };
 
 const deleteMember = async (req, res) => {
 	try {
 		const id = req.params.id;
-		res.status(200).json({
+		res.status(okStatus).json({
 			message: `Successfully deleted member with id: ${id}`,
 		});
 	} catch (error) {
-		res.status(400).json({ error: "database error" });
+		res.status(errorStatus).json({ error: "database error" });
 	}
 };
 

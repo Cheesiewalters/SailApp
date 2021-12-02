@@ -38,22 +38,44 @@ const getEventByIDService = async (id) => {
 		},
 	});
 
-	console.log(modifyEvents(events));
+	return modifyEvents(events);
 };
 
 const modifyEvents = (events) => {
 	return events.map((e) => {
-		e.races.map((r) => {
-			r.raceboats.map((rb) => {
+		return {
+			...e,
+			races: e.races.map((r) => {
 				return {
-					...rb,
-					elapsedTime: rb.finishtime.getTime() - rb.starttime.getTime() / 1000,
+					...r,
+					raceboats: r.raceboats.map((rb) => {
+						return {
+							...rb,
+							duration:
+								(rb.finishtime.getTime() - rb.starttime.getTime()) / 1000,
+						};
+					}),
 				};
-			});
-		});
+			}),
+		};
 	});
 };
 
+const postEventService = (req) => {
+	const newEvent = prisma.events.create({
+		data: {
+			eventtypeid: req.body.eventTypeId,
+			starttime: req.body.startTime,
+			enddate: req.body.endDate,
+			name: req.body.name,
+			creatorid: req.body.creatorId,
+			description: req.body.description,
+		},
+	});
+	return newEvent;
+};
+
+exports.postEventService = postEventService;
 exports.getAllEventTypes = getAllEventTypes;
 exports.getAllEventsService = getAllEventsService;
 exports.getEventByIDService = getEventByIDService;

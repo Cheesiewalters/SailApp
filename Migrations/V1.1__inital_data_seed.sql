@@ -62,21 +62,21 @@ VALUES ('Oceanis 30 DI');
 INSERT INTO public.BoatTypes (typeOfboat)
 VALUES ('Firefly');
 
-INSERT INTO public.Boats (typeId, classId, ownderId, teamId, name)
+INSERT INTO public.Boats (typeId, classId, ownerId, teamId, name)
 VALUES (1, 1 , 2 , 2, 'Lizante');
-INSERT INTO public.Boats (typeId, classId, ownderId, teamId, name)
+INSERT INTO public.Boats (typeId, classId, ownerId, teamId, name)
 VALUES (2, 2 , 1 , 2, 'Ker 40');
-INSERT INTO public.Boats (typeId, classId, ownderId, teamId, name)
+INSERT INTO public.Boats (typeId, classId, ownerId, teamId, name)
 VALUES (3, 4 , NULL , 1, 'Firefly 1');
-INSERT INTO public.Boats (typeId, classId, ownderId, teamId, name)
+INSERT INTO public.Boats (typeId, classId, ownerId, teamId, name)
 VALUES (3, 4 , NULL , 1, 'Firefly 2');
-INSERT INTO public.Boats (typeId, classId, ownderId, teamId, name)
+INSERT INTO public.Boats (typeId, classId, ownerId, teamId, name)
 VALUES (3, 4 , NULL , 1, 'Firefly 3');
-INSERT INTO public.Boats (typeId, classId, ownderId, teamId, name)
+INSERT INTO public.Boats (typeId, classId, ownerId, teamId, name)
 VALUES (3, 4 , NULL , 1, 'Firefly 4');
-INSERT INTO public.Boats (typeId, classId, ownderId, teamId, name)
+INSERT INTO public.Boats (typeId, classId, ownerId, teamId, name)
 VALUES (3, 4 , NULL , 1, 'Firefly 5');
-INSERT INTO public.Boats (typeId, classId, ownderId, teamId, name)
+INSERT INTO public.Boats (typeId, classId, ownerId, teamId, name)
 VALUES (3, 4 , NULL , 1, 'Firefly 6');
 
 INSERT INTO public.Races (eventId, startTime, classId)

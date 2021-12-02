@@ -1,6 +1,12 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-const { getAllRacesService, getRaceByIdService } = require("../services/race");
+const {
+	getAllRacesService,
+	getRaceByIdService,
+	postRaceService,
+} = require("../services/race");
+const okStatus = 200;
+const errorStatus = 500;
 
 function randomInteger(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -9,41 +15,33 @@ function randomInteger(min, max) {
 const getAllRaces = async (req, res) => {
 	try {
 		const race = await getAllRacesService();
-		res.status(200).json({
+		res.status(okStatus).json({
 			race,
 		});
 	} catch (error) {
-		res.status(400).json({ error: "database error" });
+		res.status(errorStatus).json({ error: "Internal Server error" });
 	}
 };
 
 const getRaceByID = async (req, res) => {
 	try {
 		const race = await getRaceByIdService(req.params.id);
-		res.status(200).json({
+		res.status(okStatus).json({
 			race,
 		});
 	} catch (error) {
-		res.status(400).json({ error: "database error" });
+		res.status(errorStatus).json({ error: "Internal Server error" });
 	}
 };
 
 const postRace = async (req, res) => {
 	try {
-		const eventId = req.body.eventId;
-		const startTime = req.body.startTime;
-		const classId = req.body.classId;
-		const id = randomInteger(0, 10);
-		res.status(200).json({
-			newRace: {
-				id: id,
-				eventId: eventId,
-				classId: classId,
-				startTime: startTime,
-			},
+		const newRace = postRaceService(req);
+		res.status(okStatus).json({
+			newRace,
 		});
 	} catch (error) {
-		res.status(400).json({ error: "database error" });
+		res.status(errorStatus).json({ error: "Internal Server error" });
 	}
 };
 
@@ -53,7 +51,7 @@ const updateRace = async (req, res) => {
 		const startTime = req.body.startTime;
 		const classId = req.body.classId;
 		const id = req.params.id;
-		res.status(200).json({
+		res.status(okStatus).json({
 			updatedRace: {
 				id: id,
 				eventId: eventId,
@@ -62,18 +60,18 @@ const updateRace = async (req, res) => {
 			},
 		});
 	} catch (error) {
-		res.status(400).json({ error: "database error" });
+		res.status(errorStatus).json({ error: "Internal Server error" });
 	}
 };
 
 const deleteRace = async (req, res) => {
 	try {
 		const id = req.params.id;
-		res.status(200).json({
+		res.status(okStatus).json({
 			message: `Successfully deleted race with id: ${id}`,
 		});
 	} catch (error) {
-		res.status(400).json({ error: "database error" });
+		res.status(errorStatus).json({ error: "Internal Server error" });
 	}
 };
 
@@ -84,7 +82,7 @@ const postRaceBoats = async (req, res) => {
 		const finishTime = req.body.finishTime;
 		const position = req.body.position;
 		const id = randomInteger(0, 10);
-		res.status(200).json({
+		res.status(okStatus).json({
 			newRace: {
 				id: id,
 				boatId: boatId,
@@ -94,7 +92,7 @@ const postRaceBoats = async (req, res) => {
 			},
 		});
 	} catch (error) {
-		res.status(400).json({ error: "database error" });
+		res.status(errorStatus).json({ error: "Internal Server error" });
 	}
 };
 
