@@ -5,6 +5,7 @@ const {
 	getBoatsByIdService,
 	postBoatService,
 	updateBoatService,
+	deleteBoatService,
 } = require("../services/boat");
 const okStatus = 200;
 const serverErrorStatus = 500;
@@ -55,11 +56,12 @@ const updateBoat = async (req, res) => {
 
 const deleteBoat = async (req, res) => {
 	try {
-		const id = req.params.id;
+		await deleteBoatService(req.params.id);
 		res.status(okStatus).json({
-			message: `Successfully deleted boat with id: ${id}`,
+			message: `Successfully deleted boat with id: ${req.params.id}`,
 		});
 	} catch (error) {
+		console.log(error);
 		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
 	}
 };

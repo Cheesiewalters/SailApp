@@ -1,8 +1,12 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-const getAllMemberRolesService = () => {
-	return prisma.members.findMany({
+const getAllMemberRolesService = async () => {
+	return await prisma.roles.findMany();
+};
+
+const getAllMembersService = async () => {
+	return await prisma.members.findMany({
 		include: {
 			roles: {
 				select: {
@@ -13,12 +17,8 @@ const getAllMemberRolesService = () => {
 	});
 };
 
-const getAllMembersService = () => {
-	return prisma.members.findMany();
-};
-
-const getMembersbyIDService = (id) => {
-	return prisma.members.findMany({
+const getMembersbyIDService = async (id) => {
+	return await prisma.members.findMany({
 		where: {
 			id: parseInt(id),
 		},
@@ -32,8 +32,8 @@ const getMembersbyIDService = (id) => {
 	});
 };
 
-const postMemberService = (req) => {
-	return prisma.members.create({
+const postMemberService = async (req) => {
+	return await prisma.members.create({
 		data: {
 			name: req.body.name,
 			roleid: req.body.roleId,
@@ -41,16 +41,16 @@ const postMemberService = (req) => {
 	});
 };
 
-const postMemberRoleService = (req) => {
-	return prisma.roles.create({
+const postMemberRoleService = async (req) => {
+	return await prisma.roles.create({
 		data: {
 			role: req.body.role,
 		},
 	});
 };
 
-const updatedMemberService = (req) => {
-	const updatedMember = prisma.members.update({
+const updatedMemberService = async (req) => {
+	const updatedMember = await prisma.members.update({
 		where: {
 			id: parseInt(req.params.id),
 		},
@@ -62,6 +62,21 @@ const updatedMemberService = (req) => {
 	return updatedMember;
 };
 
+const deleteMembersService = async (id) => {
+	await prisma.teammembers.deleteMany({
+		where: {
+			memberid: parseInt(id),
+		},
+	});
+
+	await prisma.members.delete({
+		where: {
+			id: parseInt(id),
+		},
+	});
+};
+
+exports.deleteMembersService = deleteMembersService;
 exports.updatedMemberService = updatedMemberService;
 exports.postMemberRoleService = postMemberRoleService;
 exports.postMemberService = postMemberService;

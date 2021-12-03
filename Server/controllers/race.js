@@ -5,6 +5,8 @@ const {
 	getRaceByIdService,
 	postRaceService,
 	updateRaceService,
+	deleteRaceService,
+	postRaceBoatsService,
 } = require("../services/race");
 const okStatus = 200;
 const errorStatus = 500;
@@ -37,7 +39,7 @@ const getRaceByID = async (req, res) => {
 
 const postRace = async (req, res) => {
 	try {
-		const newRace = postRaceService(req);
+		const newRace = await postRaceService(req);
 		res.status(okStatus).json({
 			newRace,
 		});
@@ -58,34 +60,25 @@ const updateRace = async (req, res) => {
 	}
 };
 
-const deleteRace = async (req, res) => {
+const postRaceBoats = async (req, res) => {
 	try {
-		const id = req.params.id;
+		await postRaceBoatsService(req);
 		res.status(okStatus).json({
-			message: `Successfully deleted race with id: ${id}`,
+			message: `Successfully posted boat:${req.body.boatId} for race:${req.params.id} `,
 		});
 	} catch (error) {
 		res.status(errorStatus).json({ error: "Internal Server error" });
 	}
 };
 
-const postRaceBoats = async (req, res) => {
+const deleteRace = async (req, res) => {
 	try {
-		const boatId = req.body.boatId;
-		const startTime = req.body.startTime;
-		const finishTime = req.body.finishTime;
-		const position = req.body.position;
-		const id = randomInteger(0, 10);
+		await deleteRaceService(req);
 		res.status(okStatus).json({
-			newRace: {
-				id: id,
-				boatId: boatId,
-				startTime: startTime,
-				finishTime: finishTime,
-				position: position,
-			},
+			message: `Successfully deleted race with id: ${req.params.id}`,
 		});
 	} catch (error) {
+		console.log(error);
 		res.status(errorStatus).json({ error: "Internal Server error" });
 	}
 };

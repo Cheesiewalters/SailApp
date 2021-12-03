@@ -7,6 +7,7 @@ const {
 	postMemberService,
 	postMemberRoleService,
 	updatedMemberService,
+	deleteMembersService,
 } = require("../services/member");
 const okStatus = 200;
 const errorStatus = 500;
@@ -41,6 +42,7 @@ const getAllMembers = async (req, res) => {
 			members,
 		});
 	} catch (error) {
+		console.log(error);
 		res.status(errorStatus).json({ error: "database error" });
 	}
 };
@@ -82,11 +84,12 @@ const updateMember = async (req, res) => {
 
 const deleteMember = async (req, res) => {
 	try {
-		const id = req.params.id;
+		await deleteMembersService(req.params.id);
 		res.status(okStatus).json({
-			message: `Successfully deleted member with id: ${id}`,
+			message: `Successfully deleted member with id: ${req.params.id}`,
 		});
 	} catch (error) {
+		console.log(error);
 		res.status(errorStatus).json({ error: "database error" });
 	}
 };

@@ -2,12 +2,12 @@ const { PrismaClient } = require("@prisma/client");
 const moment = require("moment");
 const prisma = new PrismaClient();
 
-const getAllEventTypes = () => {
-	return prisma.eventtypes.findMany();
+const getAllEventTypes = async () => {
+	return await prisma.eventtypes.findMany();
 };
 
-const getAllEventsService = () => {
-	return prisma.events.findMany();
+const getAllEventsService = async () => {
+	return await prisma.events.findMany();
 };
 
 const getEventByIDService = async (id) => {
@@ -42,8 +42,8 @@ const getEventByIDService = async (id) => {
 	return modifyEvents(events);
 };
 
-const modifyEvents = (events) => {
-	return events.map((e) => {
+const modifyEvents = async (events) => {
+	return await events.map((e) => {
 		return {
 			...e,
 			races: e.races.map((r) => {
@@ -62,8 +62,8 @@ const modifyEvents = (events) => {
 	});
 };
 
-const postEventService = (req) => {
-	const newEvent = prisma.events.create({
+const postEventService = async (req) => {
+	const newEvent = await prisma.events.create({
 		data: {
 			eventtypeid: req.body.eventTypeId,
 			starttime: req.body.startTime,
@@ -76,12 +76,12 @@ const postEventService = (req) => {
 	return newEvent;
 };
 
-const updateEventService = (req) => {
+const updateEventService = async (req) => {
 	const updatedEventTypeID = parseInt(req.body.eventTypeId);
 	const updatedCreatorId = parseInt(req.body.creatorId);
 	const updatedId = parseInt(req.params.id);
 
-	const updatedEvent = prisma.events.update({
+	const updatedEvent = await prisma.events.update({
 		where: {
 			id: updatedId,
 		},
@@ -97,6 +97,21 @@ const updateEventService = (req) => {
 	return updatedEvent;
 };
 
+const deleteEventService = async (id) => {
+	await prisma.races.deleteMany({
+		where: {
+			eventid: parseInt(id),
+		},
+	});
+
+	await prisma.events.delete({
+		where: {
+			id: parseInt(id),
+		},
+	});
+};
+
+exports.deleteEventService = deleteEventService;
 exports.updateEventService = updateEventService;
 exports.postEventService = postEventService;
 exports.getAllEventTypes = getAllEventTypes;
