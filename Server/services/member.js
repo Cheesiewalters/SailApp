@@ -33,30 +33,34 @@ const getMembersbyIDService = async (id) => {
 };
 
 const postMemberService = async (req) => {
+	const { name, roleId } = req.body;
 	return await prisma.members.create({
 		data: {
-			name: req.body.name,
-			roleid: req.body.roleId,
+			name: name,
+			roleid: roleId,
 		},
 	});
 };
 
 const postMemberRoleService = async (req) => {
+	const { role } = req.body;
 	return await prisma.roles.create({
 		data: {
-			role: req.body.role,
+			role: role,
 		},
 	});
 };
 
 const updatedMemberService = async (req) => {
+	const { name, roleId } = req.body;
+	const { id } = req.params;
 	const updatedMember = await prisma.members.update({
 		where: {
-			id: parseInt(req.params.id),
+			id: parseInt(id),
 		},
 		data: {
-			name: req.body.name,
-			roleid: parseInt(req.body.roleId),
+			name: name,
+			roleid: parseInt(roleId),
 		},
 	});
 	return updatedMember;

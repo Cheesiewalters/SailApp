@@ -30,24 +30,28 @@ const getRaceByIdService = async (id) => {
 };
 
 const postRaceService = async (req) => {
+	const { eventId, classId, startTime } = req.body;
 	return await prisma.races.create({
 		data: {
-			eventid: req.body.eventId,
-			classid: req.body.classId,
-			starttime: req.body.startTime,
+			eventid: eventId,
+			classid: classId,
+			starttime: startTime,
 		},
 	});
 };
 
 const updateRaceService = async (req) => {
+	const { eventId, classId, startTime } = req.body;
+	const { id } = req.params;
+
 	const updatedRace = await prisma.races.update({
 		where: {
-			id: parseInt(req.params.id),
+			id: parseInt(id),
 		},
 		data: {
-			eventid: parseInt(req.body.eventId),
-			classid: parseInt(req.body.classId),
-			starttime: moment.utc(req.body.startTime).toISOString(),
+			eventid: parseInt(eventId),
+			classid: parseInt(classId),
+			starttime: moment.utc(startTime).toISOString(),
 		},
 	});
 	return updatedRace;
@@ -73,13 +77,15 @@ const deleteRaceService = async (req) => {
 
 const postRaceBoatsService = async (req) => {
 	try {
+		const { boatId, finishTime, startTime, position } = req.body;
+		const { id } = req.params;
 		await prisma.raceboats.create({
 			data: {
-				raceid: parseInt(req.params.id),
-				boatid: parseInt(req.body.boatId),
-				starttime: req.body.startTime,
-				finishtime: req.body.finishTime,
-				position: req.body.position,
+				raceid: parseInt(id),
+				boatid: parseInt(boatId),
+				starttime: startTime,
+				finishtime: finishTime,
+				position: position,
 			},
 		});
 	} catch (error) {

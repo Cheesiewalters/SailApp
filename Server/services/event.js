@@ -63,22 +63,28 @@ const modifyEvents = async (events) => {
 };
 
 const postEventService = async (req) => {
+	const { eventTypeId, startTime, endDate, name, creatorId, description } =
+		req.body;
+
 	const newEvent = await prisma.events.create({
 		data: {
-			eventtypeid: req.body.eventTypeId,
-			starttime: req.body.startTime,
-			enddate: req.body.endDate,
-			name: req.body.name,
-			creatorid: req.body.creatorId,
-			description: req.body.description,
+			eventtypeid: eventTypeId,
+			starttime: startTime,
+			enddate: endDate,
+			name: name,
+			creatorid: creatorId,
+			description: description,
 		},
 	});
 	return newEvent;
 };
 
 const updateEventService = async (req) => {
-	const updatedEventTypeID = parseInt(req.body.eventTypeId);
-	const updatedCreatorId = parseInt(req.body.creatorId);
+	const { eventTypeId, startTime, endDate, name, creatorId, description } =
+		req.body;
+
+	const updatedEventTypeID = parseInt(eventTypeId);
+	const updatedCreatorId = parseInt(creatorId);
 	const updatedId = parseInt(req.params.id);
 
 	const updatedEvent = await prisma.events.update({
@@ -87,11 +93,11 @@ const updateEventService = async (req) => {
 		},
 		data: {
 			eventtypeid: updatedEventTypeID,
-			starttime: moment.utc(req.body.startTime).toISOString(),
-			enddate: moment.utc(req.body.endDate).toISOString(),
-			name: req.body.name,
+			starttime: moment.utc(startTime).toISOString(),
+			enddate: moment.utc(endDate).toISOString(),
+			name: name,
 			creatorid: updatedCreatorId,
-			description: req.body.description,
+			description: description,
 		},
 	});
 	return updatedEvent;

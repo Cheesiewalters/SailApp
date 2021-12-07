@@ -21,21 +21,24 @@ const getTeamByIdService = (id) => {
 };
 
 const postTeamService = (req) => {
+	const { name } = req.body;
 	const newTeam = prisma.teams.create({
 		data: {
-			name: req.body.name,
+			name: name,
 		},
 	});
 	return newTeam;
 };
 
 const updateTeamService = (req) => {
+	const { name } = req.body;
+	const { id } = req.params.id;
 	const updatedTeam = prisma.teams.update({
 		where: {
-			id: parseInt(req.params.id),
+			id: parseInt(id),
 		},
 		data: {
-			name: req.body.name,
+			name: name,
 		},
 	});
 	return updatedTeam;

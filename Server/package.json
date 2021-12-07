@@ -4,6 +4,7 @@
   "description": "A API built for Conors SailApp",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon index.js"
   },
@@ -14,7 +15,9 @@
     "moment": "^2.29.1",
     "nodemon": "^2.0.15",
     "swagger-ui-express": "^4.1.6",
-    "yamljs": "^0.3.0"
+    "yamljs": "^0.3.0",
+    "body-parser": "^1.19.0",
+    "express-validator": "^6.13.0"
   },
   "author": "",
   "license": "ISC",
