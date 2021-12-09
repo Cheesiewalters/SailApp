@@ -21,13 +21,10 @@ router.route("/").post(
 		body("classId")
 			.isNumeric()
 			.withMessage("ClassId Field must be a numeric value"),
-		body("ownerId")
+		body("clubId")
 			.isNumeric()
 			.notEmpty()
-			.withMessage("OwnerId field cannot be null"),
-		body("ownerId")
-			.isNumeric()
-			.withMessage("OwnerId Field must be a numeric value"),
+			.withMessage("clubId field cannot be null"),
 		body("name").exists().isString(),
 		body("name")
 			.notEmpty()
@@ -58,13 +55,10 @@ router.route("/:id").put(
 		body("classId")
 			.isNumeric()
 			.withMessage("ClassId Field must be a numeric value"),
-		body("ownerId")
+		body("clubId")
 			.isNumeric()
 			.notEmpty()
-			.withMessage("OwnerId field cannot be null"),
-		body("ownerId")
-			.isNumeric()
-			.withMessage("OwnerId Field must be a numeric value"),
+			.withMessage("clubId field cannot be null"),
 		body("name").exists(),
 		body("name").notEmpty().withMessage("This request requires a name field"),
 	],

@@ -1,20 +1,8 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-const getAllMemberRolesService = async () => {
-	return await prisma.roles.findMany();
-};
-
 const getAllMembersService = async () => {
-	return await prisma.members.findMany({
-		include: {
-			roles: {
-				select: {
-					role: true,
-				},
-			},
-		},
-	});
+	return await prisma.members.findMany();
 };
 
 const getMembersbyIDService = async (id) => {
@@ -22,45 +10,33 @@ const getMembersbyIDService = async (id) => {
 		where: {
 			id: parseInt(id),
 		},
-		include: {
-			roles: {
-				select: {
-					role: true,
-				},
-			},
-		},
 	});
 };
 
 const postMemberService = async (req) => {
-	const { name, roleId } = req.body;
+	const { firstName, lastName, email, password } = req.body;
 	return await prisma.members.create({
 		data: {
-			name: name,
-			roleid: roleId,
-		},
-	});
-};
-
-const postMemberRoleService = async (req) => {
-	const { role } = req.body;
-	return await prisma.roles.create({
-		data: {
-			role: role,
+			firstname: firstName,
+			lastname: lastName,
+			email: email,
+			password: password,
 		},
 	});
 };
 
 const updatedMemberService = async (req) => {
-	const { name, roleId } = req.body;
+	const { firstName, lastName, email, password } = req.body;
 	const { id } = req.params;
 	const updatedMember = await prisma.members.update({
 		where: {
 			id: parseInt(id),
 		},
 		data: {
-			name: name,
-			roleid: parseInt(roleId),
+			firstname: firstName,
+			lastname: lastName,
+			email: email,
+			password: password,
 		},
 	});
 	return updatedMember;
@@ -82,8 +58,6 @@ const deleteMembersService = async (id) => {
 
 exports.deleteMembersService = deleteMembersService;
 exports.updatedMemberService = updatedMemberService;
-exports.postMemberRoleService = postMemberRoleService;
 exports.postMemberService = postMemberService;
 exports.getMembersbyIDService = getMembersbyIDService;
-exports.getAllMemberRolesService = getAllMemberRolesService;
 exports.getAllMembersService = getAllMembersService;

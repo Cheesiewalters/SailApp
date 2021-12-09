@@ -3,27 +3,36 @@ VALUES ('Team racing');
 INSERT INTO public.EventTypes (name)
 VALUES ('Fleet Race');
 
-INSERT INTO public.Roles (Role)
-VALUES ('Owner');
-INSERT INTO public.Roles (Role)
-VALUES  ('Wincher');
-INSERT INTO public.Roles (Role)
-VALUES  ('Helm');
-INSERT INTO public.Roles (Role)
-VALUES  ('Crew');
+INSERT INTO public.Clubs (name)
+VALUES ('East Down Yacht Club');
+INSERT INTO public.Clubs (name)
+VALUES  ('Ballyholme YC');
+INSERT INTO public.Clubs (name)
+VALUES  ('East Antrim Boat Club');
+INSERT INTO public.Clubs (name)
+VALUES  ('Killyleagh YC');
 
-INSERT INTO public.Members (name , roleId)
-VALUES ('Conor Walters' , 4);
-INSERT INTO public.Members (name , roleId)
-VALUES ('Mark Brown' , 1);
-INSERT INTO public.Members (name , roleId)
-VALUES ('Tom Purdon' , 3);
-INSERT INTO public.Members (name , roleId)
-VALUES ('Sarah Jennings' , 3);
+INSERT INTO public.Members (firstName ,lastName, email, password)
+VALUES ('Conor', 'Walters', 'cwalters01@Qub.ac.uk', 'password');
+INSERT INTO public.Members (firstName ,lastName, email, password)
+VALUES ('Tom', 'Purdon', 'tpurdon21@Qub.ac.uk', 'password');
+INSERT INTO public.Members (firstName ,lastName, email, password)
+VALUES ('Mark', 'Brown', 'mBrown01@Qub.ac.uk', 'password');
+INSERT INTO public.Members (firstName ,lastName, email, password)
+VALUES ('Sarah', 'Jennings', 'sjennings789@Qub.ac.uk', 'password');
 
-INSERT INTO public.Events (eventTypeId, startTime, endDate, name, creatorId , description)
+INSERT INTO public.Club_Member (clubId, memberId)
+VALUES (1, 1);
+INSERT INTO public.Club_Member (clubId, memberId)
+VALUES  (2, 2);
+INSERT INTO public.Club_Member (clubId, memberId)
+VALUES  (3, 3);
+INSERT INTO public.Club_Member (clubId, memberId)
+VALUES  (4, 4);
+
+INSERT INTO public.Events (eventTypeId, startTime, endDate, name, clubId , description)
 VALUES (1, '2021-11-19 12:00:00', '2021-11-21 19:45:00', 'Wexford Uni team racing event', 1, 'This is a university sailing event');
-INSERT INTO public.Events (eventTypeId, startTime, endDate,  name, creatorId , description)
+INSERT INTO public.Events (eventTypeId, startTime, endDate,  name, clubId , description)
 VALUES (2, '2021-11-19 18:45:00', '2021-11-19 21:00:00', 'EDYC Wednesday night club racing', 2, 'Normal wednesday night fleet raing for all classes participating');
 
 INSERT INTO public.Teams (name)
@@ -62,22 +71,22 @@ VALUES ('Oceanis 30 DI');
 INSERT INTO public.BoatTypes (typeOfboat)
 VALUES ('Firefly');
 
-INSERT INTO public.Boats (typeId, classId, ownerId, teamId, name)
+INSERT INTO public.Boats (typeId, classId, clubId, teamId, name)
 VALUES (1, 1 , 2 , 2, 'Lizante');
-INSERT INTO public.Boats (typeId, classId, ownerId, teamId, name)
+INSERT INTO public.Boats (typeId, classId, clubId, teamId, name)
 VALUES (2, 2 , 1 , 2, 'Ker 40');
-INSERT INTO public.Boats (typeId, classId, ownerId, teamId, name)
-VALUES (3, 4 , NULL , 1, 'Firefly 1');
-INSERT INTO public.Boats (typeId, classId, ownerId, teamId, name)
-VALUES (3, 4 , NULL , 1, 'Firefly 2');
-INSERT INTO public.Boats (typeId, classId, ownerId, teamId, name)
-VALUES (3, 4 , NULL , 1, 'Firefly 3');
-INSERT INTO public.Boats (typeId, classId, ownerId, teamId, name)
-VALUES (3, 4 , NULL , 1, 'Firefly 4');
-INSERT INTO public.Boats (typeId, classId, ownerId, teamId, name)
-VALUES (3, 4 , NULL , 1, 'Firefly 5');
-INSERT INTO public.Boats (typeId, classId, ownerId, teamId, name)
-VALUES (3, 4 , NULL , 1, 'Firefly 6');
+INSERT INTO public.Boats (typeId, classId, clubId, teamId, name)
+VALUES (3, 4 , 1 , 1, 'Firefly 1');
+INSERT INTO public.Boats (typeId, classId, clubId, teamId, name)
+VALUES (3, 4 , 2 , 1, 'Firefly 2');
+INSERT INTO public.Boats (typeId, classId, clubId, teamId, name)
+VALUES (3, 4 , 3 , 1, 'Firefly 3');
+INSERT INTO public.Boats (typeId, classId, clubId, teamId, name)
+VALUES (3, 4 , 2 , 1, 'Firefly 4');
+INSERT INTO public.Boats (typeId, classId, clubId, teamId, name)
+VALUES (3, 4 , 4 , 1, 'Firefly 5');
+INSERT INTO public.Boats (typeId, classId, clubId, teamId, name)
+VALUES (3, 4 , 4 , 1, 'Firefly 6');
 
 INSERT INTO public.Races (eventId, startTime, classId)
 VALUES (1, '2021-11-19 12:00:00' , 4);

@@ -1,8 +1,6 @@
 const { Router } = require("express");
 const router = Router();
 const {
-	getAllMemberRoles,
-	postMemberRoles,
 	getAllMembers,
 	getMemberByID,
 	postMember,
@@ -12,29 +10,29 @@ const {
 const { validator } = require("../middleware/expressValidator");
 const { body, param } = require("express-validator");
 
-router.route("/roles").get(getAllMemberRoles);
-router.route("/roles").post(
-	[
-		body("role")
-			.notEmpty()
-			.withMessage("This request requires a valid role field"),
-	],
-	(req, res, next) => {
-		validator(req, res, next);
-	},
-	postMemberRoles
-);
 router.route("/").get(getAllMembers);
 router.route("/").post(
 	[
-		body("name").exists().isString(),
-		body("roleId")
-			.isNumeric()
+		body("firstName")
+			.exists()
+			.isString()
 			.notEmpty()
-			.withMessage("roleId field cannot be null"),
-		body("roleId")
-			.isNumeric()
-			.withMessage("roleId Field must be a numeric value"),
+			.withMessage("firstName is required in this context"),
+		body("lastName")
+			.exists()
+			.isString()
+			.notEmpty()
+			.withMessage("lastName is required in this context"),
+		body("email")
+			.exists()
+			.isEmail()
+			.notEmpty()
+			.withMessage("email is required in this context"),
+		body("password")
+			.exists()
+			.isString()
+			.notEmpty()
+			.withMessage("password is required in this context"),
 	],
 	(req, res, next) => {
 		validator(req, res, next);
@@ -51,17 +49,26 @@ router.route("/:id").delete(
 router.route("/:id").put(
 	[
 		param("id").isNumeric().withMessage("The id must be a numeric value"),
-		body("name").exists().isString(),
-		body("name")
+		body("firstName")
+			.exists()
+			.isString()
 			.notEmpty()
-			.withMessage("This request requires a valid name field"),
-		body("roleId")
-			.isNumeric()
+			.withMessage("firstName is required in this context"),
+		body("lastName")
+			.exists()
+			.isString()
 			.notEmpty()
-			.withMessage("roleId field cannot be null"),
-		body("roleId")
-			.isNumeric()
-			.withMessage("roleId Field must be a numeric value"),
+			.withMessage("lastName is required in this context"),
+		body("email")
+			.exists()
+			.isEmail()
+			.notEmpty()
+			.withMessage("email is required in this context"),
+		body("password")
+			.exists()
+			.isString()
+			.notEmpty()
+			.withMessage("password is required in this context"),
 	],
 	(req, res, next) => {
 		validator(req, res, next);

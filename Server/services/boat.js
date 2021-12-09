@@ -1,6 +1,4 @@
 const { PrismaClient } = require("@prisma/client");
-const { deleteBoat } = require("../controllers/boat");
-const { deleteTeam } = require("../controllers/team");
 const prisma = new PrismaClient();
 
 const getAllBoatsService = async () => {
@@ -16,13 +14,13 @@ const getBoatsByIdService = async (id) => {
 };
 
 const postBoatService = async (req) => {
-	const { typeId, classId, ownerId, teamId, name } = req.body;
+	const { typeId, classId, clubId, teamId, name } = req.body;
 	const newBoat = await prisma.boats.create({
 		data: {
 			name: name,
 			typeid: typeId,
 			classid: classId,
-			ownerid: ownerId,
+			clubid: clubId,
 			teamid: teamId,
 		},
 	});
@@ -30,7 +28,7 @@ const postBoatService = async (req) => {
 };
 
 const updateBoatService = async (req) => {
-	const { typeId, classId, ownerId, teamId, name } = req.body;
+	const { typeId, classId, clubId, teamId, name } = req.body;
 	const updatedId = parseInt(req.params.id);
 	const updatedBoat = await prisma.boats.update({
 		where: {
@@ -40,7 +38,7 @@ const updateBoatService = async (req) => {
 			name: name,
 			typeid: parseInt(typeId),
 			classid: parseInt(classId),
-			ownerid: parseInt(ownerId),
+			clubid: parseInt(clubId),
 			teamid: parseInt(teamId),
 		},
 	});

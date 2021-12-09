@@ -4,17 +4,26 @@ CREATE TABLE IF NOT EXISTS public.EventTypes(
     name        VARCHAR(255)
 );
 
-CREATE TABLE IF NOT EXISTS public.Roles(
+CREATE TABLE IF NOT EXISTS public.Clubs(
     id          serial  
             primary key,
-    Role        VARCHAR(2550)
+    name        VARCHAR(2550)
 );
 
 CREATE TABLE IF NOT EXISTS public.Members(
     id          serial  
+                primary key,
+    firstName   VARCHAR(255),
+    lastName   VARCHAR(255),
+    email       VARCHAR(255),
+    password    VARCHAR(255)
+);
+
+CREATE TABLE IF NOT EXISTS public.Club_Member(
+    id          serial  
             primary key,
-    name        VARCHAR(255),
-    roleId      integer REFERENCES public.Roles (id)
+    clubId      integer REFERENCES public.Clubs (id),
+    memberId    integer REFERENCES public.Members (id)
 );
 
 CREATE TABLE IF NOT EXISTS public.Events(
@@ -24,7 +33,7 @@ CREATE TABLE IF NOT EXISTS public.Events(
     startTime      TIMESTAMP,
     endDate        TIMESTAMP,
     name           VARCHAR(255),
-    creatorId      integer REFERENCES public.Members (id),
+    clubId      integer REFERENCES public.Clubs (id),
     description    VARCHAR(255)
 );
 
@@ -60,7 +69,7 @@ CREATE TABLE IF NOT EXISTS public.Boats(
     name        VARCHAR(256),
     typeId      integer REFERENCES public.BoatTypes (id),
     classId     integer REFERENCES public.Class (id),
-    ownerId    integer NULL REFERENCES public.Members (id),
+    clubId      integer REFERENCES public.Clubs (id),
     teamId      integer NULL REFERENCES public.Teams (id)
 );
 

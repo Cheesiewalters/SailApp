@@ -31,13 +31,10 @@ router.route("/").post(
 		body("name")
 			.notEmpty()
 			.withMessage("This request requires a valid name field"),
-		body("creatorId")
+		body("clubId")
 			.isNumeric()
 			.notEmpty()
 			.withMessage("creatorId field cannot be null"),
-		body("creatorId")
-			.isNumeric()
-			.withMessage("creatorId Field must be a numeric value"),
 		body("description").exists().isString(),
 		body("description")
 			.notEmpty()
@@ -75,13 +72,10 @@ router.route("/:id").put(
 		body("name")
 			.notEmpty()
 			.withMessage("This request requires a valid name field"),
-		body("creatorId")
+		body("clubId")
 			.isNumeric()
 			.notEmpty()
 			.withMessage("creatorId field cannot be null"),
-		body("creatorId")
-			.isNumeric()
-			.withMessage("creatorId Field must be a numeric value"),
 		body("description").exists().isString(),
 		body("description")
 			.notEmpty()

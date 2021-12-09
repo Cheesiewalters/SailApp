@@ -12,10 +12,10 @@ model boats {
   name      String?       @db.VarChar(256)
   typeid    Int?
   classid   Int?
-  ownerid   Int?
+  clubid    Int?
   teamid    Int?
   class     Renamedclass? @relation("boatsToclass", fields: [classid], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  members   members?      @relation(fields: [ownerid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  clubs     clubs?        @relation(fields: [clubid], references: [id], onDelete: NoAction, onUpdate: NoAction)
   teams     teams?        @relation(fields: [teamid], references: [id], onDelete: NoAction, onUpdate: NoAction)
   boattypes boattypes?    @relation(fields: [typeid], references: [id], onDelete: NoAction, onUpdate: NoAction)
   raceboats raceboats[]
@@ -37,15 +37,31 @@ model Renamedclass {
   @@map("class")
 }
 
+model club_member {
+  id       Int      @id @default(autoincrement())
+  clubid   Int?
+  memberid Int?
+  clubs    clubs?   @relation(fields: [clubid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  members  members? @relation(fields: [memberid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model clubs {
+  id          Int           @id @default(autoincrement())
+  name        String?       @db.VarChar(2550)
+  boats       boats[]
+  club_member club_member[]
+  events      events[]
+}
+
 model events {
   id          Int         @id @default(autoincrement())
   eventtypeid Int?
   starttime   DateTime?   @db.Timestamp(6)
   enddate     DateTime?   @db.Timestamp(6)
   name        String?     @db.VarChar(255)
-  creatorid   Int?
+  clubid      Int?
   description String?     @db.VarChar(255)
-  members     members?    @relation(fields: [creatorid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  clubs       clubs?      @relation(fields: [clubid], references: [id], onDelete: NoAction, onUpdate: NoAction)
   eventtypes  eventtypes? @relation(fields: [eventtypeid], references: [id], onDelete: NoAction, onUpdate: NoAction)
   races       races[]
 }
@@ -73,11 +89,11 @@ model flyway_schema_history {
 
 model members {
   id          Int           @id @default(autoincrement())
-  name        String?       @db.VarChar(255)
-  roleid      Int?
-  roles       roles?        @relation(fields: [roleid], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  boats       boats[]
-  events      events[]
+  firstname   String?       @db.VarChar(255)
+  lastname    String?       @db.VarChar(255)
+  email       String?       @db.VarChar(255)
+  password    String?       @db.VarChar(255)
+  club_member club_member[]
   teammembers teammembers[]
 }
 
@@ -100,12 +116,6 @@ model races {
   class     Renamedclass? @relation("classToraces", fields: [classid], references: [id], onDelete: NoAction, onUpdate: NoAction)
   events    events?       @relation(fields: [eventid], references: [id], onDelete: NoAction, onUpdate: NoAction)
   raceboats raceboats[]
-}
-
-model roles {
-  id      Int       @id @default(autoincrement())
-  role    String?   @db.VarChar(2550)
-  members members[]
 }
 
 model teammembers {

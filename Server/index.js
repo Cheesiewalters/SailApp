@@ -11,6 +11,7 @@ const {
 	raceRouter,
 	teamRouter,
 	memberRouter,
+	clubRouter,
 } = require("./routers");
 const bodyParser = require("body-parser");
 
@@ -24,6 +25,7 @@ app.use("/boat", boatRouter);
 app.use("/race", raceRouter);
 app.use("/team", teamRouter);
 app.use("/member", memberRouter);
+app.use("/club", clubRouter);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

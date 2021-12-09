@@ -63,7 +63,7 @@ const modifyEvents = async (events) => {
 };
 
 const postEventService = async (req) => {
-	const { eventTypeId, startTime, endDate, name, creatorId, description } =
+	const { eventTypeId, startTime, endDate, name, clubId, description } =
 		req.body;
 
 	const newEvent = await prisma.events.create({
@@ -72,7 +72,7 @@ const postEventService = async (req) => {
 			starttime: startTime,
 			enddate: endDate,
 			name: name,
-			creatorid: creatorId,
+			clubid: clubId,
 			description: description,
 		},
 	});
@@ -80,11 +80,11 @@ const postEventService = async (req) => {
 };
 
 const updateEventService = async (req) => {
-	const { eventTypeId, startTime, endDate, name, creatorId, description } =
+	const { eventTypeId, startTime, endDate, name, clubId, description } =
 		req.body;
 
 	const updatedEventTypeID = parseInt(eventTypeId);
-	const updatedCreatorId = parseInt(creatorId);
+	const updatedclubId = parseInt(clubId);
 	const updatedId = parseInt(req.params.id);
 
 	const updatedEvent = await prisma.events.update({
@@ -96,7 +96,7 @@ const updateEventService = async (req) => {
 			starttime: moment.utc(startTime).toISOString(),
 			enddate: moment.utc(endDate).toISOString(),
 			name: name,
-			creatorid: updatedCreatorId,
+			clubid: updatedclubId,
 			description: description,
 		},
 	});
