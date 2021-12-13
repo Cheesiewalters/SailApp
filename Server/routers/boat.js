@@ -27,6 +27,10 @@ router.route("/").post(
 		body("name")
 			.notEmpty()
 			.withMessage("This request requires a valid name field"),
+		body("sailNo")
+			.exists()
+			.notEmpty()
+			.withMessage("This request requires a valid sailNo field"),
 	],
 	(req, res, next) => {
 		validator(req, res, next);
@@ -55,6 +59,10 @@ router.route("/:id").put(
 			.withMessage("clubId field cannot be null"),
 		body("name").exists(),
 		body("name").notEmpty().withMessage("This request requires a name field"),
+		body("sailNo")
+			.exists()
+			.notEmpty()
+			.withMessage("This request requires a valid sailNo field"),
 	],
 	(req, res, next) => {
 		validator(req, res, next);

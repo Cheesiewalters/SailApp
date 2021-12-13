@@ -64,22 +64,22 @@ VALUES ('NHC2');
 INSERT INTO public.Class (name)
 VALUES ('Firefly');
 
-INSERT INTO public.Boats ( classId, clubId, teamId, name)
-VALUES (1 , 2 , 2, 'Lizante');
-INSERT INTO public.Boats ( classId, clubId, teamId, name)
-VALUES (2 , 1 , 2, 'Ker 40');
-INSERT INTO public.Boats ( classId, clubId, teamId, name)
-VALUES (4 , 1 , 1, 'Firefly 1');
-INSERT INTO public.Boats ( classId, clubId, teamId, name)
-VALUES (4 , 2 , 1, 'Firefly 2');
-INSERT INTO public.Boats ( classId, clubId, teamId, name)
-VALUES (4 , 3 , 1, 'Firefly 3');
-INSERT INTO public.Boats ( classId, clubId, teamId, name)
-VALUES (4 , 2 , 1, 'Firefly 4');
-INSERT INTO public.Boats ( classId, clubId, teamId, name)
-VALUES (4 , 4 , 1, 'Firefly 5');
-INSERT INTO public.Boats ( classId, clubId, teamId, name)
-VALUES (4 , 4 , 1, 'Firefly 6');
+INSERT INTO public.Boats ( classId, clubId, teamId, name, sailNo)
+VALUES (1 , 2 , 2, 'Lizante', 'GBR 1967');
+INSERT INTO public.Boats ( classId, clubId, teamId, name, sailNo)
+VALUES (2 , 1 , 2, 'Ker 40', 'GBR 1872');
+INSERT INTO public.Boats ( classId, clubId, teamId, name, sailNo)
+VALUES (4 , 1 , 1, 'Firefly 1', 'GBR 1292');
+INSERT INTO public.Boats ( classId, clubId, teamId, name, sailNo)
+VALUES (4 , 2 , 1, 'Firefly 2', 'GBR 2131');
+INSERT INTO public.Boats ( classId, clubId, teamId, name, sailNo)
+VALUES (4 , 3 , 1, 'Firefly 3', 'GBR 324234');
+INSERT INTO public.Boats ( classId, clubId, teamId, name, sailNo)
+VALUES (4 , 2 , 1, 'Firefly 4', 'GBR 123123');
+INSERT INTO public.Boats ( classId, clubId, teamId, name, sailNo)
+VALUES (4 , 4 , 1, 'Firefly 5', 'GBR 1234');
+INSERT INTO public.Boats ( classId, clubId, teamId, name, sailNo)
+VALUES (4 , 4 , 1, 'Firefly 6', 'GBR 12938');
 
 INSERT INTO public.Races (eventId, startTime, classId)
 VALUES (1, '2021-11-19 12:00:00' , 4);

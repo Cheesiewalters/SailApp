@@ -9,7 +9,8 @@ datasource db {
 
 model boats {
   id        Int           @id @default(autoincrement())
-  name      String?       @db.VarChar(256)
+  name      String?       @db.VarChar(255)
+  sailno    String?       @db.VarChar(255)
   classid   Int?
   clubid    Int?
   teamid    Int?

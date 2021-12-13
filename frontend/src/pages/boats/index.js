@@ -50,7 +50,12 @@ const RegisterBoat = () => {
 		event.preventDefault();
 		const errors = [];
 
-		if (selectedClass === "" || selectedYachtClub === "" || nameInput === "") {
+		if (
+			selectedClass === "" ||
+			selectedYachtClub === "" ||
+			nameInput === "" ||
+			sailNo === ""
+		) {
 			errors.push(
 				"The form is not valid, please ensure all values are present"
 			);

@@ -18,12 +18,13 @@ const getBoatsByIdService = async (id) => {
 };
 
 const postBoatService = async (req) => {
-	const { classId, clubId, teamId, name } = req.body;
+	const { classId, clubId, teamId, name, sailNo } = req.body;
 	const newBoat = await prisma.boats.create({
 		data: {
 			name: name,
 			classid: classId,
 			clubid: clubId,
+			sailno: sailNo,
 			teamid: teamId,
 		},
 	});
@@ -31,7 +32,7 @@ const postBoatService = async (req) => {
 };
 
 const updateBoatService = async (req) => {
-	const { classId, clubId, teamId, name } = req.body;
+	const { classId, clubId, teamId, name, sailNo } = req.body;
 	const updatedId = parseInt(req.params.id);
 	const updatedBoat = await prisma.boats.update({
 		where: {
@@ -41,6 +42,7 @@ const updateBoatService = async (req) => {
 			name: name,
 			classid: parseInt(classId),
 			clubid: parseInt(clubId),
+			sailno: sailNo,
 			teamid: parseInt(teamId),
 		},
 	});
