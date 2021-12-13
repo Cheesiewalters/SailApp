@@ -10,21 +10,13 @@ datasource db {
 model boats {
   id        Int           @id @default(autoincrement())
   name      String?       @db.VarChar(256)
-  typeid    Int?
   classid   Int?
   clubid    Int?
   teamid    Int?
   class     Renamedclass? @relation("boatsToclass", fields: [classid], references: [id], onDelete: NoAction, onUpdate: NoAction)
   clubs     clubs?        @relation(fields: [clubid], references: [id], onDelete: NoAction, onUpdate: NoAction)
   teams     teams?        @relation(fields: [teamid], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  boattypes boattypes?    @relation(fields: [typeid], references: [id], onDelete: NoAction, onUpdate: NoAction)
   raceboats raceboats[]
-}
-
-model boattypes {
-  id         Int     @id @default(autoincrement())
-  typeofboat String? @db.VarChar(255)
-  boats      boats[]
 }
 
 /// This model has been renamed to 'Renamedclass' during introspection, because the original name 'class' is reserved.

@@ -6,9 +6,21 @@ const {
 	postBoatService,
 	updateBoatService,
 	deleteBoatService,
+	getAllBoatClassesService,
 } = require("../services/boat");
 const okStatus = 200;
 const serverErrorStatus = 500;
+
+const getAllClasses = async (req, res) => {
+	try {
+		const classes = await getAllBoatClassesService();
+		res.status(okStatus).json({
+			classes,
+		});
+	} catch (error) {
+		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
+	}
+};
 
 const getAllBoats = async (req, res) => {
 	try {
@@ -72,4 +84,5 @@ module.exports = {
 	postBoat,
 	updateBoat,
 	deleteBoat,
+	getAllClasses,
 };

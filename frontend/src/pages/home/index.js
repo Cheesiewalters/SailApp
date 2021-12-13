@@ -1,21 +1,20 @@
 import React from "react";
 import Button from "@mui/material/Button";
 import { Table } from "../../components";
+import { Link } from "react-router-dom";
 
 const Home = () => {
 	return (
-		<div className="home-grid">
+		<div>
 			<div className="home-text">HomePage</div>
 			<div className="home-container">
 				<div className="button-register-boat">
-					<Button variant="contained">
-						Register a new boat fron your club
+					<Button variant="outlined">
+						<Link to="/register-boat">Register a new boat from your club</Link>
 					</Button>
 				</div>
 				<div className="button-register-eventhome">
-					<Button variant="contained">
-						Register a new boat fron your club
-					</Button>
+					<Button variant="outlined">Event Homepage</Button>
 				</div>
 			</div>
 			<div className="table-container">

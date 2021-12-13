@@ -1,6 +1,6 @@
 import "./index.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Home, Events } from "./pages";
+import { Home, Events, Boats } from "./pages";
 import { Navigation } from "./constants";
 import { Navbar } from "./components";
 
@@ -19,6 +19,11 @@ function App() {
 						path={Navigation.EVENTS}
 						caseSensitive={false}
 						element={<Events />}
+					/>
+					<Route
+						path={Navigation.REGISTERBOATS}
+						caseSensitive={false}
+						element={<Boats />}
 					/>
 				</Routes>
 			</Router>

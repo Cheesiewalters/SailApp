@@ -6,17 +6,15 @@ const {
 	deleteBoat,
 	updateBoat,
 	getBoatByID,
+	getAllClasses,
 } = require("../controllers/boat");
 const { validator } = require("../middleware/expressValidator");
 const { body, param } = require("express-validator");
 
 router.route("/").get(getAllBoats);
+router.route("/class").get(getAllClasses);
 router.route("/").post(
 	[
-		body("typeId").notEmpty().withMessage("TypeId field cannot be null"),
-		body("typeId")
-			.isNumeric()
-			.withMessage("TypeId Field must be a numeric value"),
 		body("classId").notEmpty().withMessage("ClassId field cannot be null"),
 		body("classId")
 			.isNumeric()
@@ -47,10 +45,6 @@ router.route("/:id").put(
 		param("id")
 			.isNumeric()
 			.withMessage("Id in parameter must be a numeric value"),
-		body("typeId").notEmpty().withMessage("TypeId field cannot be null"),
-		body("typeId")
-			.isNumeric()
-			.withMessage("TypeId Field must be a numeric value"),
 		body("classId").notEmpty().withMessage("ClassId field cannot be null"),
 		body("classId")
 			.isNumeric()

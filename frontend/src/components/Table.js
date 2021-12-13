@@ -2,16 +2,15 @@ import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
 
-const handleClick = () => {
-	console.log("clicked");
-};
+const handleClick = () => {};
 
 const columns = [
 	{ field: "id", headerName: "ID", width: 70 },
-	{ field: "eventName", headerName: "EventName", width: 400 },
+	{ field: "eventName", headerName: "EventName", flex: 1 },
 	{
-		field: "",
-		width: 130,
+		field: "viewEvent",
+		headerName: "",
+		flex: 0.5,
 		renderCell: (cellValues) => {
 			return (
 				<Button

@@ -5,6 +5,10 @@ const getAllBoatsService = async () => {
 	return await prisma.boats.findMany();
 };
 
+const getAllBoatClassesService = async () => {
+	return await prisma.renamedclass.findMany();
+};
+
 const getBoatsByIdService = async (id) => {
 	return await prisma.boats.findMany({
 		where: {
@@ -14,11 +18,10 @@ const getBoatsByIdService = async (id) => {
 };
 
 const postBoatService = async (req) => {
-	const { typeId, classId, clubId, teamId, name } = req.body;
+	const { classId, clubId, teamId, name } = req.body;
 	const newBoat = await prisma.boats.create({
 		data: {
 			name: name,
-			typeid: typeId,
 			classid: classId,
 			clubid: clubId,
 			teamid: teamId,
@@ -28,7 +31,7 @@ const postBoatService = async (req) => {
 };
 
 const updateBoatService = async (req) => {
-	const { typeId, classId, clubId, teamId, name } = req.body;
+	const { classId, clubId, teamId, name } = req.body;
 	const updatedId = parseInt(req.params.id);
 	const updatedBoat = await prisma.boats.update({
 		where: {
@@ -36,7 +39,6 @@ const updateBoatService = async (req) => {
 		},
 		data: {
 			name: name,
-			typeid: parseInt(typeId),
 			classid: parseInt(classId),
 			clubid: parseInt(clubId),
 			teamid: parseInt(teamId),
@@ -62,6 +64,7 @@ const deleteBoatService = async (id) => {
 	}
 };
 
+exports.getAllBoatClassesService = getAllBoatClassesService;
 exports.deleteBoatService = deleteBoatService;
 exports.updateBoatService = updateBoatService;
 exports.postBoatService = postBoatService;

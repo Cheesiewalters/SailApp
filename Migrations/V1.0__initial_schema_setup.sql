@@ -57,17 +57,10 @@ CREATE TABLE IF NOT EXISTS public.Class(
     name        VARCHAR(255)
 );
 
-CREATE TABLE IF NOT EXISTS public.BoatTypes(
-    id          serial
-            primary key,
-    typeOfboat  VARCHAR(255)
-);
-
 CREATE TABLE IF NOT EXISTS public.Boats(
     id          serial
             primary key,
     name        VARCHAR(256),
-    typeId      integer REFERENCES public.BoatTypes (id),
     classId     integer REFERENCES public.Class (id),
     clubId      integer REFERENCES public.Clubs (id),
     teamId      integer NULL REFERENCES public.Teams (id)
