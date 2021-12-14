@@ -5,6 +5,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { Button } from "@mui/material";
+import instance from "../../utils/axios";
 
 const RegisterBoat = () => {
 	const [nameInput, setNameInput] = useState("");
@@ -15,15 +16,11 @@ const RegisterBoat = () => {
 	const [selectedClass, setSelectedClass] = useState("");
 
 	const getData = async () => {
-		await axios.get("http://localhost:3001/club").then((res) => {
-			var data = res.data;
-			setYachtClubs(data.Clubs);
-		});
+		const clubs = (await instance.get("/club")).data;
+		setYachtClubs(clubs.Clubs);
 
-		await axios.get("http://localhost:3001/boat/class").then((res) => {
-			var data = res.data;
-			setYachtClasses(data.classes);
-		});
+		const classes = (await instance.get("/boat/class")).data;
+		setYachtClasses(classes.classes);
 	};
 
 	useEffect(() => {

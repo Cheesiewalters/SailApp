@@ -14,7 +14,9 @@ const Home = () => {
 					</Button>
 				</div>
 				<div className="button-register-eventhome">
-					<Button variant="outlined">Event Homepage</Button>
+					<Button variant="outlined">
+						<Link to="/event/home">Event Homepage</Link>
+					</Button>
 				</div>
 			</div>
 			<div className="table-container">

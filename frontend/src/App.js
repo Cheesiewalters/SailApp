@@ -25,6 +25,11 @@ function App() {
 						caseSensitive={false}
 						element={<Boats />}
 					/>
+					<Route
+						path={Navigation.EVENTHOMEPAGE}
+						caseSensitive={false}
+						element={<Events />}
+					/>
 				</Routes>
 			</Router>
 		</div>

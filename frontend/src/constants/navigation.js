@@ -1,5 +1,5 @@
 export default {
 	HOME: "/",
-	EVENTS: "/events",
 	REGISTERBOATS: "/register-boat",
+	EVENTHOMEPAGE: "/event/home",
 };
