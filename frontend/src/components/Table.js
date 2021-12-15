@@ -27,7 +27,6 @@ const Table = () => {
 				};
 			})
 		);
-		console.log(rows);
 		setRows(rows);
 	};
 
@@ -59,6 +58,8 @@ const Table = () => {
 
 	return (
 		<div style={{ height: 400, width: "100%" }}>
+			<h1 style={{}}>Recently added events</h1>
+
 			<DataGrid
 				rows={rows}
 				columns={columns}

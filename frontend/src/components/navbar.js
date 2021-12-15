@@ -8,30 +8,24 @@ import { NavLink } from "react-router-dom";
 
 export default function Navbar() {
 	return (
-		<Box sx={{ flexGrow: 1 }}>
+		<Box sx={{ flexGrow: 1 }} style={{ display: "flex" }}>
 			<AppBar
 				position="static"
-				style={{ display: "flex", alignItems: "flex-start" }}
+				style={{ flexFlow: "row", justifyContent: "space-between" }}
 			>
 				<Toolbar>
-					<Typography
-						variant="h6"
-						component="div"
-						sx={{ flexGrow: 1 }}
-					></Typography>
-					<Button>
-						<NavLink to="/">Sail app</NavLink>
-					</Button>
-					<Button
-						style={{
-							display: "flex",
-							alignItems: "flex-end",
-							paddingLeft: "1500px",
-						}}
-						color="inherit"
-					>
-						Login
-					</Button>
+					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+						<div>
+							<NavLink to="/">Sail app</NavLink>
+						</div>
+					</Typography>
+				</Toolbar>
+				<Toolbar>
+					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+						<div>
+							<NavLink to="/login">Login</NavLink>
+						</div>
+					</Typography>
 				</Toolbar>
 			</AppBar>
 		</Box>
