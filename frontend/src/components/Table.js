@@ -1,45 +1,62 @@
-import * as React from "react";
+import { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
+import instance from "../utils/axios";
 
-const handleClick = () => {};
+const Table = () => {
+	const [rows, setRows] = useState([]);
 
-const columns = [
-	{ field: "id", headerName: "ID", width: 70 },
-	{ field: "eventName", headerName: "EventName", flex: 1 },
-	{
-		field: "viewEvent",
-		headerName: "",
-		flex: 0.5,
-		renderCell: (cellValues) => {
-			return (
-				<Button
-					variant="contained"
-					color="primary"
-					onClick={(event) => {
-						handleClick(event, cellValues);
-					}}
-				>
-					View Event
-				</Button>
-			);
+	useEffect(() => {
+		getData();
+	}, []);
+
+	const getData = async () => {
+		const eventsRes = (await instance.get("/event")).data;
+		getRows(eventsRes);
+	};
+
+	const getRows = async (events) => {
+		const rows = await Promise.all(
+			events.map(async (e) => {
+				const club = (await instance.get(`/club/${e.clubid}`)).data;
+				return {
+					id: e.id,
+					eventName: e.name,
+					startTime: e.starttime,
+					eventClub: club[0].name,
+				};
+			})
+		);
+		console.log(rows);
+		setRows(rows);
+	};
+
+	const columns = [
+		{ field: "id", headerName: "ID", width: 70 },
+		{ field: "eventName", headerName: "EventName", flex: 0.5 },
+		{ field: "eventClub", headerName: "EventHostClub", flex: 0.5 },
+		{
+			field: "viewEvent",
+			headerName: "",
+			flex: 0.5,
+			renderCell: (cellValues) => {
+				return (
+					<Button
+						variant="contained"
+						color="primary"
+						onClick={(event) => {
+							handleClick(event, cellValues);
+						}}
+					>
+						View Event
+					</Button>
+				);
+			},
 		},
-	},
-];
+	];
 
-const rows = [
-	{ id: 1, eventName: "Event name" },
-	{ id: 2, eventName: "Event name" },
-	{ id: 3, eventName: "Event name" },
-	{ id: 4, eventName: "Event name" },
-	{ id: 5, eventName: "Event name" },
-	{ id: 6, eventName: "Event name" },
-	{ id: 7, eventName: "Event name" },
-	{ id: 8, eventName: "Event name" },
-	{ id: 9, eventName: "Event name" },
-];
+	const handleClick = () => {};
 
-export default function Table() {
 	return (
 		<div style={{ height: 400, width: "100%" }}>
 			<DataGrid
@@ -50,4 +67,6 @@ export default function Table() {
 			/>
 		</div>
 	);
-}
+};
+
+export default Table;

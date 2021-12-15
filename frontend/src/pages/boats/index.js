@@ -17,7 +17,7 @@ const RegisterBoat = () => {
 
 	const getData = async () => {
 		const clubs = (await instance.get("/club")).data;
-		setYachtClubs(clubs.Clubs);
+		setYachtClubs(clubs);
 
 		const classes = (await instance.get("/boat/class")).data;
 		setYachtClasses(classes.classes);

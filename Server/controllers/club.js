@@ -14,9 +14,7 @@ const serverErrorStatus = 500;
 const getAllClubs = async (req, res) => {
 	try {
 		const Clubs = await getAllClubService();
-		res.status(okStatus).json({
-			Clubs,
-		});
+		res.status(okStatus).json(Clubs);
 	} catch (error) {
 		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
 	}
@@ -25,7 +23,7 @@ const getAllClubs = async (req, res) => {
 const getClubByID = async (req, res) => {
 	try {
 		const club = await getClubByIdService(req.params.id);
-		res.status(okStatus).json({ club });
+		res.status(okStatus).json(club);
 	} catch (error) {
 		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
 	}

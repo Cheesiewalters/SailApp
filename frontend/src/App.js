@@ -1,5 +1,5 @@
 import "./index.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { Home, Events, Boats } from "./pages";
 import { Navigation } from "./constants";
 import { Navbar } from "./components";
@@ -8,30 +8,28 @@ function App() {
 	return (
 		<div className="app">
 			<Navbar />
-			<Router>
-				<Routes>
-					<Route
-						path={Navigation.HOME}
-						caseSensitive={false}
-						element={<Home />}
-					/>
-					<Route
-						path={Navigation.EVENTS}
-						caseSensitive={false}
-						element={<Events />}
-					/>
-					<Route
-						path={Navigation.REGISTERBOATS}
-						caseSensitive={false}
-						element={<Boats />}
-					/>
-					<Route
-						path={Navigation.EVENTHOMEPAGE}
-						caseSensitive={false}
-						element={<Events />}
-					/>
-				</Routes>
-			</Router>
+			<Routes>
+				<Route
+					path={Navigation.HOME}
+					caseSensitive={false}
+					element={<Home />}
+				/>
+				<Route
+					path={Navigation.EVENTS}
+					caseSensitive={false}
+					element={<Events />}
+				/>
+				<Route
+					path={Navigation.REGISTERBOATS}
+					caseSensitive={false}
+					element={<Boats />}
+				/>
+				<Route
+					path={Navigation.EVENTHOMEPAGE}
+					caseSensitive={false}
+					element={<Events />}
+				/>
+			</Routes>
 		</div>
 	);
 }

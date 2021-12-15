@@ -6,7 +6,7 @@ const getAllClubService = async () => {
 };
 
 const getClubByIdService = async (id) => {
-	return await prisma.clubs.findMany({
+	return await prisma.clubs.findUnique({
 		where: {
 			id: parseInt(id),
 		},

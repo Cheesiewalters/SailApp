@@ -25,9 +25,7 @@ const getEventTypes = async (req, res) => {
 const getAllEvents = async (req, res) => {
 	const events = await getAllEventsService();
 	try {
-		res.status(okStatus).json({
-			events,
-		});
+		res.status(okStatus).json(events);
 	} catch (error) {
 		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
 	}
