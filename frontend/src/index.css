@@ -104,3 +104,21 @@ Events Create page css
   flex-flow: center;
   margin-top: 3em;
 }
+
+.events-create-container{
+  display: flex;
+  justify-content: center;
+  z-index: 1;
+}
+
+.race-display-container{
+  display: flex;
+  min-width: 800px;
+}
+
+.events-create-input-container{
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  margin-top: 8%;
+}
