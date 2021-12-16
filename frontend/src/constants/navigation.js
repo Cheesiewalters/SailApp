@@ -4,4 +4,5 @@ export default {
 	EVENTHOMEPAGE: "/event/home",
 	EVENTCREATEPAGE: "/event/create",
 	EVENTMANAGE: "/event/:id/manage",
+	EVENTVIEW: "/event/:id/view",
 };

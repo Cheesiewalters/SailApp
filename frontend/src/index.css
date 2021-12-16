@@ -145,3 +145,13 @@ Events Manage page css
   align-items: center;
   margin-top: 8%;
 }
+
+/* 
+Events View page css
+*/
+.event-view-container{
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  margin-top: 3%;
+}

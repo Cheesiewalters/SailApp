@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import Button from "@mui/material/Button";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -9,7 +8,6 @@ import instance from "../../utils/axios";
 import RaceDataGrid from "./components/RaceDataGrid";
 import PopupModal from "./components/PopupModal";
 import { useParams } from "react-router";
-import { Events } from "..";
 
 const EventsManager = () => {
 	const [nameInput, setNameInput] = useState("");
