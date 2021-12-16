@@ -1,6 +1,6 @@
 import "./index.css";
 import { Route, Routes } from "react-router-dom";
-import { Home, Events, Boats, CreateEvents } from "./pages";
+import { Home, Events, Boats, CreateEvents, EventsManager } from "./pages";
 import { Navigation } from "./constants";
 import { Navbar } from "./components";
 
@@ -34,6 +34,11 @@ function App() {
 					caseSensitive={false}
 					element={<CreateEvents />}
 				/>
+				<Route
+					path={Navigation.EVENTMANAGE}
+					caseSensitive={false}
+					element={<EventsManager />}
+				></Route>
 			</Routes>
 		</div>
 	);

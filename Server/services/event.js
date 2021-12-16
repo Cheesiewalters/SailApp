@@ -18,6 +18,7 @@ const getEventByIDService = async (id) => {
 		include: {
 			races: {
 				select: {
+					id: true,
 					starttime: true,
 					class: true,
 					raceboats: {

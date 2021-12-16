@@ -23,7 +23,7 @@ const Table = () => {
 					id: e.id,
 					eventName: e.name,
 					startTime: e.starttime,
-					eventClub: club[0].name,
+					eventClub: club.name,
 				};
 			})
 		);

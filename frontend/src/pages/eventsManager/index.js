@@ -6,8 +6,12 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import instance from "../../utils/axios";
+import RaceDataGrid from "./components/RaceDataGrid";
+import PopupModal from "./components/PopupModal";
+import { useParams } from "react-router";
+import { Events } from "..";
 
-const CreateEvents = () => {
+const EventsManager = () => {
 	const [nameInput, setNameInput] = useState("");
 	const [startTimeInput, setStartTimeInput] = useState("");
 	const [endTimeInput, setEndTime] = useState("");
@@ -16,25 +20,40 @@ const CreateEvents = () => {
 	const [selectedYachtClub, setSelectedYC] = useState("");
 	const [yachtClubs, setYachtClubs] = useState([]);
 	const [eventTypes, setEventTypes] = useState([]);
+	const [event, setEvent] = useState([]);
+	const [isOpen, setisOpen] = useState(false);
+
+	const params = useParams();
 
 	const getData = async () => {
-		const clubs = (await instance.get("/club")).data;
-		setYachtClubs(clubs);
-
-		const eventTypes = (await instance.get("/event/types")).data;
-		setEventTypes(eventTypes);
+		try {
+			const clubs = (await instance.get("/club")).data;
+			setYachtClubs(clubs);
+			const eventTypes = (await instance.get("/event/types")).data;
+			setEventTypes(eventTypes);
+			const eventRes = (await instance.get(`/event/${params.id}`)).data;
+			setEvent(eventRes);
+			setNameInput(eventRes[0].name);
+			setStartTimeInput(eventRes[0].starttime);
+			setEndTime(eventRes[0].enddate);
+			setDescription(eventRes[0].description);
+			setSelectedEventType(eventRes[0].eventtypeid);
+			setSelectedYC(eventRes[0].clubid);
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	useEffect(() => {
 		getData();
 	}, []);
 
-	const handleChangeName = (e) => {
-		setNameInput(e.target.value);
+	const handleChangeName = (event) => {
+		setNameInput(event.target.value);
 	};
 
-	const handleChangeStartTime = (e) => {
-		setStartTimeInput(e.target.value);
+	const handleChangeStartTime = (event) => {
+		setStartTimeInput(event.target.value);
 	};
 
 	const handleChangeEventType = (event) => {
@@ -76,8 +95,8 @@ const CreateEvents = () => {
 		}
 
 		try {
-			axios
-				.post("http://localhost:3001/event", {
+			instance
+				.put(`http://localhost:3001/event/${parseInt(params.id)}`, {
 					eventTypeId: selectedEventType,
 					name: nameInput,
 					description: description,
@@ -87,6 +106,7 @@ const CreateEvents = () => {
 				})
 				.then(
 					(response) => {
+						alert("Event successfully updated");
 						console.log(response);
 					},
 					(error) => {
@@ -99,7 +119,7 @@ const CreateEvents = () => {
 	};
 
 	return (
-		<div className="events-create-container">
+		<div className="events-manage-container">
 			<form
 				onSubmit={handleSubmit}
 				style={{
@@ -108,8 +128,8 @@ const CreateEvents = () => {
 					justifyContent: "center",
 				}}
 			>
-				<div className="events-create-input-container">
-					<div className="events-create-text">Create Event</div>
+				<div className="events-manage-input-container">
+					<div className="events-manage-text">Manage Event</div>
 					<div>
 						<p>Event Name</p>
 						<input onChange={handleChangeName} value={nameInput}></input>
@@ -176,6 +196,35 @@ const CreateEvents = () => {
 						</FormControl>
 					</div>
 				</div>
+				<PopupModal
+					open={isOpen}
+					onClose={() => {
+						getData();
+						setisOpen(false);
+					}}
+					eventId={params.id}
+				></PopupModal>
+				<Button
+					onClick={() => {
+						setisOpen(true);
+					}}
+					variant="contained"
+					style={{
+						marginTop: "50px",
+						marginRight: "100px",
+						marginLeft: "100px",
+						marginBottom: "25px",
+					}}
+				>
+					Add Race
+				</Button>
+				<div className="race-display-container">
+					{event.length > 0 ? (
+						<RaceDataGrid event={event} />
+					) : (
+						<div>No info to show</div>
+					)}
+				</div>
 				<Button
 					type="submit"
 					variant="contained"
@@ -186,11 +235,11 @@ const CreateEvents = () => {
 						marginBottom: "25px",
 					}}
 				>
-					Create Event
+					Save Event
 				</Button>
 			</form>
 		</div>
 	);
 };
 
-export default CreateEvents;
+export default EventsManager;

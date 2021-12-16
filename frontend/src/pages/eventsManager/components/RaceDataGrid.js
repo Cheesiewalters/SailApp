@@ -1,15 +1,22 @@
-import React from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
-import instance from "../../../utils/axios";
-const handleClick = () => {};
 
-const RaceDataGrid = () => {
-	const rows = [
-		{ id: 1, startTime: "2021-04-26 16:00:00" },
-		{ id: 2, startTime: "2021-04-26 16:00:00" },
-	];
+const RaceDataGrid = ({ event }) => {
+	const [rows, setRows] = useState([]);
+
+	useEffect(() => {
+		const rows = [];
+		event.map((e) => {
+			e.races.map((r) => {
+				rows.push({
+					id: r.id,
+					startTime: r.starttime,
+				});
+			});
+		});
+		setRows(rows);
+	}, [event]);
 
 	const columns = [
 		{ field: "id", headerName: "ID", width: 70 },
@@ -20,13 +27,7 @@ const RaceDataGrid = () => {
 			flex: 0.2,
 			renderCell: (cellValues) => {
 				return (
-					<Button
-						variant="contained"
-						color="primary"
-						onClick={(event) => {
-							handleClick(event, cellValues);
-						}}
-					>
+					<Button variant="contained" color="primary" onClick={(event) => {}}>
 						Modify Race
 					</Button>
 				);

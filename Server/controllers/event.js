@@ -14,9 +14,7 @@ const serverErrorStatus = 500;
 const getEventTypes = async (req, res) => {
 	const eventTypes = await getAllEventTypes();
 	try {
-		res.status(okStatus).json({
-			eventTypes,
-		});
+		res.status(okStatus).json(eventTypes);
 	} catch (error) {
 		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
 	}
@@ -34,9 +32,7 @@ const getAllEvents = async (req, res) => {
 const getEventByID = async (req, res) => {
 	try {
 		const event = await getEventByIDService(req.params.id);
-		res.status(okStatus).json({
-			event,
-		});
+		res.status(okStatus).json(event);
 	} catch (error) {
 		console.log(error);
 		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
@@ -46,9 +42,7 @@ const getEventByID = async (req, res) => {
 const postEvent = async (req, res) => {
 	try {
 		const newEvent = await postEventService(req);
-		res.status(okStatus).json({
-			newEvent,
-		});
+		res.status(okStatus).json(newEvent);
 	} catch (error) {
 		console.log(error);
 		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
@@ -58,9 +52,7 @@ const postEvent = async (req, res) => {
 const updateEvent = async (req, res) => {
 	try {
 		const updatedEvent = await updateEventService(req);
-		res.status(okStatus).json({
-			updatedEvent,
-		});
+		res.status(okStatus).json(updatedEvent);
 	} catch (error) {
 		console.log(error);
 		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
