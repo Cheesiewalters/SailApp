@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Button } from "@mui/material";
 import instance from "../utils/axios";
+import { Link } from "react-router-dom";
 
 const Table = () => {
 	const [rows, setRows] = useState([]);
@@ -40,15 +40,9 @@ const Table = () => {
 			flex: 0.5,
 			renderCell: (cellValues) => {
 				return (
-					<Button
-						variant="contained"
-						color="primary"
-						onClick={(event) => {
-							handleClick(event, cellValues);
-						}}
-					>
+					<Link to={`/event/${cellValues.id}/view`} className="btn btn-primary">
 						View Event
-					</Button>
+					</Link>
 				);
 			},
 		},

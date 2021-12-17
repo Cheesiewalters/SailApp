@@ -14,6 +14,8 @@ const getRaceByIdService = async (id) => {
 		include: {
 			raceboats: {
 				select: {
+					id: true,
+					position: true,
 					starttime: true,
 					finishtime: true,
 					boats: {

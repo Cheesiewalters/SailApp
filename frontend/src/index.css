@@ -155,3 +155,17 @@ Events View page css
   align-items: center;
   margin-top: 3%;
 }
+
+/*
+Race View page css
+*/
+.boats-display-container {
+  display: flex;
+  min-width: 800px;
+  justify-content: center;
+  margin-top: 5%;
+}
+
+.boat-display-error {
+  margin-top: 25%;
+}

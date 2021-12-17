@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 
-const RaceDataGrid = ({ event, eventId }) => {
+const RaceDataGrid = ({ event }) => {
 	const [rows, setRows] = useState([]);
 
 	useEffect(() => {
@@ -28,7 +27,7 @@ const RaceDataGrid = ({ event, eventId }) => {
 			flex: 0.2,
 			renderCell: (cellValues) => {
 				return (
-					<Link to={`/race/${eventId}/view`} className="btn btn-primary">
+					<Link to={`/race/${cellValues.id}/view`} className="btn btn-primary">
 						View Race
 					</Link>
 				);

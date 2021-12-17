@@ -5,4 +5,5 @@ export default {
 	EVENTCREATEPAGE: "/event/create",
 	EVENTMANAGE: "/event/:id/manage",
 	EVENTVIEW: "/event/:id/view",
+	RACEVIEW: "/race/:id/view",
 };

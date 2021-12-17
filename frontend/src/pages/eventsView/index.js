@@ -43,16 +43,16 @@ const EventsView = () => {
 		<div>
 			{event.length > 0 ? (
 				<div className="event-view-container">
-					<div>{name}</div>
-					<div>{startTime}</div>
-					<div>{endTime}</div>
-					<div>{description}</div>
-					<div>Event Type</div>
-					<div>Event Club</div>
+					<div>Name: {name}</div>
+					<div>StartTime: {startTime}</div>
+					<div>EndTime: {endTime}</div>
+					<div>Description: {description}</div>
+					<div>Event Type: </div>
+					<div>Event Club: </div>
 
 					<div className="race-display-container">
 						{event.length > 0 ? (
-							<RaceDataGrid event={event} eventId={params.id} />
+							<RaceDataGrid event={event} />
 						) : (
 							<div>No info to show</div>
 						)}

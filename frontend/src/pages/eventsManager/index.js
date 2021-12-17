@@ -233,7 +233,7 @@ const EventsManager = () => {
 						marginBottom: "25px",
 					}}
 				>
-					Save Event
+					Update Event
 				</Button>
 			</form>
 		</div>
