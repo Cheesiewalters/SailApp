@@ -20,6 +20,7 @@ const EventsManager = () => {
 	const [eventTypes, setEventTypes] = useState([]);
 	const [event, setEvent] = useState([]);
 	const [isOpen, setisOpen] = useState(false);
+	const [races, setRaces] = useState([]);
 
 	const params = useParams();
 
@@ -31,6 +32,8 @@ const EventsManager = () => {
 			setEventTypes(eventTypes);
 			const eventRes = (await instance.get(`/event/${params.id}`)).data;
 			setEvent(eventRes);
+			console.log(eventRes);
+			setRaces(eventRes[0].races);
 			setNameInput(eventRes[0].name);
 			setStartTimeInput(eventRes[0].starttime);
 			setEndTime(eventRes[0].enddate);
@@ -218,7 +221,7 @@ const EventsManager = () => {
 				</Button>
 				<div className="race-display-container">
 					{event.length > 0 ? (
-						<RaceDataGrid event={event} />
+						<RaceDataGrid event={event} getData={getData} />
 					) : (
 						<div>No info to show</div>
 					)}

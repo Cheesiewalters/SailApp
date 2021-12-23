@@ -16,6 +16,16 @@ const getEventByIDService = async (id) => {
 			id: parseInt(id),
 		},
 		include: {
+			clubs: {
+				select: {
+					name: true,
+				},
+			},
+			eventtypes: {
+				select: {
+					name: true,
+				},
+			},
 			races: {
 				select: {
 					id: true,

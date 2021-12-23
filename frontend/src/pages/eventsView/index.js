@@ -18,18 +18,15 @@ const EventsView = () => {
 
 	const getData = async () => {
 		try {
-			const clubs = (await instance.get("/club")).data;
-			setYachtClubs(clubs);
-			const eventTypes = (await instance.get("/event/types")).data;
-			setEventTypes(eventTypes);
 			const eventRes = (await instance.get(`/event/${params.id}`)).data;
+			console.log(eventRes);
 			setEvent(eventRes);
 			setName(eventRes[0].name);
 			setStartTime(eventRes[0].starttime);
 			setEndTime(eventRes[0].enddate);
 			setDescription(eventRes[0].description);
-			setSelectedEventType(eventRes[0].eventtypeid);
-			setSelectedYC(eventRes[0].clubid);
+			setSelectedEventType(eventRes[0].eventtypes.name);
+			setSelectedYC(eventRes[0].clubs.name);
 		} catch (error) {
 			console.log(error);
 		}
@@ -47,8 +44,8 @@ const EventsView = () => {
 					<div>StartTime: {startTime}</div>
 					<div>EndTime: {endTime}</div>
 					<div>Description: {description}</div>
-					<div>Event Type: </div>
-					<div>Event Club: </div>
+					<div>Event Type: {selectedEventType}</div>
+					<div>Event Club: {selectedYachtClub}</div>
 
 					<div className="race-display-container">
 						{event.length > 0 ? (

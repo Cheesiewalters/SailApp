@@ -11,10 +11,6 @@ const {
 const okStatus = 200;
 const errorStatus = 500;
 
-function randomInteger(min, max) {
-	return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
 const getAllRaces = async (req, res) => {
 	try {
 		const race = await getAllRacesService();
@@ -29,9 +25,7 @@ const getAllRaces = async (req, res) => {
 const getRaceByID = async (req, res) => {
 	try {
 		const race = await getRaceByIdService(req.params.id);
-		res.status(okStatus).json({
-			race,
-		});
+		res.status(okStatus).json({ race });
 	} catch (error) {
 		res.status(errorStatus).json({ error: "Internal Server error" });
 	}
