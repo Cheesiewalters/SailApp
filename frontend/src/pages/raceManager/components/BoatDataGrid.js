@@ -11,6 +11,7 @@ const BoatDataGrid = ({ raceBoats, getData }) => {
 		raceBoats.map((e) => {
 			rows.push({
 				id: e.id,
+				boatid: e.boats.id,
 				name: e.boats.name,
 				startTime: e.starttime,
 				finishTime: e.finishtime,
@@ -22,6 +23,7 @@ const BoatDataGrid = ({ raceBoats, getData }) => {
 
 	const columns = [
 		{ field: "id", headerName: "ID", hide: true },
+		{ field: "boatid", headerName: "ID", hide: true },
 		{ field: "name", headerName: "Name", flex: 0.1 },
 		{ field: "position", headerName: "position", flex: 0 },
 		{ field: "startTime", headerName: "StartTime", flex: 0.2 },
@@ -49,8 +51,11 @@ const BoatDataGrid = ({ raceBoats, getData }) => {
 							variant="contained"
 							style={{ color: "primary", backgroundColor: "red" }}
 							onClick={async () => {
+								console.log(cellValues);
 								await instance
-									.delete(`/race/${cellValues.id}`)
+									.delete(
+										`/race/${cellValues.id}/boat/${cellValues.row.boatid}`
+									)
 									.then()
 									.catch((error) => {
 										alert(error);

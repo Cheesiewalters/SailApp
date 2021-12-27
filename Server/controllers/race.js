@@ -8,6 +8,7 @@ const {
 	deleteRaceService,
 	postRaceBoatsService,
 	getRaceBoatsById,
+	deleteRaceBoatsByIDService,
 } = require("../services/race");
 const okStatus = 200;
 const errorStatus = 500;
@@ -87,7 +88,20 @@ const deleteRace = async (req, res) => {
 	}
 };
 
+const deleteAllRaceBoatsById = async (req, res) => {
+	try {
+		await deleteRaceBoatsByIDService(req);
+		res.status(okStatus).json({
+			message: `Successfully deleted race boat with id: ${req.params.id}`,
+		});
+	} catch (error) {
+		console.log(error);
+		res.status(errorStatus).json({ error: "Internal Server error" });
+	}
+};
+
 module.exports = {
+	deleteAllRaceBoatsById,
 	postRaceBoats,
 	getAllRaces,
 	getRaceByID,

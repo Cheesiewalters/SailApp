@@ -103,6 +103,22 @@ const postRaceBoatsService = async (req) => {
 	}
 };
 
+const deleteRaceBoatsByIDService = async (req) => {
+	try {
+		const { id2 } = req.params;
+		console.log(req.params.id2);
+
+		await prisma.raceboats.deleteMany({
+			where: {
+				boatid: parseInt(id2),
+			},
+		});
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+exports.deleteRaceBoatsByIDService = deleteRaceBoatsByIDService;
 exports.postRaceBoatsService = postRaceBoatsService;
 exports.deleteRaceService = deleteRaceService;
 exports.updateRaceService = updateRaceService;
