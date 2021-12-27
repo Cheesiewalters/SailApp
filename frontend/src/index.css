@@ -137,6 +137,7 @@ Events Manage page css
 .race-display-container{
   display: flex;
   min-width: 800px;
+  justify-content: center;
 }
 
 .events-manage-input-container{

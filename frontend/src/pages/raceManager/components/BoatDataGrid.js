@@ -3,47 +3,43 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
 import instance from "../../../utils/axios";
 import { Link } from "react-router-dom";
-
-const RaceDataGrid = ({ event, getData }) => {
+const BoatDataGrid = ({ raceBoats, getData }) => {
 	const [rows, setRows] = useState([]);
 
 	useEffect(() => {
-		console.log(event);
 		const rows = [];
-		event.map((e) => {
-			e.races.map((r) => {
-				console.log(r);
-				rows.push({
-					id: r.id,
-					startTime: r.starttime,
-					class: r.class.name,
-				});
+		raceBoats.map((e) => {
+			rows.push({
+				id: e.id,
+				name: e.boats.name,
+				startTime: e.starttime,
+				finishTime: e.finishtime,
+				position: e.position,
 			});
 		});
 		setRows(rows);
 	}, []);
 
 	const columns = [
-		{ field: "id", headerName: "ID", width: 70 },
-		{ field: "startTime", headerName: "startTime", flex: 0.4 },
-		{ field: "class", headerName: "Class", flex: 0.2 },
+		{ field: "id", headerName: "ID", hide: true },
+		{ field: "name", headerName: "Name", flex: 0.1 },
+		{ field: "position", headerName: "position", flex: 0 },
+		{ field: "startTime", headerName: "StartTime", flex: 0.2 },
+		{ field: "finishTime", headerName: "FinishTime", flex: 0.2 },
 		{
-			field: "modifyRace",
+			field: "modifyBoat",
 			headerName: "",
-			flex: 0.2,
+			flex: 0.1,
 			renderCell: (cellValues) => {
 				return (
-					<Link
-						to={`/race/${cellValues.id}/manage`}
-						className="btn btn-primary"
-					>
-						Manage Race
+					<Link to={""} className="btn btn-primary">
+						Manage Boat
 					</Link>
 				);
 			},
 		},
 		{
-			field: "deleteRace",
+			field: "deleteBoat",
 			headerName: "",
 			flex: 0.2,
 			renderCell: (cellValues) => {
@@ -61,7 +57,7 @@ const RaceDataGrid = ({ event, getData }) => {
 									});
 							}}
 						>
-							Remove Race
+							Remove Boat
 						</Button>
 					</div>
 				);
@@ -81,4 +77,4 @@ const RaceDataGrid = ({ event, getData }) => {
 	);
 };
 
-export default RaceDataGrid;
+export default BoatDataGrid;

@@ -31,6 +31,14 @@ const getRaceByIdService = async (id) => {
 	});
 };
 
+const getRaceBoatsById = async (id) => {
+	return await prisma.raceboats.findMany({
+		where: {
+			raceid: parseInt(id),
+		},
+	});
+};
+
 const postRaceService = async (req) => {
 	const { eventId, classId, startTime } = req.body;
 	return await prisma.races.create({
@@ -101,3 +109,4 @@ exports.updateRaceService = updateRaceService;
 exports.postRaceService = postRaceService;
 exports.getAllRacesService = getAllRacesService;
 exports.getRaceByIdService = getRaceByIdService;
+exports.getRaceBoatsById = getRaceBoatsById;

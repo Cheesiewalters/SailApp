@@ -7,6 +7,7 @@ const {
 	updateRace,
 	getRaceByID,
 	postRaceBoats,
+	getAllRaceBoatsByID,
 } = require("../controllers/race");
 const { validator } = require("../middleware/expressValidator");
 const { body, param } = require("express-validator");
@@ -30,6 +31,8 @@ router.route("/:id/boat").post(
 	},
 	postRaceBoats
 );
+router.route("/:id/boat").get(getAllRaceBoatsByID);
+
 router.route("/").get(getAllRaces);
 router.route("/").post(
 	[
