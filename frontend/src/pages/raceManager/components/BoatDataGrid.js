@@ -3,7 +3,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
 import instance from "../../../utils/axios";
 import { Link } from "react-router-dom";
-const BoatDataGrid = ({ raceBoats, getData }) => {
+const BoatDataGrid = ({ raceId, raceBoats, getData }) => {
 	const [rows, setRows] = useState([]);
 
 	useEffect(() => {
@@ -34,7 +34,10 @@ const BoatDataGrid = ({ raceBoats, getData }) => {
 			flex: 0.1,
 			renderCell: (cellValues) => {
 				return (
-					<Link to={""} className="btn btn-primary">
+					<Link
+						to={`/race/${raceId}/boat/${cellValues.row.boatid}/manage`}
+						className="btn btn-primary"
+					>
 						Manage Boat
 					</Link>
 				);

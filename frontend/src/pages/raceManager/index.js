@@ -150,7 +150,11 @@ const RaceManager = () => {
 				</Button>
 				<div className="race-display-container">
 					{raceBoats.length > 0 ? (
-						<BoatDataGrid raceBoats={raceBoats} getData={getData} />
+						<BoatDataGrid
+							raceId={params.id}
+							raceBoats={raceBoats}
+							getData={getData}
+						/>
 					) : (
 						<div style={{ justifySelf: "center" }}>No boats in this race</div>
 					)}

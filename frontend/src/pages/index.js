@@ -6,3 +6,4 @@ export { default as EventsManager } from "./eventsManager";
 export { default as EventsView } from "./eventsView";
 export { default as RaceView } from "./raceView";
 export { default as RaceManager } from "./raceManager";
+export { default as BoatManager } from "./boatsManager";

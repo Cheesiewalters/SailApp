@@ -7,4 +7,5 @@ export default {
 	EVENTVIEW: "/event/:id/view",
 	RACEVIEW: "/race/:id/view",
 	RACEMANAGER: "/race/:id/manage",
+	BOATMANAGER: "/race/:id/boat/:id/manage",
 };
