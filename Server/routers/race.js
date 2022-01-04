@@ -9,6 +9,8 @@ const {
 	postRaceBoats,
 	getAllRaceBoatsByID,
 	deleteAllRaceBoatsById,
+	updateRaceBoatByBoatId,
+	getRaceBoatByBoatId,
 } = require("../controllers/race");
 const { validator } = require("../middleware/expressValidator");
 const { body, param } = require("express-validator");
@@ -41,6 +43,35 @@ router.route("/:id/boat/:id2").delete(
 		validator(req, res, next);
 	},
 	deleteAllRaceBoatsById
+);
+
+router.route("/:id/boat/").put(
+	[param("id").isNumeric().withMessage("The id must be a numeric value")],
+	[
+		body("startTime").isISO8601().toDate(),
+		body("finishTime").isISO8601().toDate(),
+		body("position")
+			.exists()
+			.notEmpty()
+			.withMessage("position field cannot be null"),
+		body("boatId")
+			.exists()
+			.notEmpty()
+			.withMessage("boatId field cannot be null"),
+	],
+	(req, res, next) => {
+		validator(req, res, next);
+	},
+	updateRaceBoatByBoatId
+);
+
+router.route("/:id/boat/:id2").get(
+	[param("id").isNumeric().withMessage("The id must be a numeric value")],
+	[param("id2").isNumeric().withMessage("The id must be a numeric value")],
+	(req, res, next) => {
+		validator(req, res, next);
+	},
+	getRaceBoatByBoatId
 );
 
 router.route("/").get(getAllRaces);
@@ -82,20 +113,16 @@ router.route("/:id").put(
 		body("eventId")
 			.exists()
 			.notEmpty()
-			.withMessage("eventTypeId field cannot be null"),
-		body("eventId")
 			.isNumeric()
-			.withMessage("eventTypeId Field must be a numeric value"),
+			.withMessage("eventId field cannot be null"),
 		body("startTime")
 			.notEmpty({ format: "DD/MM/YYYY HH:MM:SS" })
 			.withMessage("the format is not correct, dd-mm-yyyy hh:mm:ss"),
 		body("classId")
 			.exists()
 			.notEmpty()
-			.withMessage("classId field cannot be null"),
-		body("classId")
 			.isNumeric()
-			.withMessage("classId Field must be a numeric value"),
+			.withMessage("classId field cannot be null"),
 	],
 	(req, res, next) => {
 		validator(req, res, next);

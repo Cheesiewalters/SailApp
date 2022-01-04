@@ -29,7 +29,7 @@ const RaceManager = () => {
 			setRace(raceRes);
 			setRaceBoats(raceRes.race[0].raceboats);
 			setStartTimeInput(raceRes.race[0].starttime);
-			setEventId(raceRes.race[0].eventId);
+			setEventId(raceRes.race[0].eventid);
 			setSelectedYactClass(raceRes.race[0].classid);
 		} catch (error) {
 			console.log(error);
@@ -52,7 +52,7 @@ const RaceManager = () => {
 		event.preventDefault();
 		const errors = [];
 
-		if (selectedYachtClass === "" || startTimeInput === "") {
+		if (selectedYachtClass === "" || startTimeInput === "" || eventId === "") {
 			errors.push(
 				"The form is not valid, please ensure all values are present"
 			);
@@ -66,7 +66,7 @@ const RaceManager = () => {
 		try {
 			instance
 				.put(`http://localhost:3001/race/${parseInt(params.id)}`, {
-					eventId: eventId,
+					eventId: parseInt(eventId),
 					classId: selectedYachtClass,
 					startTime: startTimeInput,
 				})
