@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
+import moment from "moment";
 
 const BoatDataGrid = ({ raceBoats }) => {
 	const [rows, setRows] = useState([]);
@@ -12,8 +13,8 @@ const BoatDataGrid = ({ raceBoats }) => {
 				id: e.boats.id,
 				boatName: e.boats.name,
 				position: e.position,
-				startTime: e.starttime,
-				finishTIme: e.finishtime,
+				startTime: moment(e.starttime).format("MMM DD YYYY h:mm A"),
+				finishTIme: moment(e.finishtime).format("MMM DD YYYY h:mm A"),
 			});
 		});
 		setRows(rows);

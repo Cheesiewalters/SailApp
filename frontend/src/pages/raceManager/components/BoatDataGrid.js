@@ -3,6 +3,8 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
 import instance from "../../../utils/axios";
 import { Link } from "react-router-dom";
+import moment from "moment";
+
 const BoatDataGrid = ({ raceId, raceBoats, getData }) => {
 	const [rows, setRows] = useState([]);
 
@@ -13,8 +15,8 @@ const BoatDataGrid = ({ raceId, raceBoats, getData }) => {
 				id: e.id,
 				boatid: e.boats.id,
 				name: e.boats.name,
-				startTime: e.starttime,
-				finishTime: e.finishtime,
+				startTime: moment(e.starttime).format("MMM DD YYYY h:mm A"),
+				finishTime: moment(e.finishtime).format("MMM DD YYYY h:mm A"),
 				position: e.position,
 			});
 		});
@@ -25,9 +27,9 @@ const BoatDataGrid = ({ raceId, raceBoats, getData }) => {
 		{ field: "id", headerName: "ID", hide: true },
 		{ field: "boatid", headerName: "ID", hide: true },
 		{ field: "name", headerName: "Name", flex: 0.1 },
-		{ field: "position", headerName: "position", flex: 0 },
-		{ field: "startTime", headerName: "StartTime", flex: 0.2 },
-		{ field: "finishTime", headerName: "FinishTime", flex: 0.2 },
+		{ field: "position", headerName: "position", flex: 0.1 },
+		{ field: "startTime", headerName: "StartTime", flex: 0.3 },
+		{ field: "finishTime", headerName: "FinishTime", flex: 0.3 },
 		{
 			field: "modifyBoat",
 			headerName: "",
@@ -38,7 +40,15 @@ const BoatDataGrid = ({ raceId, raceBoats, getData }) => {
 						to={`/race/${raceId}/boat/${cellValues.row.boatid}/manage`}
 						className="btn btn-primary"
 					>
-						Manage Boat
+						<Button
+							variant="contained"
+							style={{
+								color: "primary",
+								backgroundColor: "blue",
+							}}
+						>
+							Update
+						</Button>
 					</Link>
 				);
 			},
@@ -46,7 +56,7 @@ const BoatDataGrid = ({ raceId, raceBoats, getData }) => {
 		{
 			field: "deleteBoat",
 			headerName: "",
-			flex: 0.2,
+			flex: 0.15,
 			renderCell: (cellValues) => {
 				return (
 					<div>

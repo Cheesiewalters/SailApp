@@ -3,6 +3,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
 import instance from "../../../utils/axios";
 import { Link } from "react-router-dom";
+import moment from "moment";
 
 const RaceDataGrid = ({ event, getData }) => {
 	const [rows, setRows] = useState([]);
@@ -15,7 +16,7 @@ const RaceDataGrid = ({ event, getData }) => {
 				console.log(r);
 				rows.push({
 					id: r.id,
-					startTime: r.starttime,
+					startTime: moment(r.starttime).format("MMM DD YYYY h:mm A"),
 					class: r.class.name,
 				});
 			});

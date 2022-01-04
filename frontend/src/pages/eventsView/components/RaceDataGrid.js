@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
+import moment from "moment";
 
 const RaceDataGrid = ({ event }) => {
 	const [rows, setRows] = useState([]);
@@ -11,7 +12,7 @@ const RaceDataGrid = ({ event }) => {
 			e.races.map((r) => {
 				rows.push({
 					id: r.id,
-					startTime: r.starttime,
+					startTime: moment(r.starttime).format("MMM DD YYYY h:mm A"),
 				});
 			});
 		});

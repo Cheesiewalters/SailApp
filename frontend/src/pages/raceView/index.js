@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import instance from "../../utils/axios";
 import BoatDataGrid from "./components/BoatDataGrid";
+import moment from "moment";
 
 const RaceView = () => {
 	const [race, setRace] = useState([]);
@@ -33,7 +34,7 @@ const RaceView = () => {
 			{race.length > 0 ? (
 				<div className="event-view-container">
 					<div>Race ID: {id}</div>
-					<div>StartTime: {startTime}</div>
+					<div>StartTime: {moment(startTime).format("MMM DD YYYY h:mm A")}</div>
 					<div className="boats-display-container">
 						{raceBoats.length > 0 ? (
 							<BoatDataGrid raceBoats={raceBoats} />

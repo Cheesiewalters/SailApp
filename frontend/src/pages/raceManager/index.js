@@ -92,7 +92,7 @@ const RaceManager = () => {
 					display: "flex",
 					flexFlow: "column",
 					justifyContent: "center",
-					width: "70%",
+					width: "97%",
 				}}
 			>
 				<div className="events-manage-input-container">

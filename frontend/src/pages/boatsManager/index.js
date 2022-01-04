@@ -3,8 +3,6 @@ import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import instance from "../../utils/axios";
 import { useParams } from "react-router";
-import Moment from "react-moment";
-import moment from "moment";
 
 const BoatsManager = () => {
 	const [startTimeInput, setStartTimeInput] = useState("");
@@ -101,7 +99,7 @@ const BoatsManager = () => {
 						<p>Start Time</p>
 						<input
 							onChange={handleChangeStartTime}
-							value={moment(startTimeInput).format()}
+							value={startTimeInput}
 						></input>
 					</div>
 					<div>

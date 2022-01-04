@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import instance from "../../utils/axios";
 import RaceDataGrid from "./components/RaceDataGrid";
+import moment from "moment";
 
 const EventsView = () => {
 	const [name, setName] = useState("");
@@ -41,8 +42,8 @@ const EventsView = () => {
 			{event.length > 0 ? (
 				<div className="event-view-container">
 					<div>Name: {name}</div>
-					<div>StartTime: {startTime}</div>
-					<div>EndTime: {endTime}</div>
+					<div>StartTime: {moment(startTime).format("MMM DD YYYY h:mm A")}</div>
+					<div>EndTime: {moment(endTime).format("MMM DD YYYY h:mm A")}</div>
 					<div>Description: {description}</div>
 					<div>Event Type: {selectedEventType}</div>
 					<div>Event Club: {selectedYachtClub}</div>
