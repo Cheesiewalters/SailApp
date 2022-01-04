@@ -4,6 +4,7 @@ import { useParams } from "react-router";
 import instance from "../../utils/axios";
 import BoatDataGrid from "./components/BoatDataGrid";
 import moment from "moment";
+import { Link } from "react-router-dom";
 
 const RaceView = () => {
 	const [race, setRace] = useState([]);
@@ -31,6 +32,11 @@ const RaceView = () => {
 
 	return (
 		<div>
+			<div style={{ marginLeft: "20px", marginTop: "20px" }}>
+				<Link to={`/race/${params.id}/manage`} className="btn btn-primary">
+					Manage race
+				</Link>
+			</div>
 			{race.length > 0 ? (
 				<div className="event-view-container">
 					<div>Race ID: {id}</div>
