@@ -8,7 +8,7 @@ import instance from "../../utils/axios";
 import PopupModal from "./components/PopupModal";
 import BoatDataGrid from "./components/BoatDataGrid";
 import { useParams } from "react-router";
-import { TextField } from "@mui/material";
+import { Paper, TextField, Typography } from "@mui/material";
 
 const RaceManager = () => {
 	const [eventId, setEventId] = useState("");
@@ -97,38 +97,49 @@ const RaceManager = () => {
 				}}
 			>
 				<div className="events-manage-input-container">
-					<div className="events-manage-text">Manage Race</div>
-					<div style={{ width: "30%" }}>
-						<p>Start Time</p>
+					<div className="events-manage-text">
+						<Typography variant="h3">Manage Race</Typography>
+					</div>
+					<Paper
+						style={{
+							width: "80%",
+							padding: "20px",
+							display: "flex",
+							flexFlow: "column",
+							alignItems: "center",
+						}}
+					>
 						<TextField
 							id="filled-basic"
 							variant="standard"
+							type="datetime-local"
+							label="Start Time"
 							onChange={handleChangeStartTime}
 							value={startTimeInput}
 							style={{ width: "100%" }}
 						/>
-					</div>
-					<div>
-						<FormControl sx={{ m: 1, minWidth: 200, marginTop: "30px" }}>
-							<InputLabel id="demo-simple-select-autowidth-label">
-								Race Class
-							</InputLabel>
-							<Select
-								labelId="demo-simple-select-autowidth-label"
-								id="demo-simple-select-autowidth"
-								value={selectedYachtClass}
-								onChange={handleChangeSelectedYachtClass}
-								label="Yacht CLass"
-							>
-								<MenuItem value="">
-									<em>None</em>
-								</MenuItem>
-								{yachtClasses.map((e, index) => {
-									return <MenuItem value={index + 1}>{e.name}</MenuItem>;
-								})}
-							</Select>
-						</FormControl>
-					</div>
+						<div>
+							<FormControl sx={{ m: 1, minWidth: 200, marginTop: "30px" }}>
+								<InputLabel id="demo-simple-select-autowidth-label">
+									Race Class
+								</InputLabel>
+								<Select
+									labelId="demo-simple-select-autowidth-label"
+									id="demo-simple-select-autowidth"
+									value={selectedYachtClass}
+									onChange={handleChangeSelectedYachtClass}
+									label="Yacht CLass"
+								>
+									<MenuItem value="">
+										<em>None</em>
+									</MenuItem>
+									{yachtClasses.map((e, index) => {
+										return <MenuItem value={index + 1}>{e.name}</MenuItem>;
+									})}
+								</Select>
+							</FormControl>
+						</div>
+					</Paper>
 				</div>
 				<PopupModal
 					open={isOpen}

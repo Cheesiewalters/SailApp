@@ -172,7 +172,7 @@ const EventsManager = () => {
 							value={description}
 							style={{ width: "100%", padding: "10px" }}
 						/>
-						<FormControl sx={{ m: 1, minWidth: 200, width: "50%" }}>
+						<FormControl sx={{ m: 1, width: "48%" }}>
 							<InputLabel
 								id="demo-simple-select-autowidth-label"
 								style={{ width: "100%", padding: "10px" }}
@@ -195,7 +195,7 @@ const EventsManager = () => {
 								})}
 							</Select>
 						</FormControl>
-						<FormControl sx={{ m: 1, minWidth: 200 }}>
+						<FormControl sx={{ m: 1, width: "48%" }}>
 							<InputLabel id="demo-simple-select-autowidth-label">
 								Yacht Club
 							</InputLabel>
