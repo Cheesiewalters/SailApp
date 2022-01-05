@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import instance from "../../utils/axios";
 import { useParams } from "react-router";
+import { TextField } from "@mui/material";
 
 const BoatsManager = () => {
 	const [startTimeInput, setStartTimeInput] = useState("");
@@ -95,23 +96,35 @@ const BoatsManager = () => {
 			>
 				<div className="events-manage-input-container">
 					<div className="events-manage-text">Manage Boat</div>
-					<div>
+					<div style={{ width: "50%" }}>
 						<p>Start Time</p>
-						<input
+						<TextField
+							id="filled-basic"
+							variant="standard"
 							onChange={handleChangeStartTime}
 							value={startTimeInput}
-						></input>
+							style={{ width: "100%" }}
+						/>
 					</div>
-					<div>
+					<div style={{ width: "50%" }}>
 						<p>Finish Time</p>
-						<input
+						<TextField
+							id="filled-basic"
+							variant="standard"
 							onChange={handleChangeFinishTime}
 							value={finishTimeInput}
-						></input>
+							style={{ width: "100%" }}
+						/>
 					</div>
-					<div>
+					<div style={{ width: "50%" }}>
 						<p>Position</p>
-						<input onChange={handleChangePosition} value={position}></input>
+						<TextField
+							id="filled-basic"
+							variant="standard"
+							onChange={handleChangePosition}
+							value={position}
+							style={{ width: "100%" }}
+						/>
 					</div>
 				</div>
 

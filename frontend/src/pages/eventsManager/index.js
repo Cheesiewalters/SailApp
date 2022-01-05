@@ -8,6 +8,7 @@ import instance from "../../utils/axios";
 import RaceDataGrid from "./components/RaceDataGrid";
 import PopupModal from "./components/PopupModal";
 import { useParams } from "react-router";
+import { TextField } from "@mui/material";
 
 const EventsManager = () => {
 	const [nameInput, setNameInput] = useState("");
@@ -131,32 +132,54 @@ const EventsManager = () => {
 			>
 				<div className="events-manage-input-container">
 					<div className="events-manage-text">Manage Event</div>
-					<div>
+					<div style={{ width: "50%" }}>
 						<p>Event Name</p>
-						<input onChange={handleChangeName} value={nameInput}></input>
+						<TextField
+							id="filled-basic"
+							variant="standard"
+							onChange={handleChangeName}
+							value={nameInput}
+							style={{ width: "100%" }}
+						/>
 					</div>
-					<div>
+					<div style={{ width: "50%" }}>
 						<p>Start Time</p>
-						<input
+						<TextField
+							id="filled-basic"
+							variant="standard"
 							onChange={handleChangeStartTime}
 							value={startTimeInput}
-						></input>
+							style={{ width: "100%" }}
+						/>
 					</div>
-					<div>
+					<div style={{ width: "50%" }}>
 						<p>End Time</p>
-						<input onChange={handleChangeEndTime} value={endTimeInput}></input>
+						<TextField
+							id="filled-basic"
+							variant="standard"
+							onChange={handleChangeEndTime}
+							value={endTimeInput}
+							style={{ width: "100%" }}
+						/>
 					</div>
-					<div>
+					<div style={{ width: "50%" }}>
 						<p>Description</p>
-						<input
+						<TextField
+							id="filled-basic"
 							onChange={handleChangeDescription}
+							multiline
+							rows={4}
 							value={description}
-						></input>
+							style={{ width: "100%" }}
+						/>
 					</div>
 
 					<div>
-						<FormControl sx={{ m: 1, minWidth: 200 }}>
-							<InputLabel id="demo-simple-select-autowidth-label">
+						<FormControl sx={{ m: 1, minWidth: 200, width: "50%" }}>
+							<InputLabel
+								id="demo-simple-select-autowidth-label"
+								style={{ width: "100%" }}
+							>
 								EventType
 							</InputLabel>
 							<Select
@@ -165,6 +188,7 @@ const EventsManager = () => {
 								value={selectedEventType}
 								onChange={handleChangeEventType}
 								label="Event Type"
+								style={{ width: "100%" }}
 							>
 								<MenuItem value="">
 									<em>None</em>

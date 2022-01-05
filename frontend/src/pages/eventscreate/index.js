@@ -6,6 +6,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import instance from "../../utils/axios";
+import { TextField } from "@mui/material";
 
 const CreateEvents = () => {
 	const [nameInput, setNameInput] = useState("");
@@ -88,6 +89,7 @@ const CreateEvents = () => {
 				.then(
 					(response) => {
 						console.log(response);
+						alert("Event successfully created");
 					},
 					(error) => {
 						console.log(error);
@@ -106,31 +108,47 @@ const CreateEvents = () => {
 					display: "flex",
 					flexFlow: "column",
 					justifyContent: "center",
+					width: "70%",
 				}}
 			>
 				<div className="events-create-input-container">
 					<div className="events-create-text">Create Event</div>
 					<div>
 						<p>Event Name</p>
-						<input onChange={handleChangeName} value={nameInput}></input>
+						<TextField
+							id="filled-basic"
+							variant="standard"
+							onChange={handleChangeName}
+							value={nameInput}
+						/>
 					</div>
 					<div>
 						<p>Start Time</p>
-						<input
+						<TextField
+							id="filled-basic"
+							variant="standard"
 							onChange={handleChangeStartTime}
 							value={startTimeInput}
-						></input>
+						/>
 					</div>
 					<div>
 						<p>End Time</p>
-						<input onChange={handleChangeEndTime} value={endTimeInput}></input>
+						<TextField
+							id="filled-basic"
+							variant="standard"
+							onChange={handleChangeEndTime}
+							value={endTimeInput}
+						/>
 					</div>
 					<div>
 						<p>Description</p>
-						<input
+						<TextField
+							id="filled-basic"
 							onChange={handleChangeDescription}
+							multiline
+							rows={4}
 							value={description}
-						></input>
+						/>
 					</div>
 
 					<div>

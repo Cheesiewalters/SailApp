@@ -10,6 +10,7 @@ import {
 	RaceView,
 	RaceManager,
 	BoatManager,
+	EventsSearch,
 } from "./pages";
 import { Navigation } from "./constants";
 import { Navbar } from "./components";
@@ -68,6 +69,11 @@ function App() {
 					path={Navigation.BOATMANAGER}
 					caseSensitive={false}
 					element={<BoatManager />}
+				></Route>
+				<Route
+					path={Navigation.EVENTSEARCH}
+					caseSensitive={false}
+					element={<EventsSearch />}
 				></Route>
 			</Routes>
 		</div>

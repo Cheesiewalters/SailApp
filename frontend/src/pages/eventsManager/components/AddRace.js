@@ -4,7 +4,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { Button } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 
 const AddRace = ({ eventId, onClose }) => {
 	const [yachtClasses, setYachtClasses] = useState([]);
@@ -64,9 +64,16 @@ const AddRace = ({ eventId, onClose }) => {
 			<form onSubmit={handleSubmit}>
 				<div className="boat-title-text">Add Race to this event</div>
 				<div className="boat-input-container">
-					<div>
+					<div style={{ width: "100%" }}>
 						<p>Start Time</p>
-						<input onChange={handleChangeStartTime} value={startTime}></input>
+
+						<TextField
+							id="filled-basic"
+							variant="standard"
+							onChange={handleChangeStartTime}
+							value={startTime}
+							style={{ width: "100%" }}
+						/>
 					</div>
 					<div>
 						<FormControl sx={{ m: 1, minWidth: 200 }}>

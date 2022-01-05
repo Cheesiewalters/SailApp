@@ -15,7 +15,7 @@ const Events = () => {
 				</div>
 				<div className="button-register-eventhome">
 					<Button variant="outlined">
-						<Link to="/event/home">Search all events</Link>
+						<Link to="/event/search">Search all events</Link>
 					</Button>
 				</div>
 			</div>

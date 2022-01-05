@@ -26,14 +26,14 @@ const BoatDataGrid = ({ raceId, raceBoats, getData }) => {
 	const columns = [
 		{ field: "id", headerName: "ID", hide: true },
 		{ field: "boatid", headerName: "ID", hide: true },
-		{ field: "name", headerName: "Name", flex: 0.1 },
-		{ field: "position", headerName: "position", flex: 0.1 },
-		{ field: "startTime", headerName: "StartTime", flex: 0.3 },
-		{ field: "finishTime", headerName: "FinishTime", flex: 0.3 },
+		{ field: "name", headerName: "Name", flex: 0.04 },
+		{ field: "position", headerName: "position", flex: 0.05 },
+		{ field: "startTime", headerName: "StartTime", flex: 0.15 },
+		{ field: "finishTime", headerName: "FinishTime", flex: 0.15 },
 		{
 			field: "modifyBoat",
 			headerName: "",
-			flex: 0.1,
+			flex: 0.2,
 			renderCell: (cellValues) => {
 				return (
 					<Link
@@ -47,7 +47,7 @@ const BoatDataGrid = ({ raceId, raceBoats, getData }) => {
 								backgroundColor: "blue",
 							}}
 						>
-							Update
+							Update boat details
 						</Button>
 					</Link>
 				);

@@ -8,6 +8,7 @@ import instance from "../../utils/axios";
 import PopupModal from "./components/PopupModal";
 import BoatDataGrid from "./components/BoatDataGrid";
 import { useParams } from "react-router";
+import { TextField } from "@mui/material";
 
 const RaceManager = () => {
 	const [eventId, setEventId] = useState("");
@@ -97,15 +98,18 @@ const RaceManager = () => {
 			>
 				<div className="events-manage-input-container">
 					<div className="events-manage-text">Manage Race</div>
-					<div>
+					<div style={{ width: "30%" }}>
 						<p>Start Time</p>
-						<input
+						<TextField
+							id="filled-basic"
+							variant="standard"
 							onChange={handleChangeStartTime}
 							value={startTimeInput}
-						></input>
+							style={{ width: "100%" }}
+						/>
 					</div>
 					<div>
-						<FormControl sx={{ m: 1, minWidth: 200 }}>
+						<FormControl sx={{ m: 1, minWidth: 200, marginTop: "30px" }}>
 							<InputLabel id="demo-simple-select-autowidth-label">
 								Race Class
 							</InputLabel>

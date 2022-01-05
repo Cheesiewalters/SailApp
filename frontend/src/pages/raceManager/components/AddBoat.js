@@ -4,8 +4,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { Button } from "@mui/material";
-
+import { Button, TextField } from "@mui/material";
 const AddBoat = ({ raceId, onClose }) => {
 	const [boats, setBoats] = useState([]);
 	const [startTime, setStartTime] = useState("");
@@ -102,17 +101,35 @@ const AddBoat = ({ raceId, onClose }) => {
 						</FormControl>
 					</div>
 
-					<div>
+					<div style={{ width: "100%" }}>
 						<p>Start Time</p>
-						<input onChange={handleChangeStartTime} value={startTime}></input>
+						<TextField
+							id="filled-basic"
+							variant="standard"
+							onChange={handleChangeStartTime}
+							value={startTime}
+							style={{ width: "100%" }}
+						/>
 					</div>
-					<div>
+					<div style={{ width: "100%" }}>
 						<p>Finish Time</p>
-						<input onChange={handleChangeFinshTime} value={finishTime}></input>
+						<TextField
+							id="filled-basic"
+							variant="standard"
+							onChange={handleChangeFinshTime}
+							value={finishTime}
+							style={{ width: "100%" }}
+						/>
 					</div>
-					<div>
+					<div style={{ width: "100%" }}>
 						<p>Position</p>
-						<input onChange={handleChangePosition} value={position}></input>
+						<TextField
+							id="filled-basic"
+							variant="standard"
+							onChange={handleChangePosition}
+							value={position}
+							style={{ width: "100%" }}
+						/>
 					</div>
 
 					<Button
