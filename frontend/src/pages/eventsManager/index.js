@@ -8,7 +8,7 @@ import instance from "../../utils/axios";
 import RaceDataGrid from "./components/RaceDataGrid";
 import PopupModal from "./components/PopupModal";
 import { useParams } from "react-router";
-import { TextField } from "@mui/material";
+import { Paper, TextField, Typography } from "@mui/material";
 
 const EventsManager = () => {
 	const [nameInput, setNameInput] = useState("");
@@ -131,56 +131,53 @@ const EventsManager = () => {
 				}}
 			>
 				<div className="events-manage-input-container">
-					<div className="events-manage-text">Manage Event</div>
-					<div style={{ width: "50%" }}>
-						<p>Event Name</p>
+					<div className="events-manage-text">
+						<Typography variant="h3">Manage Event</Typography>
+					</div>
+					<Paper style={{ width: "80%", padding: "20px" }}>
 						<TextField
 							id="filled-basic"
-							variant="standard"
+							variant="outlined"
+							label="Event Name"
 							onChange={handleChangeName}
 							value={nameInput}
-							style={{ width: "100%" }}
+							style={{ width: "100%", padding: "10px" }}
 						/>
-					</div>
-					<div style={{ width: "50%" }}>
-						<p>Start Time</p>
 						<TextField
 							id="filled-basic"
-							variant="standard"
+							variant="outlined"
+							type="datetime-local"
 							onChange={handleChangeStartTime}
+							label="Start Time"
 							value={startTimeInput}
-							style={{ width: "100%" }}
+							style={{ width: "100%", padding: "10px" }}
 						/>
-					</div>
-					<div style={{ width: "50%" }}>
-						<p>End Time</p>
+
 						<TextField
 							id="filled-basic"
-							variant="standard"
+							variant="outlined"
 							onChange={handleChangeEndTime}
+							type="datetime-local"
+							label="End Time"
 							value={endTimeInput}
-							style={{ width: "100%" }}
+							style={{ width: "100%", padding: "10px" }}
 						/>
-					</div>
-					<div style={{ width: "50%" }}>
-						<p>Description</p>
+
 						<TextField
 							id="filled-basic"
+							label="Description"
 							onChange={handleChangeDescription}
 							multiline
 							rows={4}
 							value={description}
-							style={{ width: "100%" }}
+							style={{ width: "100%", padding: "10px" }}
 						/>
-					</div>
-
-					<div>
 						<FormControl sx={{ m: 1, minWidth: 200, width: "50%" }}>
 							<InputLabel
 								id="demo-simple-select-autowidth-label"
-								style={{ width: "100%" }}
+								style={{ width: "100%", padding: "10px" }}
 							>
-								EventType
+								Event Type
 							</InputLabel>
 							<Select
 								labelId="demo-simple-select-autowidth-label"
@@ -198,8 +195,6 @@ const EventsManager = () => {
 								})}
 							</Select>
 						</FormControl>
-					</div>
-					<div>
 						<FormControl sx={{ m: 1, minWidth: 200 }}>
 							<InputLabel id="demo-simple-select-autowidth-label">
 								Yacht Club
@@ -209,7 +204,7 @@ const EventsManager = () => {
 								id="demo-simple-select-autowidth"
 								value={selectedYachtClub}
 								onChange={handleChangeSelectedYC}
-								label="Class"
+								label="Yacht Club"
 							>
 								<MenuItem value="">
 									<em>None</em>
@@ -219,7 +214,7 @@ const EventsManager = () => {
 								})}
 							</Select>
 						</FormControl>
-					</div>
+					</Paper>
 				</div>
 				<PopupModal
 					open={isOpen}
