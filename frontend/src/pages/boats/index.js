@@ -4,7 +4,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { Button, TextField } from "@mui/material";
+import { Button, Paper, TextField, Typography } from "@mui/material";
 import instance from "../../utils/axios";
 
 const RegisterBoat = () => {
@@ -83,26 +83,36 @@ const RegisterBoat = () => {
 	return (
 		<div className="register-boat-container">
 			<form onSubmit={handleSubmit}>
-				<div className="boat-title-text">Register boat</div>
+				<div className="boat-title-text">
+					<Typography variant="h3">Register Boat</Typography>
+				</div>
 				<div className="boat-input-container">
-					<div>
-						<p>Boat Name</p>
+					<Paper
+						style={{
+							width: "100%",
+							padding: "20px",
+							display: "flex",
+							flexFlow: "column",
+							alignItems: "center",
+						}}
+					>
 						<TextField
 							id="filled-basic"
 							variant="standard"
+							label="name"
 							onChange={handleChangeName}
 							value={nameInput}
+							style={{ width: "100%", padding: "10px" }}
 						/>
-					</div>
-					<div>
-						<p>Sail No</p>
 						<TextField
 							id="filled-basic"
 							variant="standard"
+							label="Sail NO"
 							onChange={handleChangeSailNo}
 							value={sailNo}
+							style={{ width: "100%", padding: "10px" }}
 						/>
-					</div>
+					</Paper>
 
 					<div>
 						<FormControl sx={{ m: 1, minWidth: 200 }}>

@@ -7,6 +7,7 @@ import Select from "@mui/material/Select";
 import instance from "../../utils/axios";
 import RaceDataGrid from "./components/RaceDataGrid";
 import PopupModal from "./components/PopupModal";
+import dayjs from "dayjs";
 import { useParams } from "react-router";
 import { Paper, TextField, Typography } from "@mui/material";
 
@@ -36,8 +37,8 @@ const EventsManager = () => {
 			console.log(eventRes);
 			setRaces(eventRes[0].races);
 			setNameInput(eventRes[0].name);
-			setStartTimeInput(eventRes[0].starttime);
-			setEndTime(eventRes[0].enddate);
+			setStartTimeInput(eventRes[0].starttime.substring(0, 16));
+			setEndTime(eventRes[0].enddate.substring(0, 16));
 			setDescription(eventRes[0].description);
 			setSelectedEventType(eventRes[0].eventtypeid);
 			setSelectedYC(eventRes[0].clubid);
@@ -103,8 +104,8 @@ const EventsManager = () => {
 					name: nameInput,
 					description: description,
 					clubId: selectedYachtClub,
-					startTime: startTimeInput,
-					endDate: endTimeInput,
+					startTime: dayjs(startTimeInput).toISOString(),
+					endDate: dayjs(endTimeInput).toISOString(),
 				})
 				.then(
 					(response) => {

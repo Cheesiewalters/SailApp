@@ -21,7 +21,7 @@ const BoatDataGrid = ({ raceBoats }) => {
 	}, []);
 
 	const columns = [
-		{ field: "id", headerName: "Boat ID", width: 70 },
+		{ field: "id", headerName: "Boat ID", width: 70, hide: true },
 		{ field: "boatName", headerName: "Boat Name", flex: 0.25 },
 		{ field: "position", headerName: "Finish Position", flex: 0.25 },
 		{ field: "startTime", headerName: "Start Time", flex: 0.25 },

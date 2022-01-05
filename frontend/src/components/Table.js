@@ -31,7 +31,7 @@ const Table = () => {
 	};
 
 	const columns = [
-		{ field: "id", headerName: "ID", width: 70 },
+		{ field: "id", headerName: "ID", width: 70, hide: true },
 		{ field: "eventName", headerName: "EventName", flex: 0.5 },
 		{ field: "eventClub", headerName: "EventHostClub", flex: 0.5 },
 		{

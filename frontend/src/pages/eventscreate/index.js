@@ -6,7 +6,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import instance from "../../utils/axios";
-import { TextField } from "@mui/material";
+import { Paper, TextField, Typography } from "@mui/material";
 
 const CreateEvents = () => {
 	const [nameInput, setNameInput] = useState("");
@@ -108,39 +108,48 @@ const CreateEvents = () => {
 					display: "flex",
 					flexFlow: "column",
 					justifyContent: "center",
-					width: "70%",
+					width: "90%",
 				}}
 			>
 				<div className="events-create-input-container">
-					<div className="events-create-text">Create Event</div>
-					<div>
+					<div className="events-create-text">
+						<Typography variant="h3">Create Event</Typography>
+					</div>
+					<Paper
+						style={{
+							width: "80%",
+							padding: "20px",
+							display: "flex",
+							flexFlow: "column",
+							alignItems: "center",
+						}}
+					>
 						<p>Event Name</p>
 						<TextField
 							id="filled-basic"
 							variant="standard"
 							onChange={handleChangeName}
 							value={nameInput}
+							style={{ width: "100%" }}
 						/>
-					</div>
-					<div>
 						<p>Start Time</p>
 						<TextField
 							id="filled-basic"
 							variant="standard"
+							type="datetime-local"
 							onChange={handleChangeStartTime}
 							value={startTimeInput}
+							style={{ width: "100%" }}
 						/>
-					</div>
-					<div>
 						<p>End Time</p>
 						<TextField
 							id="filled-basic"
 							variant="standard"
+							type="datetime-local"
 							onChange={handleChangeEndTime}
 							value={endTimeInput}
+							style={{ width: "100%" }}
 						/>
-					</div>
-					<div>
 						<p>Description</p>
 						<TextField
 							id="filled-basic"
@@ -148,11 +157,10 @@ const CreateEvents = () => {
 							multiline
 							rows={4}
 							value={description}
+							style={{ width: "100%" }}
 						/>
-					</div>
 
-					<div>
-						<FormControl sx={{ m: 1, minWidth: 200 }}>
+						<FormControl sx={{ m: 1, minWidth: 200, width: "48%" }}>
 							<InputLabel id="demo-simple-select-autowidth-label">
 								EventType
 							</InputLabel>
@@ -171,9 +179,7 @@ const CreateEvents = () => {
 								})}
 							</Select>
 						</FormControl>
-					</div>
-					<div>
-						<FormControl sx={{ m: 1, minWidth: 200 }}>
+						<FormControl sx={{ m: 1, minWidth: 200, width: "48%" }}>
 							<InputLabel id="demo-simple-select-autowidth-label">
 								Yacht Club
 							</InputLabel>
@@ -192,7 +198,7 @@ const CreateEvents = () => {
 								})}
 							</Select>
 						</FormControl>
-					</div>
+					</Paper>
 				</div>
 				<Button
 					type="submit"

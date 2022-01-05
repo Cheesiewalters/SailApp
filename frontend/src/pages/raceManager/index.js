@@ -9,7 +9,7 @@ import PopupModal from "./components/PopupModal";
 import BoatDataGrid from "./components/BoatDataGrid";
 import { useParams } from "react-router";
 import { Paper, TextField, Typography } from "@mui/material";
-
+import dayjs from "dayjs";
 const RaceManager = () => {
 	const [eventId, setEventId] = useState("");
 	const [startTimeInput, setStartTimeInput] = useState("");
@@ -29,7 +29,7 @@ const RaceManager = () => {
 			console.log(raceRes);
 			setRace(raceRes);
 			setRaceBoats(raceRes.race[0].raceboats);
-			setStartTimeInput(raceRes.race[0].starttime);
+			setStartTimeInput(raceRes.race[0].starttime.substring(0, 16));
 			setEventId(raceRes.race[0].eventid);
 			setSelectedYactClass(raceRes.race[0].classid);
 		} catch (error) {
@@ -69,7 +69,7 @@ const RaceManager = () => {
 				.put(`http://localhost:3001/race/${parseInt(params.id)}`, {
 					eventId: parseInt(eventId),
 					classId: selectedYachtClass,
-					startTime: startTimeInput,
+					startTime: dayjs(startTimeInput).toISOString(),
 				})
 				.then(
 					(response) => {

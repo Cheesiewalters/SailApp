@@ -20,7 +20,7 @@ const RaceDataGrid = ({ event }) => {
 	}, [event]);
 
 	const columns = [
-		{ field: "id", headerName: "ID", width: 70 },
+		{ field: "id", headerName: "ID", width: 70, hide: true },
 		{ field: "startTime", headerName: "startTime", flex: 0.8 },
 		{
 			field: "modifyEvent",

@@ -3,7 +3,8 @@ import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import instance from "../../utils/axios";
 import { useParams } from "react-router";
-import { TextField } from "@mui/material";
+import { Paper, TextField, Typography } from "@mui/material";
+import dayjs from "dayjs";
 
 const BoatsManager = () => {
 	const [startTimeInput, setStartTimeInput] = useState("");
@@ -17,8 +18,8 @@ const BoatsManager = () => {
 				await instance.get(`/race/${params.id}/boat/${params.id2}`)
 			).data;
 			console.log(boatRes[0]);
-			setFinishTimeInput(boatRes[0].finishtime);
-			setStartTimeInput(boatRes[0].starttime);
+			setFinishTimeInput(boatRes[0].finishtime.substring(0, 16));
+			setStartTimeInput(boatRes[0].starttime.substring(0, 16));
 			setPosition(boatRes[0].position);
 		} catch (error) {
 			console.log(error);
@@ -60,8 +61,8 @@ const BoatsManager = () => {
 			instance
 				.put(`http://localhost:3001/race/${parseInt(params.id)}/boat`, {
 					boatId: parseInt(params.id2),
-					startTime: startTimeInput,
-					finishTime: finishTimeInput,
+					startTime: dayjs(startTimeInput).toISOString(),
+					finishTime: dayjs(finishTimeInput).toISOString(),
 					position: parseInt(position),
 				})
 				.then(
@@ -95,37 +96,50 @@ const BoatsManager = () => {
 				}}
 			>
 				<div className="events-manage-input-container">
-					<div className="events-manage-text">Manage Boat</div>
-					<div style={{ width: "50%" }}>
-						<p>Start Time</p>
-						<TextField
-							id="filled-basic"
-							variant="standard"
-							onChange={handleChangeStartTime}
-							value={startTimeInput}
-							style={{ width: "100%" }}
-						/>
+					<div className="events-manage-text">
+						<Typography variant="h3">Manage Boat</Typography>
 					</div>
-					<div style={{ width: "50%" }}>
-						<p>Finish Time</p>
-						<TextField
-							id="filled-basic"
-							variant="standard"
-							onChange={handleChangeFinishTime}
-							value={finishTimeInput}
-							style={{ width: "100%" }}
-						/>
-					</div>
-					<div style={{ width: "50%" }}>
-						<p>Position</p>
-						<TextField
-							id="filled-basic"
-							variant="standard"
-							onChange={handleChangePosition}
-							value={position}
-							style={{ width: "100%" }}
-						/>
-					</div>
+					<Paper
+						style={{
+							width: "80%",
+							padding: "20px",
+							display: "flex",
+							flexFlow: "column",
+							alignItems: "center",
+						}}
+					>
+						<div style={{ width: "80%", padding: "20px" }}>
+							<TextField
+								id="filled-basic"
+								variant="standard"
+								type="datetime-local"
+								label="Start Time"
+								onChange={handleChangeStartTime}
+								value={startTimeInput}
+								style={{ width: "100%" }}
+							/>
+						</div>
+						<div style={{ width: "80%", padding: "20px" }}>
+							<TextField
+								id="filled-basic"
+								variant="standard"
+								type="datetime-local"
+								label="Finish Time"
+								onChange={handleChangeFinishTime}
+								value={finishTimeInput}
+								style={{ width: "100%" }}
+							/>
+						</div>
+						<div style={{ width: "80%", padding: "20px" }}>
+							<TextField
+								id="filled-basic"
+								variant="standard"
+								onChange={handleChangePosition}
+								value={position}
+								style={{ width: "100%" }}
+							/>
+						</div>
+					</Paper>
 				</div>
 
 				<Button
