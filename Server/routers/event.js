@@ -7,12 +7,18 @@ const {
 	postEvent,
 	updateEvent,
 	deleteEvent,
+	searchEvent,
 } = require("../controllers/event");
 const { validator } = require("../middleware/expressValidator");
 const { body, param } = require("express-validator");
 
 router.route("/types").get(getEventTypes);
 router.route("/").get(getAllEvents);
+
+router.route("/search/").get((req, res, next) => {
+	validator(req, res, next);
+}, searchEvent);
+
 router.route("/").post(
 	[
 		body("eventTypeId")

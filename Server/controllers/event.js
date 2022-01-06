@@ -7,6 +7,7 @@ const {
 	postEventService,
 	updateEventService,
 	deleteEventService,
+	searchEventService,
 } = require("../services/event");
 const okStatus = 200;
 const serverErrorStatus = 500;
@@ -71,6 +72,16 @@ const deleteEvent = async (req, res) => {
 	}
 };
 
+const searchEvent = async (req, res) => {
+	try {
+		const events = await searchEventService(req.query.q);
+		res.status(okStatus).json(events);
+	} catch (error) {
+		console.log(error);
+		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
+	}
+};
+
 module.exports = {
 	getEventTypes,
 	getAllEvents,
@@ -78,4 +89,5 @@ module.exports = {
 	postEvent,
 	updateEvent,
 	deleteEvent,
+	searchEvent,
 };

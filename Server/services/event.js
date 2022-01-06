@@ -10,6 +10,17 @@ const getAllEventsService = async () => {
 	return await prisma.events.findMany();
 };
 
+const searchEventService = async (query) => {
+	const events = await prisma.events.findMany({
+		where: {
+			name: {
+				contains: query,
+			},
+		},
+	});
+	return events;
+};
+
 const getEventByIDService = async (id) => {
 	const events = await prisma.events.findMany({
 		where: {
@@ -134,3 +145,4 @@ exports.postEventService = postEventService;
 exports.getAllEventTypes = getAllEventTypes;
 exports.getAllEventsService = getAllEventsService;
 exports.getEventByIDService = getEventByIDService;
+exports.searchEventService = searchEventService;
