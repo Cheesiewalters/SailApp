@@ -171,3 +171,13 @@ Race View page css
   margin-top: 25%;
 }
 
+/*
+Events Search page css
+*/
+.input-container-search {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+
