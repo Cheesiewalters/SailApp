@@ -82,4 +82,4 @@ CREATE TABLE IF NOT EXISTS public.RaceBoats(
     startTime   TIMESTAMP,
     finishTime  TIMESTAMP,
     position integer
-);   
+);
