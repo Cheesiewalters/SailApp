@@ -7,10 +7,10 @@ const Table = () => {
 	const [rows, setRows] = useState([]);
 
 	useEffect(() => {
-		getData();
+		getDataFunction();
 	}, []);
 
-	const getData = async () => {
+	const getDataFunction = async () => {
 		const eventsRes = (await instance.get("/event")).data;
 		getRows(eventsRes);
 	};
@@ -47,8 +47,6 @@ const Table = () => {
 			},
 		},
 	];
-
-	const handleClick = () => {};
 
 	return (
 		<div style={{ height: 400, width: "100%" }}>
