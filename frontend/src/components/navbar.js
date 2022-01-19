@@ -23,7 +23,7 @@ export default function Navbar() {
 				<Toolbar>
 					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
 						<div>
-							<NavLink to="/login">Login</NavLink>
+							<NavLink to="/login">Login as a user</NavLink>
 						</div>
 					</Typography>
 				</Toolbar>
