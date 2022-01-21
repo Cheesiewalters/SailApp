@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS public.User(
                 primary key,
     email   VARCHAR(255),
     password   VARCHAR(255),
-    roleId       integer REFERENCES public.Role (id),
+    roleId       integer REFERENCES public.Role (id)
 );
 
 CREATE TABLE IF NOT EXISTS public.Events(
