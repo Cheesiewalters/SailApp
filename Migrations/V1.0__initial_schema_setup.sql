@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS public.Boats(
     name        VARCHAR(255),
     sailNo      VARCHAR(255),
     classId     integer REFERENCES public.Class (id),
-    clubId      integer REFERENCES public.Clubs (id),
+    clubId      integer REFERENCES public.Clubs (id)
 );
 
 CREATE TABLE IF NOT EXISTS public.Races(
