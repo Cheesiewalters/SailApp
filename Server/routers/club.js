@@ -6,7 +6,6 @@ const {
 	deleteClub,
 	updateClub,
 	getClubByID,
-	postClubMember,
 } = require("../controllers/club");
 const { validator } = require("../middleware/expressValidator");
 const { body, param } = require("express-validator");
@@ -24,26 +23,6 @@ router.route("/").post(
 		validator(req, res, next);
 	},
 	postClub
-);
-
-router.route("/:id/member").post(
-	[
-		param("id").isNumeric().withMessage("The id must be a numeric value"),
-		body("clubId")
-			.exists()
-			.notEmpty()
-			.isNumeric()
-			.withMessage("This request requires a valid clubId field"),
-		body("memberId")
-			.exists()
-			.notEmpty()
-			.isNumeric()
-			.withMessage("This request requires a valid memberId field"),
-	],
-	(req, res, next) => {
-		validator(req, res, next);
-	},
-	postClubMember
 );
 
 router.route("/:id").delete(

@@ -6,7 +6,6 @@ const {
 	postClubService,
 	updateClubService,
 	deleteClubService,
-	postClubMemberService,
 } = require("../services/club");
 const okStatus = 200;
 const serverErrorStatus = 500;
@@ -25,6 +24,7 @@ const getClubByID = async (req, res) => {
 		const club = await getClubByIdService(req.params.id);
 		res.status(okStatus).json(club);
 	} catch (error) {
+		console.log(error);
 		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
 	}
 };
@@ -34,18 +34,6 @@ const postClub = async (req, res) => {
 		const newClub = await postClubService(req);
 		res.status(okStatus).json({
 			newClub,
-		});
-	} catch (error) {
-		console.log(error);
-		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
-	}
-};
-
-const postClubMember = async (req, res) => {
-	try {
-		const newClubMember = await postClubMemberService(req);
-		res.status(okStatus).json({
-			newClubMember,
 		});
 	} catch (error) {
 		console.log(error);
@@ -81,7 +69,6 @@ module.exports = {
 	getAllClubs,
 	getClubByID,
 	postClub,
-	postClubMember,
 	updateClub,
 	deleteClub,
 };

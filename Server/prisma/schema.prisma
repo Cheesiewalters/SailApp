@@ -13,10 +13,8 @@ model boats {
   sailno    String?       @db.VarChar(255)
   classid   Int?
   clubid    Int?
-  teamid    Int?
   class     Renamedclass? @relation("boatsToclass", fields: [classid], references: [id], onDelete: NoAction, onUpdate: NoAction)
   clubs     clubs?        @relation(fields: [clubid], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  teams     teams?        @relation(fields: [teamid], references: [id], onDelete: NoAction, onUpdate: NoAction)
   raceboats raceboats[]
 }
 
@@ -30,20 +28,11 @@ model Renamedclass {
   @@map("class")
 }
 
-model club_member {
-  id       Int      @id @default(autoincrement())
-  clubid   Int?
-  memberid Int?
-  clubs    clubs?   @relation(fields: [clubid], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  members  members? @relation(fields: [memberid], references: [id], onDelete: NoAction, onUpdate: NoAction)
-}
-
 model clubs {
-  id          Int           @id @default(autoincrement())
-  name        String?       @db.VarChar(2550)
-  boats       boats[]
-  club_member club_member[]
-  events      events[]
+  id     Int      @id @default(autoincrement())
+  name   String?  @db.VarChar(255)
+  boats  boats[]
+  events events[]
 }
 
 model events {
@@ -80,16 +69,6 @@ model flyway_schema_history {
   @@index([success], map: "flyway_schema_history_s_idx")
 }
 
-model members {
-  id          Int           @id @default(autoincrement())
-  firstname   String?       @db.VarChar(255)
-  lastname    String?       @db.VarChar(255)
-  email       String?       @db.VarChar(255)
-  password    String?       @db.VarChar(255)
-  club_member club_member[]
-  teammembers teammembers[]
-}
-
 model raceboats {
   id         Int       @id @default(autoincrement())
   raceid     Int?
@@ -111,17 +90,16 @@ model races {
   raceboats raceboats[]
 }
 
-model teammembers {
-  id       Int      @id @default(autoincrement())
-  memberid Int?
-  teamid   Int?
-  members  members? @relation(fields: [memberid], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  teams    teams?   @relation(fields: [teamid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+model role {
+  id   Int     @id @default(autoincrement())
+  name String? @db.VarChar(255)
+  user user[]
 }
 
-model teams {
-  id          Int           @id @default(autoincrement())
-  name        String?       @db.VarChar(255)
-  boats       boats[]
-  teammembers teammembers[]
+model user {
+  id       Int     @id @default(autoincrement())
+  email    String? @unique @db.VarChar(255)
+  password String? @db.VarChar(255)
+  roleid   Int?
+  role     role?   @relation(fields: [roleid], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

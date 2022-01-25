@@ -5,6 +5,7 @@ const routers = {
 	teamRouter: require("./team"),
 	memberRouter: require("./member"),
 	clubRouter: require("./club"),
+	authRouter: require("./auth"),
 };
 
 module.exports = routers;

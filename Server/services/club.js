@@ -10,20 +10,6 @@ const getClubByIdService = async (id) => {
 		where: {
 			id: parseInt(id),
 		},
-		include: {
-			club_member: {
-				select: {
-					members: {
-						select: {
-							id: true,
-							firstname: true,
-							lastname: true,
-							email: true,
-						},
-					},
-				},
-			},
-		},
 	});
 };
 
@@ -35,17 +21,6 @@ const postClubService = async (req) => {
 		},
 	});
 	return newClub;
-};
-
-const postClubMemberService = async (req) => {
-	const { clubId, memberId } = req.body;
-	const newClubMember = await prisma.club_member.create({
-		data: {
-			clubid: clubId,
-			memberid: memberId,
-		},
-	});
-	return newClubMember;
 };
 
 const updateClubService = async (req) => {
@@ -84,4 +59,3 @@ exports.updateClubService = updateClubService;
 exports.postClubService = postClubService;
 exports.getAllClubService = getAllClubService;
 exports.getClubByIdService = getClubByIdService;
-exports.postClubMemberService = postClubMemberService;

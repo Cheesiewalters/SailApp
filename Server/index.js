@@ -12,9 +12,9 @@ const {
 	teamRouter,
 	memberRouter,
 	clubRouter,
+	authRouter,
 } = require("./routers");
 const bodyParser = require("body-parser");
-
 const app = express();
 
 app.use(cors());
@@ -26,6 +26,7 @@ app.use("/race", raceRouter);
 app.use("/team", teamRouter);
 app.use("/member", memberRouter);
 app.use("/club", clubRouter);
+app.use("/auth", authRouter);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
