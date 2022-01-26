@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const router = Router();
-const { register, login, allf } = require("../controllers/auth");
+const { register, login, all, refreshToken } = require("../controllers/auth");
 const auth = require("../middleware/auth");
 const { validator } = require("../middleware/expressValidator");
 const { body, param } = require("express-validator");
@@ -45,6 +45,26 @@ router.route("/login").post(
 	login
 );
 
+// // refresh token
+// router.post("/token", refreshToken);
+
+router.route("/token").post(
+	[
+		body("email").exists().isString(),
+		body("email")
+			.notEmpty()
+			.withMessage("This request requires a valid email field"),
+		body("password").exists().isString(),
+		body("password")
+			.notEmpty()
+			.withMessage("This request requires a valid email field"),
+	],
+	(req, res, next) => {
+		validator(req, res, next);
+	},
+	refreshToken
+);
+
 // // all users
 // router.get("/", auth, allf);
 
@@ -53,7 +73,7 @@ router.route("/").get(
 	(req, res, next) => {
 		validator(req, res, next);
 	},
-	allf
+	all
 );
 
 module.exports = router;

@@ -7,7 +7,7 @@ module.exports = {
 			jwt.sign(
 				{ payload },
 				accessTokenSecret,
-				{ expiresIn: "300" },
+				{ expiresIn: "7h" },
 				(err, token) => {
 					if (err) {
 						reject(createError.InternalServerError());

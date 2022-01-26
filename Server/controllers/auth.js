@@ -4,9 +4,22 @@ const {
 	registerService,
 	loginService,
 	allService,
+	refreshTokenService,
 } = require("../services/auth");
 const okStatus = 200;
 const serverErrorStatus = 500;
+
+const refreshToken = async (req, res) => {
+	try {
+		const user = await refreshTokenService(req.body);
+		res.status(okStatus).json({
+			data: user,
+		});
+	} catch (e) {
+		console.log(e);
+		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
+	}
+};
 
 const register = async (req, res) => {
 	try {
@@ -25,7 +38,6 @@ const login = async (req, res) => {
 	try {
 		const data = await loginService(req.body);
 		res.status(200).json({
-			status: true,
 			message: "Account login successful",
 			data,
 		});
@@ -35,12 +47,11 @@ const login = async (req, res) => {
 	}
 };
 
-const allf = async (req, res) => {
+const all = async (req, res) => {
 	try {
 		const users = await allService();
 		res.status(200).json({
-			status: true,
-			message: "All users",
+			message: "Sucessfully retrieved all users",
 			data: users,
 		});
 	} catch (e) {
@@ -52,5 +63,6 @@ const allf = async (req, res) => {
 module.exports = {
 	register,
 	login,
-	allf,
+	all,
+	refreshToken,
 };
