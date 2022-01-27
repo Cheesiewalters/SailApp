@@ -2,11 +2,9 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const bcrypt = require("bcryptjs");
 const jwt = require("../middleware/jwt");
-const randtoken = require("rand-token");
-let refreshTokens = {};
+var refreshTokens = {};
 
 const registerService = async (data) => {
-	const { email } = data;
 	data.password = bcrypt.hashSync(data.password, 8);
 	const user = await prisma.user.create({
 		data: {
@@ -16,7 +14,7 @@ const registerService = async (data) => {
 		},
 	});
 	data.accessToken = await jwt.signAccessToken(user);
-	return data;
+	return data.accessToken;
 };
 
 const loginService = async (data) => {
@@ -32,25 +30,33 @@ const loginService = async (data) => {
 	const checkPassword = bcrypt.compareSync(password, user.password);
 	if (!checkPassword) return { error: "Password is incorrect for account" };
 	delete user.password;
-	const accessToken = await jwt.signAccessToken(user);
-	const refreshToken = randtoken.uid(256);
+	const accessToken = jwt.signAccessToken(user);
+	const refreshToken = jwt.signRefreshToken(user);
+
 	refreshTokens[refreshToken] = user.email;
-	console.log(refreshTokens);
-	return { ...user, accessToken, refreshToken };
+	return { accessToken, refreshToken };
 };
 
 const refreshTokenService = async (data) => {
-	const { email, refreshToken } = data;
-	if (refreshToken in refreshTokens && refreshTokens[refreshToken] == email) {
-		const user = await prisma.user.findUnique({
-			where: {
-				email: email,
-			},
-		});
-		const token = await jwt.signAccessToken(user);
-		return {
-			accessToken: token,
-		};
+	const { refreshToken } = data;
+	if (refreshToken in refreshTokens) {
+		return await jwt
+			.verifyRefreshToken(refreshToken)
+			.then(async (data) => {
+				console.log("decoded email" + data.payload.email);
+				if (refreshTokens[refreshToken] == data.payload.email) {
+					const user = await prisma.user.findUnique({
+						where: {
+							email: data.payload.email,
+						},
+					});
+					const token = jwt.signAccessToken(user);
+					return token;
+				}
+			})
+			.catch((e) => {
+				return { error: "Error with refresh token" };
+			});
 	} else {
 		return {
 			error: "The users refresh token is not valid and has been logged out",

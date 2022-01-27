@@ -49,16 +49,7 @@ router.route("/login").post(
 // router.post("/token", refreshToken);
 
 router.route("/token").post(
-	[
-		body("email").exists().isString(),
-		body("email")
-			.notEmpty()
-			.withMessage("This request requires a valid email field"),
-		body("password").exists().isString(),
-		body("password")
-			.notEmpty()
-			.withMessage("This request requires a valid email field"),
-	],
+	[],
 	(req, res, next) => {
 		validator(req, res, next);
 	},
