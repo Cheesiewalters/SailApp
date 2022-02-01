@@ -11,58 +11,41 @@ const okStatus = 200;
 const serverErrorStatus = 500;
 
 const getAllClubs = async (req, res) => {
-	try {
-		const Clubs = await getAllClubService();
-		res.status(okStatus).json(Clubs);
-	} catch (error) {
-		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
-	}
+	const Clubs = await getAllClubService();
+	if (!Clubs || Clubs.length === 0) return res.sendStatus(204);
+	res.status(okStatus).json(Clubs);
 };
 
 const getClubByID = async (req, res) => {
-	try {
-		const club = await getClubByIdService(req.params.id);
-		res.status(okStatus).json(club);
-	} catch (error) {
-		console.log(error);
-		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
-	}
+	const club = await getClubByIdService(req.params.id);
+	if (!club || club.length === 0) return res.sendStatus(204);
+	res.status(okStatus).json(club);
 };
 
 const postClub = async (req, res) => {
-	try {
-		const newClub = await postClubService(req);
-		res.status(okStatus).json({
-			newClub,
-		});
-	} catch (error) {
-		console.log(error);
-		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
-	}
+	const newClub = await postClubService(req);
+	if (!newClub || newClub.length === 0)
+		return res.sendStatus(serverErrorStatus);
+	res.status(okStatus).json({
+		newClub,
+	});
 };
 
 const updateClub = async (req, res) => {
-	try {
-		const updatedClub = await updateClubService(req);
-		res.status(okStatus).json({
-			updatedClub,
-		});
-	} catch (error) {
-		console.log(error);
-		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
-	}
+	const updatedClub = await updateClubService(req);
+	if (!updatedClub || updatedClub.length === 0) return res.sendStatus(400);
+	res.status(okStatus).json({
+		updatedClub,
+	});
 };
 
 const deleteClub = async (req, res) => {
-	try {
-		await deleteClubService(req.params.id);
-		res.status(okStatus).json({
-			message: `Successfully deleted boat with id: ${req.params.id}`,
-		});
-	} catch (error) {
-		console.log(error);
-		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
-	}
+	const deletedCLub = await deleteClubService(req.params.id);
+	if (!deletedCLub || deletedCLub.length === 0) return res.sendStatus(500);
+
+	res.status(okStatus).json({
+		message: `Successfully deleted club with id: ${req.params.id}`,
+	});
 };
 
 module.exports = {

@@ -18,14 +18,13 @@ const getBoatsByIdService = async (id) => {
 };
 
 const postBoatService = async (req) => {
-	const { classId, clubId, teamId, name, sailNo } = req.body;
+	const { classId, clubId, name, sailNo } = req.body;
 	const newBoat = await prisma.boats.create({
 		data: {
 			name: name,
 			classid: classId,
 			clubid: clubId,
 			sailno: sailNo,
-			teamid: teamId,
 		},
 	});
 	return newBoat;

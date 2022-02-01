@@ -12,70 +12,54 @@ const okStatus = 200;
 const serverErrorStatus = 500;
 
 const getAllClasses = async (req, res) => {
-	try {
-		const classes = await getAllBoatClassesService();
-		res.status(okStatus).json({
-			classes,
-		});
-	} catch (error) {
-		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
-	}
+	const classes = await getAllBoatClassesService();
+	if (!classes || classes.length === 0) return res.sendStatus(204);
+	res.status(okStatus).json({
+		classes,
+	});
 };
 
 const getAllBoats = async (req, res) => {
-	try {
-		const boats = await getAllBoatsService();
-		res.status(okStatus).json({
+	const boats = await getAllBoatsService();
+	if (boats && boats.length > 0) {
+		return res.status(okStatus).json({
 			boats,
 		});
-	} catch (error) {
-		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
 	}
+
+	res.sendStatus(204);
 };
 
 const getBoatByID = async (req, res) => {
-	try {
-		const boat = await getBoatsByIdService(req.params.id);
-		res.status(okStatus).json({ boat });
-	} catch (error) {
-		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
-	}
+	const boat = await getBoatsByIdService(req.params.id);
+	if (!boat || boat.length === 0) return res.sendStatus(204);
+	res.status(okStatus).json({ boat });
 };
 
 const postBoat = async (req, res) => {
-	try {
-		const newBoat = await postBoatService(req);
-		res.status(okStatus).json({
-			newBoat,
-		});
-	} catch (error) {
-		console.log(error);
-		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
-	}
+	const newBoat = await postBoatService(req);
+	if (!newBoat || newBoat.length === 0)
+		return res.sendStatus(serverErrorStatus);
+	res.status(okStatus).json({
+		newBoat,
+	});
 };
 
 const updateBoat = async (req, res) => {
-	try {
-		const updatedBoat = await updateBoatService(req);
-		res.status(okStatus).json({
-			updatedBoat,
-		});
-	} catch (error) {
-		console.log(error);
-		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
-	}
+	const updatedBoat = await updateBoatService(req);
+	if (!updatedBoat || updatedBoat.length === 0) return res.sendStatus(400);
+	res.status(okStatus).json({
+		updatedBoat,
+	});
 };
 
 const deleteBoat = async (req, res) => {
-	try {
-		await deleteBoatService(req.params.id);
-		res.status(okStatus).json({
-			message: `Successfully deleted boat with id: ${req.params.id}`,
-		});
-	} catch (error) {
-		console.log(error);
-		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
-	}
+	const deletedBoat = await deleteBoatService(req.params.id);
+	if (!deletedBoat || deletedBoat.length === 0) return res.sendStatus(500);
+
+	res.status(okStatus).json({
+		message: `Successfully deleted boat with id: ${req.params.id}`,
+	});
 };
 
 module.exports = {

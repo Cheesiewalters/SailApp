@@ -9,8 +9,6 @@ const {
 	eventRouter,
 	boatRouter,
 	raceRouter,
-	teamRouter,
-	memberRouter,
 	clubRouter,
 	authRouter,
 } = require("./routers");
@@ -23,12 +21,14 @@ app.use(urlencoded({ extended: true }));
 app.use("/event", eventRouter);
 app.use("/boat", boatRouter);
 app.use("/race", raceRouter);
-app.use("/team", teamRouter);
-app.use("/member", memberRouter);
 app.use("/club", clubRouter);
 app.use("/auth", authRouter);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+app.use((err, req, res, next) => {
+	res.status(500).send(err);
+});
 
 const PORT = process.env.PORT || 3001;
 

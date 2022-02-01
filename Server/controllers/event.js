@@ -14,72 +14,47 @@ const serverErrorStatus = 500;
 
 const getEventTypes = async (req, res) => {
 	const eventTypes = await getAllEventTypes();
-	try {
-		res.status(okStatus).json(eventTypes);
-	} catch (error) {
-		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
-	}
+	if (!eventTypes || eventTypes.length === 0) return res.sendStatus(204);
+
+	res.status(okStatus).json(eventTypes);
 };
 
 const getAllEvents = async (req, res) => {
 	const events = await getAllEventsService();
-	try {
-		res.status(okStatus).json(events);
-	} catch (error) {
-		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
-	}
+	if (!events || events.length === 0) return res.sendStatus(204);
+	res.status(okStatus).json(events);
 };
 
 const getEventByID = async (req, res) => {
-	try {
-		const event = await getEventByIDService(req.params.id);
-		res.status(okStatus).json(event);
-	} catch (error) {
-		console.log(error);
-		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
-	}
+	const event = await getEventByIDService(req.params.id);
+	if (!event || event.length === 0) return res.sendStatus(204);
+	res.status(okStatus).json(event);
 };
 
 const postEvent = async (req, res) => {
-	try {
-		const newEvent = await postEventService(req);
-		res.status(okStatus).json(newEvent);
-	} catch (error) {
-		console.log(error);
-		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
-	}
+	const newEvent = await postEventService(req);
+	if (!newEvent || newEvent.length === 0) return res.sendStatus(204);
+	res.status(okStatus).json(newEvent);
 };
 
 const updateEvent = async (req, res) => {
-	try {
-		const updatedEvent = await updateEventService(req);
-		res.status(okStatus).json(updatedEvent);
-	} catch (error) {
-		console.log(error);
-		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
-	}
+	const updatedEvent = await updateEventService(req);
+	if (!updatedEvent || updatedEvent.length === 0) return res.sendStatus(400);
+	res.status(okStatus).json(updatedEvent);
 };
 
 const deleteEvent = async (req, res) => {
-	try {
-		await deleteEventService(req.params.id);
-		res.status(okStatus).json({
-			message: `Successfully deleted event with id: ${req.params.id}`,
-		});
-	} catch (error) {
-		console.log(error);
-		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
-	}
+	const deletedEvent = await deleteEventService(req.params.id);
+	if (!deletedEvent || deletedEvent.length === 0) return res.sendStatus(500);
+	res.status(okStatus).json({
+		message: `Successfully deleted event with id: ${req.params.id}`,
+	});
 };
 
 const searchEvent = async (req, res) => {
-	try {
-		const events = await searchEventService(req.query.q);
-		res.status(okStatus).json(events);
-	} catch (error) {
-		console.log(error);
-		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
-	}
+	const events = await searchEventService(req.query.q);
+	if (!events || events.length === 0) return res.sendStatus(400);
+	res.status(okStatus).json(events);
 };
 
 module.exports = {
