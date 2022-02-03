@@ -1,29 +1,29 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const {
-	getAllClubService,
-	getClubByIdService,
-	postClubService,
-	updateClubService,
-	deleteClubService,
+	getClubs,
+	getClubById,
+	createClub,
+	updateClub,
+	deleteClub,
 } = require("../services/club");
 const okStatus = 200;
 const serverErrorStatus = 500;
 
 const getAllClubs = async (req, res) => {
-	const Clubs = await getAllClubService();
+	const Clubs = await getClubs();
 	if (!Clubs || Clubs.length === 0) return res.sendStatus(204);
 	res.status(okStatus).json(Clubs);
 };
 
-const getClubByID = async (req, res) => {
-	const club = await getClubByIdService(req.params.id);
+const getClubByIDController = async (req, res) => {
+	const club = await getClubById(req.params.id);
 	if (!club || club.length === 0) return res.sendStatus(204);
 	res.status(okStatus).json(club);
 };
 
 const postClub = async (req, res) => {
-	const newClub = await postClubService(req);
+	const newClub = await createClub(req);
 	if (!newClub || newClub.length === 0)
 		return res.sendStatus(serverErrorStatus);
 	res.status(okStatus).json({
@@ -31,16 +31,16 @@ const postClub = async (req, res) => {
 	});
 };
 
-const updateClub = async (req, res) => {
-	const updatedClub = await updateClubService(req);
+const updateClubController = async (req, res) => {
+	const updatedClub = await updateClub(req);
 	if (!updatedClub || updatedClub.length === 0) return res.sendStatus(400);
 	res.status(okStatus).json({
 		updatedClub,
 	});
 };
 
-const deleteClub = async (req, res) => {
-	const deletedCLub = await deleteClubService(req.params.id);
+const deleteClubController = async (req, res) => {
+	const deletedCLub = await deleteClub(req.params.id);
 	if (!deletedCLub || deletedCLub.length === 0) return res.sendStatus(500);
 
 	res.status(okStatus).json({
@@ -50,8 +50,8 @@ const deleteClub = async (req, res) => {
 
 module.exports = {
 	getAllClubs,
-	getClubByID,
+	getClubByIDController,
 	postClub,
-	updateClub,
-	deleteClub,
+	updateClubController,
+	deleteClubController,
 };

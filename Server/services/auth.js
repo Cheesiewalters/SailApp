@@ -4,31 +4,28 @@ const bcrypt = require("bcryptjs");
 const jwt = require("../middleware/jwt");
 var refreshTokens = {};
 
-const registerService = async (data) => {
+const createUser = async (data) => {
 	data.password = bcrypt.hashSync(data.password, 8);
-	const user = await prisma.user.create({
+	await prisma.user.create({
 		data: {
 			email: data.email,
 			password: data.password,
 			roleid: data.roleid,
 		},
 	});
-	data.accessToken = await jwt.signAccessToken(user);
-	return data.accessToken;
 };
 
-const loginService = async (data) => {
-	const { email, password } = data;
+const login = async ({ email, password }) => {
 	const user = await prisma.user.findUnique({
 		where: {
 			email: email,
 		},
 	});
 	if (!user) {
-		return { error: "user not found" };
+		throw new Error("User not found");
 	}
 	const checkPassword = bcrypt.compareSync(password, user.password);
-	if (!checkPassword) return { error: "Password is incorrect for account" };
+	if (!checkPassword) throw new Error("Password is incorrect");
 	delete user.password;
 	const accessToken = jwt.signAccessToken(user);
 	const refreshToken = jwt.signRefreshToken(user);
@@ -37,39 +34,29 @@ const loginService = async (data) => {
 	return { accessToken, refreshToken };
 };
 
-const refreshTokenService = async (data) => {
-	const { refreshToken } = data;
-	if (refreshToken in refreshTokens) {
-		return await jwt
-			.verifyRefreshToken(refreshToken)
-			.then(async (data) => {
-				console.log("decoded email" + data.payload.email);
-				if (refreshTokens[refreshToken] == data.payload.email) {
-					const user = await prisma.user.findUnique({
-						where: {
-							email: data.payload.email,
-						},
-					});
-					const token = jwt.signAccessToken(user);
-					return token;
-				}
-			})
-			.catch((e) => {
-				return { error: "Error with refresh token" };
+const refreshToken = async ({ refreshToken }) => {
+	return await jwt
+		.verifyRefreshToken(refreshToken)
+		.then(async (data) => {
+			const user = await prisma.user.findUnique({
+				where: {
+					email: data.payload.email,
+				},
 			});
-	} else {
-		return {
-			error: "The users refresh token is not valid and has been logged out",
-		};
-	}
+			const token = jwt.signAccessToken(user);
+			return token;
+		})
+		.catch((e) => {
+			return { error: "Error with refresh token" };
+		});
 };
 
-const allService = async () => {
+const getAllUsers = async () => {
 	const allUsers = await prisma.user.findMany();
 	return allUsers;
 };
 
-exports.registerService = registerService;
-exports.loginService = loginService;
-exports.refreshTokenService = refreshTokenService;
-exports.allService = allService;
+exports.createUser = createUser;
+exports.login = login;
+exports.refreshToken = refreshToken;
+exports.getAllUsers = getAllUsers;

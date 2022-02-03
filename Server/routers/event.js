@@ -2,22 +2,22 @@ const { Router } = require("express");
 const router = Router();
 const {
 	getEventTypes,
-	getAllEvents,
-	getEventByID,
-	postEvent,
+	getAllEventsController,
+	getEventByIDController,
+	deleteEventController,
 	updateEvent,
-	deleteEvent,
-	searchEvent,
+	postEventController,
+	searchEventController,
 } = require("../controllers/event");
 const { validator } = require("../middleware/expressValidator");
 const { body, param } = require("express-validator");
 
 router.route("/types").get(getEventTypes);
-router.route("/").get(getAllEvents);
+router.route("/").get(getAllEventsController);
 
 router.route("/search/").get((req, res, next) => {
 	validator(req, res, next);
-}, searchEvent);
+}, searchEventController);
 
 router.route("/").post(
 	[
@@ -49,14 +49,14 @@ router.route("/").post(
 	(req, res, next) => {
 		validator(req, res, next);
 	},
-	postEvent
+	postEventController
 );
 router.route("/:id").delete(
 	[param("id").isNumeric().withMessage("The id must be a numeric value")],
 	(req, res, next) => {
 		validator(req, res, next);
 	},
-	deleteEvent
+	deleteEventController
 );
 router.route("/:id").put(
 	[
@@ -97,7 +97,7 @@ router.route("/:id").get(
 	(req, res, next) => {
 		validator(req, res, next);
 	},
-	getEventByID
+	getEventByIDController
 );
 
 module.exports = router;

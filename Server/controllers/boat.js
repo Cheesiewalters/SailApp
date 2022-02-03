@@ -1,11 +1,11 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const {
-	getAllBoatsService,
-	getBoatsByIdService,
-	postBoatService,
-	updateBoatService,
-	deleteBoatService,
+	getBoats,
+	getBoatsById,
+	saveBoat,
+	updateBoat,
+	removeBoat,
 	getAllBoatClassesService,
 } = require("../services/boat");
 const okStatus = 200;
@@ -20,7 +20,7 @@ const getAllClasses = async (req, res) => {
 };
 
 const getAllBoats = async (req, res) => {
-	const boats = await getAllBoatsService();
+	const boats = await getBoats();
 	if (boats && boats.length > 0) {
 		return res.status(okStatus).json({
 			boats,
@@ -31,13 +31,13 @@ const getAllBoats = async (req, res) => {
 };
 
 const getBoatByID = async (req, res) => {
-	const boat = await getBoatsByIdService(req.params.id);
+	const boat = await getBoatsById(req.params.id);
 	if (!boat || boat.length === 0) return res.sendStatus(204);
 	res.status(okStatus).json({ boat });
 };
 
 const postBoat = async (req, res) => {
-	const newBoat = await postBoatService(req);
+	const newBoat = await saveBoat(req);
 	if (!newBoat || newBoat.length === 0)
 		return res.sendStatus(serverErrorStatus);
 	res.status(okStatus).json({
@@ -45,8 +45,8 @@ const postBoat = async (req, res) => {
 	});
 };
 
-const updateBoat = async (req, res) => {
-	const updatedBoat = await updateBoatService(req);
+const updateBoatController = async (req, res) => {
+	const updatedBoat = await updateBoat(req);
 	if (!updatedBoat || updatedBoat.length === 0) return res.sendStatus(400);
 	res.status(okStatus).json({
 		updatedBoat,
@@ -54,7 +54,7 @@ const updateBoat = async (req, res) => {
 };
 
 const deleteBoat = async (req, res) => {
-	const deletedBoat = await deleteBoatService(req.params.id);
+	const deletedBoat = await removeBoat(req.params.id);
 	if (!deletedBoat || deletedBoat.length === 0) return res.sendStatus(500);
 
 	res.status(okStatus).json({
@@ -66,7 +66,7 @@ module.exports = {
 	getAllBoats,
 	getBoatByID,
 	postBoat,
-	updateBoat,
+	updateBoatController,
 	deleteBoat,
 	getAllClasses,
 };

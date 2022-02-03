@@ -46,7 +46,7 @@ describe("boat controller", () => {
 
 		it("should return 204 Response when no boats are available", async () => {
 			// arrange
-			boatService.getAllBoatsService.mockReturnValueOnce([]);
+			boatService.getBoats.mockReturnValueOnce([]);
 
 			const res = {
 				sendStatus: jest.fn(),
@@ -56,7 +56,7 @@ describe("boat controller", () => {
 			await boatController.getAllBoats(undefined, res);
 
 			// assert
-			expect(boatService.getAllBoatsService).toHaveBeenCalledTimes(1);
+			expect(boatService.getBoats).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledWith(204);
 		});
@@ -64,7 +64,7 @@ describe("boat controller", () => {
 		it("should return 200 Response when boats available", async () => {
 			// arrange
 			const boats = [{ id: 1 }];
-			boatService.getAllBoatsService.mockReturnValueOnce(boats);
+			boatService.getBoats.mockReturnValueOnce(boats);
 
 			const res = {};
 			res.status = jest.fn().mockReturnValue(res);
@@ -74,7 +74,7 @@ describe("boat controller", () => {
 			await boatController.getAllBoats(undefined, res);
 
 			// assert
-			expect(boatService.getAllBoatsService).toHaveBeenCalledTimes(1);
+			expect(boatService.getBoats).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledWith(200);
 			expect(res.json).toHaveBeenCalledTimes(1);
@@ -83,7 +83,7 @@ describe("boat controller", () => {
 
 		it("should return 204 Response when no boats by id are available", async () => {
 			// arrange
-			boatService.getBoatsByIdService.mockReturnValueOnce([]);
+			boatService.getBoatsById.mockReturnValueOnce([]);
 
 			const res = {
 				sendStatus: jest.fn(),
@@ -99,7 +99,7 @@ describe("boat controller", () => {
 			await boatController.getBoatByID(req, res);
 
 			// assert
-			expect(boatService.getBoatsByIdService).toHaveBeenCalledTimes(1);
+			expect(boatService.getBoatsById).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledWith(204);
 		});
@@ -107,7 +107,7 @@ describe("boat controller", () => {
 		it("should return 200 Response when boats by id is available", async () => {
 			// arrange
 			const boat = [{ id: 1 }];
-			boatService.getBoatsByIdService.mockReturnValueOnce(boat);
+			boatService.getBoatsById.mockReturnValueOnce(boat);
 
 			const res = {};
 			const id = 1;
@@ -123,7 +123,7 @@ describe("boat controller", () => {
 			await boatController.getBoatByID(req, res);
 
 			// assert
-			expect(boatService.getBoatsByIdService).toHaveBeenCalledTimes(1);
+			expect(boatService.getBoatsById).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledWith(200);
 			expect(res.json).toHaveBeenCalledTimes(1);
@@ -132,7 +132,7 @@ describe("boat controller", () => {
 
 		it("should return 500 Response when post boats fails", async () => {
 			// arrange
-			boatService.postBoatService.mockReturnValueOnce([]);
+			boatService.saveBoat.mockReturnValueOnce([]);
 
 			const res = {
 				sendStatus: jest.fn(),
@@ -142,7 +142,7 @@ describe("boat controller", () => {
 			await boatController.postBoat(undefined, res);
 
 			// assert
-			expect(boatService.postBoatService).toHaveBeenCalledTimes(1);
+			expect(boatService.saveBoat).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledWith(500);
 		});
@@ -150,7 +150,7 @@ describe("boat controller", () => {
 		it("should return 200 Response when a boat is successfully posted", async () => {
 			// arrange
 			const newBoat = [{ id: 1 }];
-			boatService.postBoatService.mockReturnValueOnce(newBoat);
+			boatService.saveBoat.mockReturnValueOnce(newBoat);
 
 			const res = {};
 			const id = 1;
@@ -171,7 +171,7 @@ describe("boat controller", () => {
 			await boatController.postBoat(req, res);
 
 			// assert
-			expect(boatService.postBoatService).toHaveBeenCalledTimes(1);
+			expect(boatService.saveBoat).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledWith(200);
 			expect(res.json).toHaveBeenCalledTimes(1);
@@ -182,17 +182,17 @@ describe("boat controller", () => {
 
 		it("should return 400 Response when updating a boat fails", async () => {
 			// arrange
-			boatService.updateBoatService.mockReturnValueOnce([]);
+			boatService.updateBoat.mockReturnValueOnce([]);
 
 			const res = {
 				sendStatus: jest.fn(),
 			};
 
 			// act
-			await boatController.updateBoat(undefined, res);
+			await boatController.updateBoatController(undefined, res);
 
 			// assert
-			expect(boatService.updateBoatService).toHaveBeenCalledTimes(1);
+			expect(boatService.updateBoat).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledWith(400);
 		});
@@ -200,7 +200,7 @@ describe("boat controller", () => {
 		it("should return 200 Response when a boat is successfully updated", async () => {
 			// arrange
 			const updatedBoat = [{ id: 1 }];
-			boatService.updateBoatService.mockReturnValueOnce(updatedBoat);
+			boatService.updateBoat.mockReturnValueOnce(updatedBoat);
 
 			const res = {};
 			const id = 1;
@@ -218,10 +218,10 @@ describe("boat controller", () => {
 			res.json = jest.fn().mockReturnValue(res);
 
 			// act
-			await boatController.updateBoat(req, res);
+			await boatController.updateBoatController(req, res);
 
 			// assert
-			expect(boatService.updateBoatService).toHaveBeenCalledTimes(1);
+			expect(boatService.updateBoat).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledWith(200);
 			expect(res.json).toHaveBeenCalledTimes(1);
@@ -232,7 +232,7 @@ describe("boat controller", () => {
 
 		it("should return 500 Response when deleting a boat fails", async () => {
 			// arrange
-			boatService.deleteBoatService.mockReturnValueOnce([]);
+			boatService.removeBoat.mockReturnValueOnce([]);
 
 			const id = 1;
 			const req = {
@@ -249,7 +249,7 @@ describe("boat controller", () => {
 			await boatController.deleteBoat(req, res);
 
 			// assert
-			expect(boatService.deleteBoatService).toHaveBeenCalledTimes(1);
+			expect(boatService.removeBoat).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledWith(500);
 		});
@@ -257,7 +257,7 @@ describe("boat controller", () => {
 		it("should return 200 Response when a boat is successfully deleted", async () => {
 			// arrange
 			const deletedBoat = [{ message: `Successfully deleted boat with id: 1` }];
-			boatService.deleteBoatService.mockReturnValueOnce(deletedBoat);
+			boatService.removeBoat.mockReturnValueOnce(deletedBoat);
 
 			const res = {};
 			const id = 1;
@@ -274,7 +274,7 @@ describe("boat controller", () => {
 			await boatController.deleteBoat(req, res);
 
 			// assert
-			expect(boatService.deleteBoatService).toHaveBeenCalledTimes(1);
+			expect(boatService.removeBoat).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledWith(200);
 			expect(res.json).toHaveBeenCalledTimes(1);

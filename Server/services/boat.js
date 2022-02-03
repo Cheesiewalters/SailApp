@@ -1,7 +1,7 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-const getAllBoatsService = async () => {
+const getBoats = async () => {
 	return await prisma.boats.findMany();
 };
 
@@ -9,7 +9,7 @@ const getAllBoatClassesService = async () => {
 	return await prisma.renamedclass.findMany();
 };
 
-const getBoatsByIdService = async (id) => {
+const getBoatsById = async (id) => {
 	return await prisma.boats.findMany({
 		where: {
 			id: parseInt(id),
@@ -17,7 +17,7 @@ const getBoatsByIdService = async (id) => {
 	});
 };
 
-const postBoatService = async (req) => {
+const saveBoat = async (req) => {
 	const { classId, clubId, name, sailNo } = req.body;
 	const newBoat = await prisma.boats.create({
 		data: {
@@ -30,7 +30,7 @@ const postBoatService = async (req) => {
 	return newBoat;
 };
 
-const updateBoatService = async (req) => {
+const updateBoat = async (req) => {
 	const { classId, clubId, teamId, name, sailNo } = req.body;
 	const updatedId = parseInt(req.params.id);
 	const updatedBoat = await prisma.boats.update({
@@ -48,7 +48,7 @@ const updateBoatService = async (req) => {
 	return updatedBoat;
 };
 
-const deleteBoatService = async (id) => {
+const removeBoat = async (id) => {
 	try {
 		await prisma.raceboats.deleteMany({
 			where: {
@@ -66,8 +66,8 @@ const deleteBoatService = async (id) => {
 };
 
 exports.getAllBoatClassesService = getAllBoatClassesService;
-exports.deleteBoatService = deleteBoatService;
-exports.updateBoatService = updateBoatService;
-exports.postBoatService = postBoatService;
-exports.getAllBoatsService = getAllBoatsService;
-exports.getBoatsByIdService = getBoatsByIdService;
+exports.removeBoat = removeBoat;
+exports.updateBoat = updateBoat;
+exports.saveBoat = saveBoat;
+exports.getBoats = getBoats;
+exports.getBoatsById = getBoatsById;

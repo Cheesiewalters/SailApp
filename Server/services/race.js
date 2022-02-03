@@ -3,11 +3,11 @@ const moment = require("moment");
 const { patch } = require("../routers/race");
 const prisma = new PrismaClient();
 
-const getAllRacesService = async () => {
+const getRaces = async () => {
 	return await prisma.races.findMany();
 };
 
-const getRaceByIdService = async (id) => {
+const getRaceID = async (id) => {
 	return await prisma.races.findMany({
 		where: {
 			id: parseInt(id),
@@ -32,7 +32,7 @@ const getRaceByIdService = async (id) => {
 	});
 };
 
-const getRaceBoatsById = async (id) => {
+const getRaceBoat = async (id) => {
 	return await prisma.raceboats.findMany({
 		where: {
 			raceid: parseInt(id),
@@ -40,7 +40,7 @@ const getRaceBoatsById = async (id) => {
 	});
 };
 
-const postRaceService = async (req) => {
+const createRace = async (req) => {
 	const { eventId, classId, startTime } = req.body;
 	return await prisma.races.create({
 		data: {
@@ -51,7 +51,7 @@ const postRaceService = async (req) => {
 	});
 };
 
-const updateRaceService = async (req) => {
+const updateRaces = async (req) => {
 	const { eventId, classId, startTime } = req.body;
 	const { id } = req.params;
 
@@ -68,7 +68,7 @@ const updateRaceService = async (req) => {
 	return updatedRace;
 };
 
-const deleteRaceService = async (req) => {
+const removeRace = async (req) => {
 	try {
 		await prisma.raceboats.deleteMany({
 			where: {
@@ -86,7 +86,7 @@ const deleteRaceService = async (req) => {
 	}
 };
 
-const postRaceBoatsService = async (req) => {
+const createRaceBoat = async (req) => {
 	try {
 		const { boatId, finishTime, startTime, position } = req.body;
 		const { id } = req.params;
@@ -104,7 +104,7 @@ const postRaceBoatsService = async (req) => {
 	}
 };
 
-const deleteRaceBoatsByIDService = async (req) => {
+const deleteRaceBoatsByID = async (req) => {
 	try {
 		const { id2 } = req.params;
 		console.log(req.params.id2);
@@ -119,7 +119,7 @@ const deleteRaceBoatsByIDService = async (req) => {
 	}
 };
 
-const updateRaceBoatService = async (req) => {
+const updateRaceBoat = async (req) => {
 	try {
 		const { boatId, finishTime, startTime, position } = req.body;
 		const { id } = req.params;
@@ -141,7 +141,7 @@ const updateRaceBoatService = async (req) => {
 	}
 };
 
-const getRaceBoatByBoatIdService = async (req) => {
+const getRaceBoatByBoat = async (req) => {
 	try {
 		return await prisma.raceboats.findMany({
 			where: {
@@ -154,13 +154,13 @@ const getRaceBoatByBoatIdService = async (req) => {
 	}
 };
 
-exports.deleteRaceBoatsByIDService = deleteRaceBoatsByIDService;
-exports.postRaceBoatsService = postRaceBoatsService;
-exports.deleteRaceService = deleteRaceService;
-exports.updateRaceService = updateRaceService;
-exports.postRaceService = postRaceService;
-exports.getAllRacesService = getAllRacesService;
-exports.getRaceByIdService = getRaceByIdService;
-exports.getRaceBoatsById = getRaceBoatsById;
-exports.updateRaceBoatService = updateRaceBoatService;
-exports.getRaceBoatByBoatIdService = getRaceBoatByBoatIdService;
+exports.deleteRaceBoatsByID = deleteRaceBoatsByID;
+exports.createRaceBoat = createRaceBoat;
+exports.removeRace = removeRace;
+exports.updateRaces = updateRaces;
+exports.createRace = createRace;
+exports.getRaces = getRaces;
+exports.getRaceID = getRaceID;
+exports.getRaceBoat = getRaceBoat;
+exports.updateRaceBoat = updateRaceBoat;
+exports.getRaceBoatByBoat = getRaceBoatByBoat;

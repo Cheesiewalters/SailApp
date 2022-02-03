@@ -3,9 +3,9 @@ const router = Router();
 const {
 	getAllClubs,
 	postClub,
-	deleteClub,
-	updateClub,
-	getClubByID,
+	deleteClubController,
+	updateClubController,
+	getClubByIDController,
 } = require("../controllers/club");
 const { validator } = require("../middleware/expressValidator");
 const { body, param } = require("express-validator");
@@ -30,7 +30,7 @@ router.route("/:id").delete(
 	(req, res, next) => {
 		validator(req, res, next);
 	},
-	deleteClub
+	deleteClubController
 );
 router.route("/:id").put(
 	[
@@ -42,7 +42,7 @@ router.route("/:id").put(
 	(req, res, next) => {
 		validator(req, res, next);
 	},
-	updateClub
+	updateClubController
 );
 router.route("/:id").get(
 	[
@@ -53,7 +53,7 @@ router.route("/:id").get(
 	(req, res, next) => {
 		validator(req, res, next);
 	},
-	getClubByID
+	getClubByIDController
 );
 
 module.exports = router;

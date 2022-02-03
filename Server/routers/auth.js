@@ -1,6 +1,11 @@
 const { Router } = require("express");
 const router = Router();
-const { register, login, all, refreshToken } = require("../controllers/auth");
+const {
+	register,
+	loginController,
+	all,
+	refreshTokenController,
+} = require("../controllers/auth");
 const auth = require("../middleware/auth");
 const { validator } = require("../middleware/expressValidator");
 const { body, param } = require("express-validator");
@@ -42,7 +47,7 @@ router.route("/login").post(
 	(req, res, next) => {
 		validator(req, res, next);
 	},
-	login
+	loginController
 );
 
 // // refresh token
@@ -53,7 +58,7 @@ router.route("/token").post(
 	(req, res, next) => {
 		validator(req, res, next);
 	},
-	refreshToken
+	refreshTokenController
 );
 
 // // all users

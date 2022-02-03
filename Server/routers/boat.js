@@ -4,7 +4,7 @@ const {
 	getAllBoats,
 	postBoat,
 	deleteBoat,
-	updateBoat,
+	updateBoatController,
 	getBoatByID,
 	getAllClasses,
 } = require("../controllers/boat");
@@ -67,7 +67,7 @@ router.route("/:id").put(
 	(req, res, next) => {
 		validator(req, res, next);
 	},
-	updateBoat
+	updateBoatController
 );
 router.route("/:id").get(
 	[

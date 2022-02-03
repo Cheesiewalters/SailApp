@@ -1,11 +1,11 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-const getAllClubService = async () => {
+const getClubs = async () => {
 	return await prisma.clubs.findMany();
 };
 
-const getClubByIdService = async (id) => {
+const getClubById = async (id) => {
 	return await prisma.clubs.findUnique({
 		where: {
 			id: parseInt(id),
@@ -13,7 +13,7 @@ const getClubByIdService = async (id) => {
 	});
 };
 
-const postClubService = async (req) => {
+const createClub = async (req) => {
 	const { name } = req.body;
 	const newClub = await prisma.clubs.create({
 		data: {
@@ -23,7 +23,7 @@ const postClubService = async (req) => {
 	return newClub;
 };
 
-const updateClubService = async (req) => {
+const updateClub = async (req) => {
 	const { name } = req.body;
 	const updatedId = parseInt(req.params.id);
 	const updatedClub = await prisma.clubs.update({
@@ -37,7 +37,7 @@ const updateClubService = async (req) => {
 	return updatedClub;
 };
 
-const deleteClubService = async (id) => {
+const deleteClub = async (id) => {
 	try {
 		await prisma.club_member.deleteMany({
 			where: {
@@ -54,8 +54,8 @@ const deleteClubService = async (id) => {
 	}
 };
 
-exports.deleteClubService = deleteClubService;
-exports.updateClubService = updateClubService;
-exports.postClubService = postClubService;
-exports.getAllClubService = getAllClubService;
-exports.getClubByIdService = getClubByIdService;
+exports.deleteClub = deleteClub;
+exports.updateClub = updateClub;
+exports.createClub = createClub;
+exports.getClubs = getClubs;
+exports.getClubById = getClubById;

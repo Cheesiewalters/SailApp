@@ -2,12 +2,12 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const {
 	getAllEventTypes,
-	getAllEventsService,
-	getEventByIDService,
-	postEventService,
+	getAllEvents,
+	getEventByID,
+	postEvent,
 	updateEventService,
-	deleteEventService,
-	searchEventService,
+	deleteEvent,
+	searchEvent,
 } = require("../services/event");
 const okStatus = 200;
 const serverErrorStatus = 500;
@@ -19,20 +19,20 @@ const getEventTypes = async (req, res) => {
 	res.status(okStatus).json(eventTypes);
 };
 
-const getAllEvents = async (req, res) => {
-	const events = await getAllEventsService();
+const getAllEventsController = async (req, res) => {
+	const events = await getAllEvents();
 	if (!events || events.length === 0) return res.sendStatus(204);
 	res.status(okStatus).json(events);
 };
 
-const getEventByID = async (req, res) => {
-	const event = await getEventByIDService(req.params.id);
+const getEventByIDController = async (req, res) => {
+	const event = await getEventByID(req.params.id);
 	if (!event || event.length === 0) return res.sendStatus(204);
 	res.status(okStatus).json(event);
 };
 
-const postEvent = async (req, res) => {
-	const newEvent = await postEventService(req);
+const postEventController = async (req, res) => {
+	const newEvent = await postEvent(req);
 	if (!newEvent || newEvent.length === 0) return res.sendStatus(204);
 	res.status(okStatus).json(newEvent);
 };
@@ -43,26 +43,26 @@ const updateEvent = async (req, res) => {
 	res.status(okStatus).json(updatedEvent);
 };
 
-const deleteEvent = async (req, res) => {
-	const deletedEvent = await deleteEventService(req.params.id);
+const deleteEventController = async (req, res) => {
+	const deletedEvent = await deleteEvent(req.params.id);
 	if (!deletedEvent || deletedEvent.length === 0) return res.sendStatus(500);
 	res.status(okStatus).json({
 		message: `Successfully deleted event with id: ${req.params.id}`,
 	});
 };
 
-const searchEvent = async (req, res) => {
-	const events = await searchEventService(req.query.q);
+const searchEventController = async (req, res) => {
+	const events = await searchEvent(req.query.q);
 	if (!events || events.length === 0) return res.sendStatus(400);
 	res.status(okStatus).json(events);
 };
 
 module.exports = {
 	getEventTypes,
-	getAllEvents,
-	getEventByID,
-	postEvent,
+	getAllEventsController,
+	getEventByIDController,
+	postEventController,
 	updateEvent,
-	deleteEvent,
-	searchEvent,
+	deleteEventController,
+	searchEventController,
 };

@@ -3,10 +3,10 @@ const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
 const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET;
 module.exports = {
 	signAccessToken(payload) {
-		return jwt.sign({ payload }, accessTokenSecret, { expiresIn: "7h" });
+		return jwt.sign({ payload }, accessTokenSecret, { expiresIn: "1h" });
 	},
 	signRefreshToken(payload) {
-		return jwt.sign({ payload }, refreshTokenSecret, { expiresIn: "7h" });
+		return jwt.sign({ payload }, refreshTokenSecret, { expiresIn: "20d" });
 	},
 	verifyRefreshToken(token) {
 		return new Promise((resolve, reject) => {

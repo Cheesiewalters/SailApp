@@ -7,17 +7,17 @@ describe("Event controller", () => {
 	describe("getAllEvents", () => {
 		it("should return 204 Response when no events are available", async () => {
 			// arrange
-			eventService.getAllEventsService.mockReturnValueOnce([]);
+			eventService.getAllEvents.mockReturnValueOnce([]);
 
 			const res = {
 				sendStatus: jest.fn(),
 			};
 
 			// act
-			await eventController.getAllEvents(undefined, res);
+			await eventController.getAllEventsController(undefined, res);
 
 			// assert
-			expect(eventService.getAllEventsService).toHaveBeenCalledTimes(1);
+			expect(eventService.getAllEvents).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledWith(204);
 		});
@@ -25,17 +25,17 @@ describe("Event controller", () => {
 		it("should return 200 Response when events available", async () => {
 			// arrange
 			const events = [{ id: 1 }];
-			eventService.getAllEventsService.mockReturnValueOnce(events);
+			eventService.getAllEvents.mockReturnValueOnce(events);
 
 			const res = {};
 			res.status = jest.fn().mockReturnValue(res);
 			res.json = jest.fn().mockReturnValue(res);
 
 			// act
-			await eventController.getAllEvents(undefined, res);
+			await eventController.getAllEventsController(undefined, res);
 
 			// assert
-			expect(eventService.getAllEventsService).toHaveBeenCalledTimes(1);
+			expect(eventService.getAllEvents).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledWith(200);
 			expect(res.json).toHaveBeenCalledTimes(1);
@@ -127,17 +127,17 @@ describe("Event controller", () => {
 	describe("postEvent", () => {
 		it("should return 204 Response postEvent throws an error", async () => {
 			// arrange
-			eventService.postEventService.mockReturnValueOnce([]);
+			eventService.postEvent.mockReturnValueOnce([]);
 
 			const res = {
 				sendStatus: jest.fn(),
 			};
 
 			// act
-			await eventController.postEvent(undefined, res);
+			await eventController.postEventController(undefined, res);
 
 			// assert
-			expect(eventService.postEventService).toHaveBeenCalledTimes(1);
+			expect(eventService.postEvent).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledWith(204);
 		});
@@ -145,7 +145,7 @@ describe("Event controller", () => {
 		it("should return 200 Response when postEvent is successfull", async () => {
 			// arrange
 			const newEvent = [{ id: 1 }];
-			eventService.postEventService.mockReturnValueOnce(newEvent);
+			eventService.postEvent.mockReturnValueOnce(newEvent);
 
 			const res = {};
 			const id = 1;
@@ -164,10 +164,10 @@ describe("Event controller", () => {
 			res.json = jest.fn().mockReturnValue(res);
 
 			// act
-			await eventController.postEvent(req, res);
+			await eventController.postEventController(req, res);
 
 			// assert
-			expect(eventService.postEventService).toHaveBeenCalledTimes(1);
+			expect(eventService.postEvent).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledWith(200);
 			expect(res.json).toHaveBeenCalledTimes(1);
@@ -177,9 +177,9 @@ describe("Event controller", () => {
 		});
 	});
 	describe("deleteEvent", () => {
-		it("should return 204 Response deleteEvent throws an error", async () => {
+		it("should return 204 Response postEvent throws an error", async () => {
 			// arrange
-			eventService.deleteEventService.mockReturnValueOnce([]);
+			eventService.deleteEvent.mockReturnValueOnce([]);
 
 			const id = 1;
 			const req = {
@@ -193,20 +193,20 @@ describe("Event controller", () => {
 			};
 
 			// act
-			await eventController.deleteEvent(req, res);
+			await eventController.deleteEventController(req, res);
 
 			// assert
-			expect(eventService.deleteEventService).toHaveBeenCalledTimes(1);
+			expect(eventService.deleteEvent).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledWith(500);
 		});
 
-		it("should return 200 Response when deleteEvent is successfull", async () => {
+		it("should return 200 Response when postEvent is successfull", async () => {
 			// arrange
 			const deletedEvent = [
 				{ message: `Successfully deleted event with id: 1` },
 			];
-			eventService.deleteEventService.mockReturnValueOnce(deletedEvent);
+			eventService.deleteEvent.mockReturnValueOnce(deletedEvent);
 
 			const res = {};
 			const id = 1;
@@ -220,10 +220,10 @@ describe("Event controller", () => {
 			res.json = jest.fn().mockReturnValue(res);
 
 			// act
-			await eventController.deleteEvent(req, res);
+			await eventController.deleteEventController(req, res);
 
 			// assert
-			expect(eventService.deleteEventService).toHaveBeenCalledTimes(1);
+			expect(eventService.deleteEvent).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledWith(200);
 			expect(res.json).toHaveBeenCalledTimes(1);
@@ -290,7 +290,7 @@ describe("Event controller", () => {
 	describe("searchEvent", () => {
 		it("should return 204 Response searchEvent throws an error", async () => {
 			// arrange
-			eventService.searchEventService.mockReturnValueOnce([]);
+			eventService.searchEvent.mockReturnValueOnce([]);
 
 			const res = {
 				sendStatus: jest.fn(),
@@ -302,10 +302,10 @@ describe("Event controller", () => {
 			};
 
 			// act
-			await eventController.searchEvent(req, res);
+			await eventController.searchEventController(req, res);
 
 			// assert
-			expect(eventService.searchEventService).toHaveBeenCalledTimes(1);
+			expect(eventService.searchEvent).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledWith(400);
 		});
@@ -313,7 +313,7 @@ describe("Event controller", () => {
 		it("should return 200 Response when searchEvent is successfull", async () => {
 			// arrange
 			const events = [{ id: 1 }];
-			eventService.searchEventService.mockReturnValueOnce(events);
+			eventService.searchEvent.mockReturnValueOnce(events);
 
 			const res = {};
 
@@ -326,10 +326,10 @@ describe("Event controller", () => {
 			res.json = jest.fn().mockReturnValue(res);
 
 			// act
-			await eventController.searchEvent(req, res);
+			await eventController.searchEventController(req, res);
 
 			// assert
-			expect(eventService.searchEventService).toHaveBeenCalledTimes(1);
+			expect(eventService.searchEvent).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledWith(200);
 			expect(res.json).toHaveBeenCalledTimes(1);

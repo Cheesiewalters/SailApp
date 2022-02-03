@@ -7,7 +7,7 @@ describe("Race controller", () => {
 	describe("getAllRaces", () => {
 		it("should return 204 Response when no race are available", async () => {
 			// arrange
-			raceService.getAllRacesService.mockReturnValueOnce([]);
+			raceService.getRaces.mockReturnValueOnce([]);
 
 			const res = {
 				sendStatus: jest.fn(),
@@ -17,7 +17,7 @@ describe("Race controller", () => {
 			await raceController.getAllRaces(undefined, res);
 
 			// assert
-			expect(raceService.getAllRacesService).toHaveBeenCalledTimes(1);
+			expect(raceService.getRaces).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledWith(204);
 		});
@@ -25,7 +25,7 @@ describe("Race controller", () => {
 		it("should return 200 Response when races available", async () => {
 			// arrange
 			const race = [{ id: 1 }];
-			raceService.getAllRacesService.mockReturnValueOnce(race);
+			raceService.getRaces.mockReturnValueOnce(race);
 
 			const res = {};
 			res.status = jest.fn().mockReturnValue(res);
@@ -35,7 +35,7 @@ describe("Race controller", () => {
 			await raceController.getAllRaces(undefined, res);
 
 			// assert
-			expect(raceService.getAllRacesService).toHaveBeenCalledTimes(1);
+			expect(raceService.getRaces).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledWith(200);
 			expect(res.json).toHaveBeenCalledTimes(1);
@@ -47,7 +47,7 @@ describe("Race controller", () => {
 	describe("getRaceByID", () => {
 		it("should return 204 Response when getRaceByID is unsuccessfull", async () => {
 			// arrange
-			raceService.getRaceByIdService.mockReturnValueOnce([]);
+			raceService.getRaceID.mockReturnValueOnce([]);
 
 			const res = {
 				sendStatus: jest.fn(),
@@ -63,7 +63,7 @@ describe("Race controller", () => {
 			await raceController.getRaceByID(req, res);
 
 			// assert
-			expect(raceService.getRaceByIdService).toHaveBeenCalledTimes(1);
+			expect(raceService.getRaceID).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledWith(204);
 		});
@@ -71,7 +71,7 @@ describe("Race controller", () => {
 		it("should return 200 Response when getRaceByID is successfull", async () => {
 			// arrange
 			const eventTypes = [{ id: 1 }];
-			raceService.getRaceByIdService.mockReturnValueOnce(eventTypes);
+			raceService.getRaceID.mockReturnValueOnce(eventTypes);
 
 			const res = {};
 			const id = 1;
@@ -88,7 +88,7 @@ describe("Race controller", () => {
 			await raceController.getRaceByID(req, res);
 
 			// assert
-			expect(raceService.getRaceByIdService).toHaveBeenCalledTimes(1);
+			expect(raceService.getRaceID).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledWith(200);
 			expect(res.json).toHaveBeenCalledTimes(1);
@@ -100,7 +100,7 @@ describe("Race controller", () => {
 	describe("postRace", () => {
 		it("should return 400 Response when postRace is unsuccessfull", async () => {
 			// arrange
-			raceService.postRaceService.mockReturnValueOnce([]);
+			raceService.createRace.mockReturnValueOnce([]);
 
 			const res = {
 				sendStatus: jest.fn(),
@@ -112,7 +112,7 @@ describe("Race controller", () => {
 			await raceController.postRace(undefined, res);
 
 			// assert
-			expect(raceService.postRaceService).toHaveBeenCalledTimes(1);
+			expect(raceService.createRace).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledWith(400);
 		});
@@ -120,7 +120,7 @@ describe("Race controller", () => {
 		it("should return 200 Response when postRace is successfull", async () => {
 			// arrange
 			const newRace = [{ id: 1 }];
-			raceService.postRaceService.mockReturnValueOnce(newRace);
+			raceService.createRace.mockReturnValueOnce(newRace);
 
 			const res = {};
 			const id = 1;
@@ -138,7 +138,7 @@ describe("Race controller", () => {
 			await raceController.postRace(req, res);
 
 			// assert
-			expect(raceService.postRaceService).toHaveBeenCalledTimes(1);
+			expect(raceService.createRace).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledWith(200);
 			expect(res.json).toHaveBeenCalledTimes(1);
@@ -150,7 +150,7 @@ describe("Race controller", () => {
 	describe("updateRace", () => {
 		it("should return 400 Response updateRace is unsuccessfull", async () => {
 			// arrange
-			raceService.updateRaceService.mockReturnValueOnce([]);
+			raceService.updateRaces.mockReturnValueOnce([]);
 
 			const res = {
 				sendStatus: jest.fn(),
@@ -160,7 +160,7 @@ describe("Race controller", () => {
 			await raceController.updateRace(undefined, res);
 
 			// assert
-			expect(raceService.updateRaceService).toHaveBeenCalledTimes(1);
+			expect(raceService.updateRaces).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledWith(400);
 		});
@@ -168,7 +168,7 @@ describe("Race controller", () => {
 		it("should return 200 Response when updateRace is successfull", async () => {
 			// arrange
 			const newRace = [{ id: 1 }];
-			raceService.updateRaceService.mockReturnValueOnce(newRace);
+			raceService.updateRaces.mockReturnValueOnce(newRace);
 
 			const res = {};
 			const id = 1;
@@ -190,7 +190,7 @@ describe("Race controller", () => {
 			await raceController.updateRace(req, res);
 
 			// assert
-			expect(raceService.updateRaceService).toHaveBeenCalledTimes(1);
+			expect(raceService.updateRaces).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledWith(200);
 			expect(res.json).toHaveBeenCalledTimes(1);
@@ -202,7 +202,7 @@ describe("Race controller", () => {
 	describe("deleteRace", () => {
 		it("should return 204 Response deleteRace throws an error", async () => {
 			// arrange
-			raceService.deleteRaceService.mockReturnValueOnce([]);
+			raceService.removeRace.mockReturnValueOnce([]);
 
 			const id = 1;
 			const req = {
@@ -219,7 +219,7 @@ describe("Race controller", () => {
 			await raceController.deleteRace(req, res);
 
 			// assert
-			expect(raceService.deleteRaceService).toHaveBeenCalledTimes(1);
+			expect(raceService.removeRace).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledWith(204);
 		});
@@ -229,7 +229,7 @@ describe("Race controller", () => {
 			const deletedRace = [
 				{ message: `Successfully deleted event with id: 1` },
 			];
-			raceService.deleteRaceService.mockReturnValueOnce(deletedRace);
+			raceService.removeRace.mockReturnValueOnce(deletedRace);
 
 			const res = {};
 			const id = 1;
@@ -246,7 +246,7 @@ describe("Race controller", () => {
 			await raceController.deleteRace(req, res);
 
 			// assert
-			expect(raceService.deleteRaceService).toHaveBeenCalledTimes(1);
+			expect(raceService.removeRace).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledWith(200);
 			expect(res.json).toHaveBeenCalledTimes(1);
@@ -260,7 +260,7 @@ describe("Race controller", () => {
 	describe("deleteAllRaceBoatsById", () => {
 		it("should return 204 Response deleteAllRaceBoatsById is unsucessfull", async () => {
 			// arrange
-			raceService.deleteRaceBoatsByIDService.mockReturnValueOnce([]);
+			raceService.deleteRaceBoatsByID.mockReturnValueOnce([]);
 
 			const res = {
 				sendStatus: jest.fn(),
@@ -277,7 +277,7 @@ describe("Race controller", () => {
 			await raceController.deleteAllRaceBoatsById(undefined, res);
 
 			// assert
-			expect(raceService.deleteRaceBoatsByIDService).toHaveBeenCalledTimes(1);
+			expect(raceService.deleteRaceBoatsByID).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledWith(400);
 		});
@@ -285,9 +285,7 @@ describe("Race controller", () => {
 		it("should return 200 Response when deleteAllRaceBoatsById is successfull", async () => {
 			// arrange
 			const deletedRaceBoatById = [{ id: 1 }];
-			raceService.deleteRaceBoatsByIDService.mockReturnValueOnce(
-				deletedRaceBoatById
-			);
+			raceService.deleteRaceBoatsByID.mockReturnValueOnce(deletedRaceBoatById);
 
 			const res = {};
 			const id = 1;
@@ -304,7 +302,7 @@ describe("Race controller", () => {
 			await raceController.deleteAllRaceBoatsById(req, res);
 
 			// assert
-			expect(raceService.deleteRaceBoatsByIDService).toHaveBeenCalledTimes(1);
+			expect(raceService.deleteRaceBoatsByID).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledWith(200);
 			expect(res.json).toHaveBeenCalledTimes(1);
@@ -318,7 +316,7 @@ describe("Race controller", () => {
 	describe("updateRaceBoatByBoatId", () => {
 		it("should return 400 Response updateRaceBoatByBoatId is unsuccessfull", async () => {
 			// arrange
-			raceService.updateRaceBoatService.mockReturnValueOnce([]);
+			raceService.updateRaceBoat.mockReturnValueOnce([]);
 
 			const res = {
 				sendStatus: jest.fn(),
@@ -328,7 +326,7 @@ describe("Race controller", () => {
 			await raceController.updateRaceBoatByBoatId(undefined, res);
 
 			// assert
-			expect(raceService.updateRaceBoatService).toHaveBeenCalledTimes(1);
+			expect(raceService.updateRaceBoat).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledWith(400);
 		});
@@ -336,7 +334,7 @@ describe("Race controller", () => {
 		it("should return 200 Response when updateRaceBoatByBoatId is successfull", async () => {
 			// arrange
 			const events = [{ id: 1 }];
-			raceService.updateRaceBoatService.mockReturnValueOnce(events);
+			raceService.updateRaceBoat.mockReturnValueOnce(events);
 
 			const res = {};
 
@@ -361,7 +359,7 @@ describe("Race controller", () => {
 			await raceController.updateRaceBoatByBoatId(req, res);
 
 			// assert
-			expect(raceService.updateRaceBoatService).toHaveBeenCalledTimes(1);
+			expect(raceService.updateRaceBoat).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledWith(200);
 			expect(res.json).toHaveBeenCalledTimes(1);
@@ -373,7 +371,7 @@ describe("Race controller", () => {
 	describe("getRaceBoatByBoatId", () => {
 		it("should return 400 Response getRaceBoatByBoatId is unsuccessfull", async () => {
 			// arrange
-			raceService.getRaceBoatByBoatIdService.mockReturnValueOnce([]);
+			raceService.getRaceBoatByBoat.mockReturnValueOnce([]);
 
 			const res = {
 				sendStatus: jest.fn(),
@@ -383,7 +381,7 @@ describe("Race controller", () => {
 			await raceController.getRaceBoatByBoatId(undefined, res);
 
 			// assert
-			expect(raceService.getRaceBoatByBoatIdService).toHaveBeenCalledTimes(1);
+			expect(raceService.getRaceBoatByBoat).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledWith(500);
 		});
@@ -391,7 +389,7 @@ describe("Race controller", () => {
 		it("should return 200 Response when getRaceBoatByBoatId is successfull", async () => {
 			// arrange
 			const events = [{ id: 1 }];
-			raceService.getRaceBoatByBoatIdService.mockReturnValueOnce(events);
+			raceService.getRaceBoatByBoat.mockReturnValueOnce(events);
 
 			const res = {};
 
@@ -413,7 +411,7 @@ describe("Race controller", () => {
 			await raceController.getRaceBoatByBoatId(req, res);
 
 			// assert
-			expect(raceService.getRaceBoatByBoatIdService).toHaveBeenCalledTimes(1);
+			expect(raceService.getRaceBoatByBoat).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledWith(200);
 			expect(res.json).toHaveBeenCalledTimes(1);

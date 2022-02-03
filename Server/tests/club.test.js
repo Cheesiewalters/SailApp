@@ -7,7 +7,7 @@ describe("Club controller", () => {
 	describe("getAllClubs", () => {
 		it("should return 204 Response when no clubs are available", async () => {
 			// arrange
-			clubService.getAllClubService.mockReturnValueOnce([]);
+			clubService.getClubs.mockReturnValueOnce([]);
 
 			const res = {
 				sendStatus: jest.fn(),
@@ -17,7 +17,7 @@ describe("Club controller", () => {
 			await clubController.getAllClubs(undefined, res);
 
 			// assert
-			expect(clubService.getAllClubService).toHaveBeenCalledTimes(1);
+			expect(clubService.getClubs).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledWith(204);
 		});
@@ -25,7 +25,7 @@ describe("Club controller", () => {
 		it("should return 200 Response when clubs available", async () => {
 			// arrange
 			const clubs = [{ id: 1 }];
-			clubService.getAllClubService.mockReturnValueOnce(clubs);
+			clubService.getClubs.mockReturnValueOnce(clubs);
 
 			const res = {};
 			res.status = jest.fn().mockReturnValue(res);
@@ -35,7 +35,7 @@ describe("Club controller", () => {
 			await clubController.getAllClubs(undefined, res);
 
 			// assert
-			expect(clubService.getAllClubService).toHaveBeenCalledTimes(1);
+			expect(clubService.getClubs).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledWith(200);
 			expect(res.json).toHaveBeenCalledTimes(1);
@@ -47,7 +47,7 @@ describe("Club controller", () => {
 	describe("getClubsById", () => {
 		it("should return 204 Response when no clubs by id are available", async () => {
 			// arrange
-			clubService.getClubByIdService.mockReturnValueOnce([]);
+			clubService.getClubById.mockReturnValueOnce([]);
 
 			const res = {
 				sendStatus: jest.fn(),
@@ -60,10 +60,10 @@ describe("Club controller", () => {
 			};
 
 			// act
-			await clubController.getClubByID(req, res);
+			await clubController.getClubByIDController(req, res);
 
 			// assert
-			expect(clubService.getClubByIdService).toHaveBeenCalledTimes(1);
+			expect(clubService.getClubById).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledWith(204);
 		});
@@ -71,7 +71,7 @@ describe("Club controller", () => {
 		it("should return 200 Response when clubs by id available", async () => {
 			// arrange
 			const club = [{ id: 1 }];
-			clubService.getClubByIdService.mockReturnValueOnce(club);
+			clubService.getClubById.mockReturnValueOnce(club);
 
 			const res = {};
 			const id = 1;
@@ -84,10 +84,10 @@ describe("Club controller", () => {
 			res.json = jest.fn().mockReturnValue(res);
 
 			// act
-			await clubController.getClubByID(req, res);
+			await clubController.getClubByIDController(req, res);
 
 			// assert
-			expect(clubService.getClubByIdService).toHaveBeenCalledTimes(1);
+			expect(clubService.getClubById).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledWith(200);
 			expect(res.json).toHaveBeenCalledTimes(1);
@@ -99,7 +99,7 @@ describe("Club controller", () => {
 	describe("postClub", () => {
 		it("should return 500 Response when post club is unsuccessfull", async () => {
 			// arrange
-			clubService.postClubService.mockReturnValueOnce([]);
+			clubService.createClub.mockReturnValueOnce([]);
 
 			const res = {
 				sendStatus: jest.fn(),
@@ -115,7 +115,7 @@ describe("Club controller", () => {
 			await clubController.postClub(req, res);
 
 			// assert
-			expect(clubService.postClubService).toHaveBeenCalledTimes(1);
+			expect(clubService.createClub).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledWith(500);
 		});
@@ -123,7 +123,7 @@ describe("Club controller", () => {
 		it("should return 200 Response when post club is successfull", async () => {
 			// arrange
 			const newClub = [{ id: 1 }];
-			clubService.postClubService.mockReturnValueOnce(newClub);
+			clubService.createClub.mockReturnValueOnce(newClub);
 
 			const res = {};
 			const name = "new club";
@@ -139,7 +139,7 @@ describe("Club controller", () => {
 			await clubController.postClub(req, res);
 
 			// assert
-			expect(clubService.postClubService).toHaveBeenCalledTimes(1);
+			expect(clubService.createClub).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledWith(200);
 			expect(res.json).toHaveBeenCalledTimes(1);
@@ -151,7 +151,7 @@ describe("Club controller", () => {
 	describe("deleteClub", () => {
 		it("should return 500 Response when update club is unsuccessfull", async () => {
 			// arrange
-			clubService.deleteClubService.mockReturnValueOnce([]);
+			clubService.deleteClub.mockReturnValueOnce([]);
 
 			const id = 1;
 			const req = {
@@ -165,10 +165,10 @@ describe("Club controller", () => {
 			};
 
 			// act
-			await clubController.deleteClub(req, res);
+			await clubController.deleteClubController(req, res);
 
 			// assert
-			expect(clubService.deleteClubService).toHaveBeenCalledTimes(1);
+			expect(clubService.deleteClub).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledWith(500);
 		});
@@ -176,7 +176,7 @@ describe("Club controller", () => {
 		it("should return 200 Response when delete club is successfull", async () => {
 			// arrange
 			const deletedClub = [{ message: `Successfully deleted club with id: 1` }];
-			clubService.deleteClubService.mockReturnValueOnce(deletedClub);
+			clubService.deleteClub.mockReturnValueOnce(deletedClub);
 
 			const res = {};
 			const id = 1;
@@ -190,10 +190,10 @@ describe("Club controller", () => {
 			res.json = jest.fn().mockReturnValue(res);
 
 			// act
-			await clubController.deleteClub(req, res);
+			await clubController.deleteClubController(req, res);
 
 			// assert
-			expect(clubService.deleteClubService).toHaveBeenCalledTimes(1);
+			expect(clubService.deleteClub).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledWith(200);
 			expect(res.json).toHaveBeenCalledTimes(1);
@@ -207,17 +207,17 @@ describe("Club controller", () => {
 	describe("updateClub", () => {
 		it("should return 400 Response when update club is unsuccessfull", async () => {
 			// arrange
-			clubService.updateClubService.mockReturnValueOnce([]);
+			clubService.updateClub.mockReturnValueOnce([]);
 
 			const res = {
 				sendStatus: jest.fn(),
 			};
 
 			// act
-			await clubController.updateClub(undefined, res);
+			await clubController.updateClubController(undefined, res);
 
 			// assert
-			expect(clubService.updateClubService).toHaveBeenCalledTimes(1);
+			expect(clubService.updateClub).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledTimes(1);
 			expect(res.sendStatus).toHaveBeenCalledWith(400);
 		});
@@ -225,7 +225,7 @@ describe("Club controller", () => {
 		it("should return 200 Response when update club is successfull", async () => {
 			// arrange
 			const updatedClub = [{ id: 1 }];
-			clubService.updateClubService.mockReturnValueOnce(updatedClub);
+			clubService.updateClub.mockReturnValueOnce(updatedClub);
 
 			const res = {};
 			const name = "new club";
@@ -238,10 +238,10 @@ describe("Club controller", () => {
 			res.json = jest.fn().mockReturnValue(res);
 
 			// act
-			await clubController.updateClub(req, res);
+			await clubController.updateClubController(req, res);
 
 			// assert
-			expect(clubService.updateClubService).toHaveBeenCalledTimes(1);
+			expect(clubService.updateClub).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledTimes(1);
 			expect(res.status).toHaveBeenCalledWith(200);
 			expect(res.json).toHaveBeenCalledTimes(1);

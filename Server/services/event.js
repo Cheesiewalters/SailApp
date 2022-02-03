@@ -6,11 +6,11 @@ const getAllEventTypes = async () => {
 	return await prisma.eventtypes.findMany();
 };
 
-const getAllEventsService = async () => {
+const getAllEvents = async () => {
 	return await prisma.events.findMany();
 };
 
-const searchEventService = async (query) => {
+const searchEvent = async (query) => {
 	const events = await prisma.events.findMany({
 		where: {
 			name: {
@@ -21,7 +21,7 @@ const searchEventService = async (query) => {
 	return events;
 };
 
-const getEventByIDService = async (id) => {
+const getEventByID = async (id) => {
 	const events = await prisma.events.findMany({
 		where: {
 			id: parseInt(id),
@@ -84,7 +84,7 @@ const modifyEvents = async (events) => {
 	});
 };
 
-const postEventService = async (req) => {
+const postEvent = async (req) => {
 	const { eventTypeId, startTime, endDate, name, clubId, description } =
 		req.body;
 
@@ -125,7 +125,7 @@ const updateEventService = async (req) => {
 	return updatedEvent;
 };
 
-const deleteEventService = async (id) => {
+const deleteEvent = async (id) => {
 	await prisma.races.deleteMany({
 		where: {
 			eventid: parseInt(id),
@@ -139,10 +139,10 @@ const deleteEventService = async (id) => {
 	});
 };
 
-exports.deleteEventService = deleteEventService;
+exports.deleteEvent = deleteEvent;
 exports.updateEventService = updateEventService;
-exports.postEventService = postEventService;
+exports.postEvent = postEvent;
 exports.getAllEventTypes = getAllEventTypes;
-exports.getAllEventsService = getAllEventsService;
-exports.getEventByIDService = getEventByIDService;
-exports.searchEventService = searchEventService;
+exports.getAllEvents = getAllEvents;
+exports.getEventByID = getEventByID;
+exports.searchEvent = searchEvent;

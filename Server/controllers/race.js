@@ -1,22 +1,22 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const {
-	getAllRacesService,
-	getRaceByIdService,
-	postRaceService,
-	updateRaceService,
-	deleteRaceService,
-	postRaceBoatsService,
-	getRaceBoatsById,
-	deleteRaceBoatsByIDService,
-	updateRaceBoatService,
-	getRaceBoatByBoatIdService,
+	getRaces,
+	getRaceID,
+	createRace,
+	updateRaces,
+	removeRace,
+	createRaceBoat,
+	getRaceBoat,
+	deleteRaceBoatsByID,
+	updateRaceBoat,
+	getRaceBoatByBoat,
 } = require("../services/race");
 const okStatus = 200;
 const errorStatus = 500;
 
 const getAllRaces = async (req, res) => {
-	const race = await getAllRacesService();
+	const race = await getRaces();
 	if (!race || race.length === 0) return res.sendStatus(204);
 	res.status(okStatus).json({
 		race,
@@ -24,13 +24,13 @@ const getAllRaces = async (req, res) => {
 };
 
 const getRaceByID = async (req, res) => {
-	const race = await getRaceByIdService(req.params.id);
+	const race = await getRaceID(req.params.id);
 	if (!race || race.length === 0) return res.sendStatus(204);
 	res.status(okStatus).json({ race });
 };
 
 const postRace = async (req, res) => {
-	const newRace = await postRaceService(req);
+	const newRace = await createRace(req);
 	if (!newRace || newRace.length === 0) return res.sendStatus(400);
 	res.status(okStatus).json({
 		newRace,
@@ -38,7 +38,7 @@ const postRace = async (req, res) => {
 };
 
 const updateRace = async (req, res) => {
-	const updatedRace = await updateRaceService(req);
+	const updatedRace = await updateRaces(req);
 	if (!updatedRace || updatedRace.length === 0) return res.sendStatus(400);
 	res.status(okStatus).json({
 		updatedRace,
@@ -46,7 +46,7 @@ const updateRace = async (req, res) => {
 };
 
 const postRaceBoats = async (req, res) => {
-	const newRaceBoat = await postRaceBoatsService(req);
+	const newRaceBoat = await createRaceBoat(req);
 	if (!newRaceBoat || newRaceBoat.length === 0) return res.sendStatus(204);
 	res.status(okStatus).json({
 		message: `Successfully posted boat:${req.body.boatId} for race:${req.params.id} `,
@@ -54,13 +54,13 @@ const postRaceBoats = async (req, res) => {
 };
 
 const getAllRaceBoatsByID = async (req, res) => {
-	const boats = await getRaceBoatsById(req.params.id);
+	const boats = await getRaceBoat(req.params.id);
 	if (!boats || boats.length === 0) return res.sendStatus(204);
 	res.status(okStatus).json(boats);
 };
 
 const deleteRace = async (req, res) => {
-	const deletedRace = await deleteRaceService(req);
+	const deletedRace = await removeRace(req);
 	if (!deletedRace || deletedRace.length === 0) return res.sendStatus(204);
 	res.status(okStatus).json({
 		message: `Successfully deleted race with id: ${req.params.id}`,
@@ -68,7 +68,7 @@ const deleteRace = async (req, res) => {
 };
 
 const deleteAllRaceBoatsById = async (req, res) => {
-	const deletedRaceBoatsByID = await deleteRaceBoatsByIDService(req);
+	const deletedRaceBoatsByID = await deleteRaceBoatsByID(req);
 	if (!deletedRaceBoatsByID || deletedRaceBoatsByID.length === 0)
 		return res.sendStatus(400);
 
@@ -78,7 +78,7 @@ const deleteAllRaceBoatsById = async (req, res) => {
 };
 
 const updateRaceBoatByBoatId = async (req, res) => {
-	const updatedRace = await updateRaceBoatService(req);
+	const updatedRace = await updateRaceBoat(req);
 	if (!updatedRace || updatedRace.length === 0) return res.sendStatus(400);
 
 	res.status(okStatus).json({
@@ -87,7 +87,7 @@ const updateRaceBoatByBoatId = async (req, res) => {
 };
 
 const getRaceBoatByBoatId = async (req, res) => {
-	const boat = await getRaceBoatByBoatIdService(req);
+	const boat = await getRaceBoatByBoat(req);
 	if (!boat || boat.length === 0) return res.sendStatus(500);
 	res.status(okStatus).json(boat);
 };
