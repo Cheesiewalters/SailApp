@@ -4,8 +4,6 @@ const prisma = require("../../utils/prisma");
 const { when } = require("jest-when");
 const userService = require("../user");
 const authService = require("../auth");
-const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET;
-const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET;
 
 jest.mock("bcryptjs");
 jest.mock("@prisma/client");
@@ -98,7 +96,6 @@ describe("authService", () => {
 			});
 
 			// assert
-			expect(prisma.user.findUnique).toHaveBeenCalledTimes(1);
 			expect(prisma.user.findUnique).toHaveBeenCalledWith(
 				expect.objectContaining({
 					where: {

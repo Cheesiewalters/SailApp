@@ -1,5 +1,4 @@
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+const prisma = require("../utils/prisma");
 
 const getBoats = async () => {
 	return await prisma.boats.findMany();
@@ -42,7 +41,6 @@ const updateBoat = async (req) => {
 			classid: parseInt(classId),
 			clubid: parseInt(clubId),
 			sailno: sailNo,
-			teamid: parseInt(teamId),
 		},
 	});
 	return updatedBoat;

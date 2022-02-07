@@ -1,5 +1,4 @@
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+const prisma = require("../utils/prisma");
 
 const getClubs = async () => {
 	return await prisma.clubs.findMany();
@@ -37,9 +36,22 @@ const updateClub = async (req) => {
 	return updatedClub;
 };
 
+//delete club does not work 07-02-21
 const deleteClub = async (id) => {
 	try {
-		await prisma.club_member.deleteMany({
+		await prisma.events.deleteMany({
+			where: {
+				clubid: parseInt(id),
+			},
+		});
+		await prisma.races.deleteMany({
+			//need to change this so it deletes the races based off each event id linked to a club
+			where: {
+				eventid: parseInt(id),
+			},
+		});
+
+		await prisma.boats.deleteMany({
 			where: {
 				clubid: parseInt(id),
 			},

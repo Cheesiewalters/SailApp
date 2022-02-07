@@ -1,4 +1,4 @@
-const eventController = require("../../controllers/event");
+const eventController = require("../event");
 const eventService = require("../../services/event");
 
 jest.mock("../../services/event");

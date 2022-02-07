@@ -33,10 +33,10 @@ const login = async ({ email, password }) => {
 };
 
 const refreshToken = async ({ refreshToken }) => {
-	var data = await jwt.verifyRefreshToken(refreshToken);
+	var decodedToken = await jwt.verifyRefreshToken(refreshToken);
 	const user = await prisma.user.findUnique({
 		where: {
-			id: data.payload.userid,
+			id: decodedToken.payload.userid,
 		},
 	});
 	const rT = jwt.signAccessToken({

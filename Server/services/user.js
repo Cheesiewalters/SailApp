@@ -1,11 +1,8 @@
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+const prisma = require("../utils/prisma");
 const bcrypt = require("bcryptjs");
 
 const createUser = async (data) => {
-	console.log(data.password);
 	data.password = bcrypt.hashSync(data.password, 8);
-	console.log(data.password);
 	await prisma.user.create({
 		data: {
 			email: data.email,

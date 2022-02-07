@@ -1,7 +1,5 @@
-const { PrismaClient } = require("@prisma/client");
 const moment = require("moment");
-const { patch } = require("../routers/race");
-const prisma = new PrismaClient();
+const prisma = require("../utils/prisma");
 
 const getRaces = async () => {
 	return await prisma.races.findMany();

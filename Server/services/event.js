@@ -1,6 +1,5 @@
-const { PrismaClient } = require("@prisma/client");
 const moment = require("moment");
-const prisma = new PrismaClient();
+const prisma = require("../utils/prisma");
 
 const getAllEventTypes = async () => {
 	return await prisma.eventtypes.findMany();
@@ -138,6 +137,7 @@ const deleteEvent = async (id) => {
 		},
 	});
 };
+
 
 exports.deleteEvent = deleteEvent;
 exports.updateEventService = updateEventService;
