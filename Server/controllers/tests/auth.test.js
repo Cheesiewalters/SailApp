@@ -1,7 +1,7 @@
-const authController = require("../controllers/auth");
-const authService = require("../services/auth");
+const authController = require("../auth");
+const authService = require("../../services/auth");
 
-jest.mock("../services/auth");
+jest.mock("../../services/auth");
 
 describe("Auth controller", () => {
 	describe("refreshToken", () => {

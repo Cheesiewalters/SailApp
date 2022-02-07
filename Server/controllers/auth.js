@@ -3,10 +3,11 @@ const prisma = new PrismaClient();
 const {
 	createUser,
 	login,
-	getAllUsers,
+
 	refreshToken,
 } = require("../services/auth");
 const okStatus = 200;
+const userService = require("../services/user");
 const serverErrorStatus = 500;
 const createdStatus = 201;
 
@@ -26,7 +27,7 @@ const register = async (req, res) => {
 
 const loginController = async (req, res) => {
 	const data = await login(req.body);
-	if (!data || data.length === 0) return res.sendStatus(500);
+	if (!data || data.length === 0) return res.sendStatus(serverErrorStatus);
 
 	res.status(200).json({
 		accessToken: data.accessToken,
@@ -35,15 +36,19 @@ const loginController = async (req, res) => {
 };
 
 const all = async (req, res) => {
-	try {
-		const users = await getAllUsers();
-		res.status(200).json({
-			data: users,
-		});
-	} catch (e) {
-		console.log(e);
-		res.status(serverErrorStatus).json({ error: "Internal Server Error" });
-	}
+	const users = await userService.getAllUsers();
+	if (!users || users.length === 0) return res.sendStatus(404);
+	res.status(200).json({
+		data: users,
+	});
+};
+
+const getUserByEmailController = async (req, res) => {
+	const users = await getUserByEmail(req.body);
+	if (!users || users.length === 0) return res.sendStatus(404);
+	res.status(200).json({
+		data: users,
+	});
 };
 
 module.exports = {
@@ -51,4 +56,5 @@ module.exports = {
 	loginController,
 	all,
 	refreshTokenController,
+	getUserByEmailController,
 };

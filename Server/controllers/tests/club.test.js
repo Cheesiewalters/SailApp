@@ -1,7 +1,7 @@
-const clubController = require("../controllers/club");
-const clubService = require("../services/club");
+const clubController = require("../../controllers/club");
+const clubService = require("../../services/club");
 
-jest.mock("../services/club");
+jest.mock("../../services/club");
 
 describe("Club controller", () => {
 	describe("getAllClubs", () => {

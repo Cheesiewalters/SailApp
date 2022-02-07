@@ -1,7 +1,7 @@
-const boatController = require("../controllers/boat");
-const boatService = require("../services/boat");
+const boatController = require("../../controllers/boat");
+const boatService = require("../../services/boat");
 
-jest.mock("../services/boat");
+jest.mock("../../services/boat");
 
 describe("boat controller", () => {
 	describe("getAllBoats", () => {

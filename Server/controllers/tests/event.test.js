@@ -1,7 +1,7 @@
-const eventController = require("../controllers/event");
-const eventService = require("../services/event");
+const eventController = require("../../controllers/event");
+const eventService = require("../../services/event");
 
-jest.mock("../services/event");
+jest.mock("../../services/event");
 
 describe("Event controller", () => {
 	describe("getAllEvents", () => {

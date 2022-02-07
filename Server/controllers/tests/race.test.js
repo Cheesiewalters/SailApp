@@ -1,7 +1,7 @@
-const raceController = require("../controllers/race");
-const raceService = require("../services/race");
+const raceController = require("../../controllers/race");
+const raceService = require("../../services/race");
 
-jest.mock("../services/race");
+jest.mock("../../services/race");
 
 describe("Race controller", () => {
 	describe("getAllRaces", () => {

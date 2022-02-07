@@ -1,8 +1,7 @@
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+const prisma = require("../utils/prisma");
+const userService = require("./user");
 const bcrypt = require("bcryptjs");
 const jwt = require("../middleware/jwt");
-var refreshTokens = {};
 
 const createUser = async (data) => {
 	data.password = bcrypt.hashSync(data.password, 8);
@@ -16,47 +15,37 @@ const createUser = async (data) => {
 };
 
 const login = async ({ email, password }) => {
-	const user = await prisma.user.findUnique({
-		where: {
-			email: email,
-		},
-	});
+	const user = await userService.getUserByEmail(email);
 	if (!user) {
 		throw new Error("User not found");
 	}
 	const checkPassword = bcrypt.compareSync(password, user.password);
 	if (!checkPassword) throw new Error("Password is incorrect");
-	delete user.password;
-	const accessToken = jwt.signAccessToken(user);
-	const refreshToken = jwt.signRefreshToken(user);
-
-	refreshTokens[refreshToken] = user.email;
+	const accessToken = jwt.signAccessToken({
+		userid: user.id,
+		userRole: user.roleid,
+	});
+	const refreshToken = jwt.signRefreshToken({
+		userid: user.id,
+		userRole: user.roleid,
+	});
 	return { accessToken, refreshToken };
 };
 
 const refreshToken = async ({ refreshToken }) => {
-	return await jwt
-		.verifyRefreshToken(refreshToken)
-		.then(async (data) => {
-			const user = await prisma.user.findUnique({
-				where: {
-					email: data.payload.email,
-				},
-			});
-			const token = jwt.signAccessToken(user);
-			return token;
-		})
-		.catch((e) => {
-			return { error: "Error with refresh token" };
-		});
+	var data = await jwt.verifyRefreshToken(refreshToken);
+	const user = await prisma.user.findUnique({
+		where: {
+			id: data.payload.userid,
+		},
+	});
+	const rT = jwt.signAccessToken({
+		userid: user.id,
+		userRole: user.roleid,
+	});
+	return rT;
 };
 
-const getAllUsers = async () => {
-	const allUsers = await prisma.user.findMany();
-	return allUsers;
-};
-
-exports.createUser = createUser;
-exports.login = login;
 exports.refreshToken = refreshToken;
-exports.getAllUsers = getAllUsers;
+exports.login = login;
+exports.createUser = createUser;
