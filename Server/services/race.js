@@ -103,18 +103,14 @@ const createRaceBoat = async (req) => {
 };
 
 const deleteRaceBoatsByID = async (req) => {
-	try {
-		const { id2 } = req.params;
-		console.log(req.params.id2);
-
-		await prisma.raceboats.deleteMany({
-			where: {
-				boatid: parseInt(id2),
-			},
-		});
-	} catch (error) {
-		console.log(error);
-	}
+	
+	const { id2 } = req.params;
+	await prisma.raceboats.deleteMany({
+		where: {
+			boatid: parseInt(id2),
+		},
+	});
+	
 };
 
 const updateRaceBoat = async (req) => {
