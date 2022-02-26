@@ -19,13 +19,13 @@ VALUES  ('User');
 
 
 INSERT INTO public.User (email ,password, roleId)
-VALUES ('cwalters01@Qub.ac.uk', 'password', 1);
+VALUES ('cwalters01@Qub.ac.uk', '$2a$08$H4dtxTdwceDBaHoiC90ll.rVgGQhQzZDWt3YzNtU/y8ZhFFUXLrT.', 1);
 INSERT INTO public.User (email, password, roleId)
-VALUES ('tpurdon21@Qub.ac.uk', 'password', 1);
+VALUES ('tpurdon21@Qub.ac.uk', '$2a$08$H4dtxTdwceDBaHoiC90ll.rVgGQhQzZDWt3YzNtU/y8ZhFFUXLrT.', 1);
 INSERT INTO public.User (email, password, roleId)
-VALUES ('mBrown01@Qub.ac.uk', 'password', 1);
+VALUES ('mBrown01@Qub.ac.uk', '$2a$08$H4dtxTdwceDBaHoiC90ll.rVgGQhQzZDWt3YzNtU/y8ZhFFUXLrT.', 1);
 INSERT INTO public.User (email, password, roleId)
-VALUES ('sjennings789@Qub.ac.uk', 'password', 1);
+VALUES ('sjennings789@Qub.ac.uk', '$2a$08$H4dtxTdwceDBaHoiC90ll.rVgGQhQzZDWt3YzNtU/y8ZhFFUXLrT.', 1);
 
 INSERT INTO public.Events (eventTypeId, startTime, endDate, name, clubId , description)
 VALUES (1, '2021-11-19 12:00:00', '2021-11-21 19:45:00', 'Wexford Uni team racing event', 1, 'This is a university sailing event');
