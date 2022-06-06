@@ -16,7 +16,7 @@ The architecture of the project is :
 
 ERD for postrgress SQL database
 
-[![ERD.png](https://i.postimg.cc/bJJQwJLF/ERD.png)](https://postimg.cc/xkwks9wK)
+[ERD.png](https://postimg.cc/xkwks9wK)
 
 ### Running locally
 
