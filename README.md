@@ -18,6 +18,20 @@ ERD for postrgress SQL database
 
 [![ERD.png](https://i.postimg.cc/bJJQwJLF/ERD.png)](https://postimg.cc/xkwks9wK)
 
+
+ERD
+```mermaid
+  erDiagram
+          Event ||--|{ EventType : ofType
+          Event ||--|{ Race : contains
+          Event ||--|| User: contains
+          User ||--|| Role: ofType
+          Race ||--|{ RaceBoat : includes
+          RaceBoat ||--|{ Boat: includes
+          Boat ||--|{ Club : registered
+          Boat ||--|| Class : registered
+```
+
 ### Running locally
 
 To run the project locally simply:
