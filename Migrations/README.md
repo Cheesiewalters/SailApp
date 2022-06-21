@@ -1,11 +1,11 @@
 ```mermaid
   erDiagram
-          CUSTOMER }|..|{ DELIVERY-ADDRESS : has
-          CUSTOMER ||--o{ ORDER : places
-          CUSTOMER ||--o{ INVOICE : "liable for"
-          DELIVERY-ADDRESS ||--o{ ORDER : receives
-          INVOICE ||--|{ ORDER : covers
-          ORDER ||--|{ ORDER-ITEM : includes
-          PRODUCT-CATEGORY ||--|{ PRODUCT : contains
-          PRODUCT ||--o{ ORDER-ITEM : "ordered in"
+          Event ||--|{ EventType : ofType
+          Event ||--|{ Race : contains
+          Event ||--|| User: contains
+          User ||--|| Role: ofType
+          Race ||--|{ RaceBoat : includes
+          RaceBoat ||--|{ Boat: includes
+          Boat ||--|{ Club : registered
+          Boat ||--|| Class : registered
 ```
