@@ -35,16 +35,6 @@ async function getEventByID(id: number) {
       id: id,
     },
     include: {
-      clubs: {
-        select: {
-          name: true,
-        },
-      },
-      eventtypes: {
-        select: {
-          name: true,
-        },
-      },
       races: {
         select: {
           id: true,
@@ -78,8 +68,8 @@ async function postEventService(body: any) {
   return await prisma.events.create({
     data: {
       eventtypeid: eventTypeId,
-      starttime: startTime,
-      enddate: endDate,
+      starttime: moment.utc(startTime).toISOString(),
+      enddate: moment.utc(endDate).toISOString(),
       name: name,
       clubid: clubId,
       description: description,
@@ -89,21 +79,16 @@ async function postEventService(body: any) {
 
 async function updateEventService(body: any, id: number) {
   const { eventTypeId, startTime, endDate, name, clubId, description } = body;
-
-  const updatedEventTypeID = parseInt(eventTypeId);
-  const updatedclubId = parseInt(clubId);
-  const updatedId = id;
-
   const updatedEvent = await prisma.events.update({
     where: {
-      id: updatedId,
+      id: id,
     },
     data: {
-      eventtypeid: updatedEventTypeID,
+      eventtypeid: Number(eventTypeId),
       starttime: moment.utc(startTime).toISOString(),
       enddate: moment.utc(endDate).toISOString(),
       name: name,
-      clubid: updatedclubId,
+      clubid: Number(clubId),
       description: description,
     },
   });
