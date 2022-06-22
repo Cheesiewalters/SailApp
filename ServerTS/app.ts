@@ -6,7 +6,7 @@ import {
   BoatRouter,
   EventRouter,
   RaceRouter,
-  // ClubRouter,
+  ClubRouter,
   AuthRouter,
 } from "./routers";
 // import { Authenticate } from "./middleware/authentication";
@@ -44,7 +44,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/boat", BoatRouter);
 app.use("/event", EventRouter);
 app.use("/race", RaceRouter);
-// app.use("/club", ClubRouter);
+app.use("/club", ClubRouter);
 app.use("/auth", AuthRouter);
 
 /* redirect to API documentation */
