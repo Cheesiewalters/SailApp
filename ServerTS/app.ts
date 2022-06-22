@@ -2,7 +2,13 @@ import express, { Request, Response, NextFunction } from "express";
 import swaggerUI from "swagger-ui-express";
 import swaggerJsdoc from "swagger-jsdoc";
 import cors from "cors";
-import { BoatRouter } from "./routers";
+import {
+  BoatRouter,
+  EventRouter,
+  RaceRouter,
+  // ClubRouter,
+  // AuthRouter,
+} from "./routers";
 // import { Authenticate } from "./middleware/authentication";
 
 /* configure Swagger */
@@ -35,7 +41,11 @@ app.use(express.urlencoded({ extended: true }));
 // app.use("/api/*", Authenticate);
 
 /* setup Express Routers */
-app.use("/api/boat", BoatRouter);
+app.use("/boat", BoatRouter);
+app.use("/event", EventRouter);
+app.use("/race", RaceRouter);
+// app.use("/club", ClubRouter);
+// app.use("/auth", AuthRouter);
 
 /* redirect to API documentation */
 app.get("/", (req, res) => res.redirect("/docs"));

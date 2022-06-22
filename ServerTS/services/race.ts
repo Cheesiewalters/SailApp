@@ -1,14 +1,14 @@
-const moment = require("moment");
-const prisma = require("../utils/prisma");
+import { prisma } from "../utilities";
+import * as moment from "moment";
 
-const getRaces = async () => {
+async function getRaces() {
   return await prisma.races.findMany();
-};
+}
 
-const getRaceID = async (id) => {
+async function getRaceID(id: number) {
   return await prisma.races.findMany({
     where: {
-      id: parseInt(id),
+      id: id,
     },
     include: {
       raceboats: {
@@ -28,18 +28,18 @@ const getRaceID = async (id) => {
       },
     },
   });
-};
+}
 
-const getRaceBoat = async (id) => {
+async function getRaceBoat(id: number) {
   return await prisma.raceboats.findMany({
     where: {
-      raceid: parseInt(id),
+      raceid: id,
     },
   });
-};
+}
 
-const createRace = async (req) => {
-  const { eventId, classId, startTime } = req.body;
+async function createRace(body: any) {
+  const { eventId, classId, startTime } = body;
   return await prisma.races.create({
     data: {
       eventid: eventId,
@@ -47,15 +47,14 @@ const createRace = async (req) => {
       starttime: moment.utc(startTime).toISOString(),
     },
   });
-};
+}
 
-const updateRaces = async (req) => {
-  const { eventId, classId, startTime } = req.body;
-  const { id } = req.params;
+const updateRaces = async (body: any, id: number) => {
+  const { eventId, classId, startTime } = body;
 
   const updatedRace = await prisma.races.update({
     where: {
-      id: parseInt(id),
+      id: id,
     },
     data: {
       eventid: parseInt(eventId),
@@ -66,17 +65,17 @@ const updateRaces = async (req) => {
   return updatedRace;
 };
 
-const removeRace = async (req) => {
+const removeRace = async (id: number) => {
   try {
     await prisma.raceboats.deleteMany({
       where: {
-        raceid: parseInt(req.params.id),
+        raceid: id,
       },
     });
 
     await prisma.races.delete({
       where: {
-        id: parseInt(req.params.id),
+        id: id,
       },
     });
   } catch (error) {
@@ -84,16 +83,15 @@ const removeRace = async (req) => {
   }
 };
 
-const createRaceBoat = async (req) => {
+const createRaceBoat = async (body: any, id: number) => {
   try {
-    const { boatId, finishTime, startTime, position } = req.body;
-    const { id } = req.params;
+    const { boatId, finishTime, startTime, position } = body;
     await prisma.raceboats.create({
       data: {
-        raceid: parseInt(id),
+        raceid: id,
         boatid: parseInt(boatId),
-        starttime: startTime,
-        finishtime: finishTime,
+        starttime: moment.utc(startTime).toISOString(),
+        finishtime: moment.utc(finishTime).toISOString(),
         position: position,
       },
     });
@@ -102,23 +100,21 @@ const createRaceBoat = async (req) => {
   }
 };
 
-const deleteRaceBoatsByID = async (req) => {
-  const { id2 } = req.params;
+const deleteRaceBoatsByID = async (id2: number) => {
   await prisma.raceboats.deleteMany({
     where: {
-      boatid: parseInt(id2),
+      boatid: id2,
     },
   });
 };
 
-const updateRaceBoat = async (req) => {
+const updateRaceBoat = async (body: any, id: number) => {
   try {
-    const { boatId, finishTime, startTime, position } = req.body;
-    const { id } = req.params;
+    const { boatId, finishTime, startTime, position } = body;
 
     const updatedRace = await prisma.raceboats.updateMany({
       where: {
-        raceid: parseInt(id),
+        raceid: id,
         boatid: parseInt(boatId),
       },
       data: {
@@ -133,12 +129,12 @@ const updateRaceBoat = async (req) => {
   }
 };
 
-const getRaceBoatByBoat = async (req) => {
+const getRaceBoatByBoat = async (id: number, id2: number) => {
   try {
     return await prisma.raceboats.findMany({
       where: {
-        raceid: parseInt(req.params.id),
-        boatid: parseInt(req.params.id2),
+        raceid: id,
+        boatid: id2,
       },
     });
   } catch (error) {
@@ -146,13 +142,17 @@ const getRaceBoatByBoat = async (req) => {
   }
 };
 
-exports.deleteRaceBoatsByID = deleteRaceBoatsByID;
-exports.createRaceBoat = createRaceBoat;
-exports.removeRace = removeRace;
-exports.updateRaces = updateRaces;
-exports.createRace = createRace;
-exports.getRaces = getRaces;
-exports.getRaceID = getRaceID;
-exports.getRaceBoat = getRaceBoat;
-exports.updateRaceBoat = updateRaceBoat;
-exports.getRaceBoatByBoat = getRaceBoatByBoat;
+const RaceService = {
+  getRaces,
+  getRaceID,
+  getRaceBoat,
+  createRace,
+  updateRaces,
+  removeRace,
+  createRaceBoat,
+  deleteRaceBoatsByID,
+  updateRaceBoat,
+  getRaceBoatByBoat,
+};
+
+export { RaceService };
