@@ -7,7 +7,7 @@ import {
   EventRouter,
   RaceRouter,
   // ClubRouter,
-  // AuthRouter,
+  AuthRouter,
 } from "./routers";
 // import { Authenticate } from "./middleware/authentication";
 
@@ -45,7 +45,7 @@ app.use("/boat", BoatRouter);
 app.use("/event", EventRouter);
 app.use("/race", RaceRouter);
 // app.use("/club", ClubRouter);
-// app.use("/auth", AuthRouter);
+app.use("/auth", AuthRouter);
 
 /* redirect to API documentation */
 app.get("/", (req, res) => res.redirect("/docs"));
