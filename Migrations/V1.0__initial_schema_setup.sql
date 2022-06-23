@@ -27,11 +27,11 @@ CREATE TABLE IF NOT EXISTS public.User(
 CREATE TABLE IF NOT EXISTS public.Events(
     id          serial
             primary key,
-    eventTypeId    integer REFERENCES public.EventTypes (id),
+    eventTypeId    integer,
     startTime      TIMESTAMP,
     endDate        TIMESTAMP,
     name           VARCHAR(255),
-    clubId      integer REFERENCES public.Clubs (id),
+    clubId         integer,
     description    VARCHAR(255)
 );
 

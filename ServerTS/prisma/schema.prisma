@@ -29,29 +29,25 @@ model Renamedclass {
 }
 
 model clubs {
-  id     Int      @id @default(autoincrement())
-  name   String?  @db.VarChar(255)
-  boats  boats[]
-  events events[]
+  id    Int     @id @default(autoincrement())
+  name  String? @db.VarChar(255)
+  boats boats[]
 }
 
 model events {
-  id          Int         @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   eventtypeid Int?
-  starttime   DateTime?   @db.Timestamp(6)
-  enddate     DateTime?   @db.Timestamp(6)
-  name        String?     @db.VarChar(255)
+  starttime   DateTime? @db.Timestamp(6)
+  enddate     DateTime? @db.Timestamp(6)
+  name        String?   @db.VarChar(255)
   clubid      Int?
-  description String?     @db.VarChar(255)
-  clubs       clubs?      @relation(fields: [clubid], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  eventtypes  eventtypes? @relation(fields: [eventtypeid], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  description String?   @db.VarChar(255)
   races       races[]
 }
 
 model eventtypes {
-  id     Int      @id @default(autoincrement())
-  name   String?  @db.VarChar(255)
-  events events[]
+  id   Int     @id @default(autoincrement())
+  name String? @db.VarChar(255)
 }
 
 model flyway_schema_history {
