@@ -5,11 +5,11 @@ on:
     branches:
       - master
     paths:
-      - 'Server/**'
+      - 'ServerTS/**'
 
 defaults:
  run:
-  working-directory: ./Server
+  working-directory: ./ServerTS
 
 jobs:
   deploy:
