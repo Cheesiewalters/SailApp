@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { ClubService } from "../services";
 const okStatus = 200;
-const serverErrorStatus = 500;
 
 async function getAllClubs(req: Request, res: Response) {
   const Clubs = await ClubService.getClubs();
