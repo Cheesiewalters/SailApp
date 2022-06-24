@@ -10,8 +10,6 @@ async function getAllClasses(req: Request, res: Response) {
 
 async function getBoats(req: Request, res: Response) {
   const boats = await BoatService.getBoats();
-  const noContent = !boats || boats.length < 1;
-  if (noContent) return res.sendStatus(204);
   return res.status(200).json(boats);
 }
 
