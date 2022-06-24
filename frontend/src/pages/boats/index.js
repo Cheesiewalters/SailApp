@@ -17,11 +17,10 @@ const RegisterBoat = () => {
 
   const getData = async () => {
     const clubs = (await instance.get("/club")).data;
-
     setYachtClubs(clubs);
 
     const classes = (await instance.get("/boat/class")).data;
-    setYachtClasses(classes.classes);
+    setYachtClasses(classes);
   };
 
   useEffect(() => {
@@ -149,9 +148,15 @@ const RegisterBoat = () => {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                {yachtClasses.map((e, index) => {
-                  return <MenuItem value={index + 1}>{e.name}</MenuItem>;
-                })}
+                {yachtClasses.length > 0 ? (
+                  <div>
+                    {yachtClasses.map((e, index) => {
+                      return <MenuItem value={index + 1}>{e.name}</MenuItem>;
+                    })}
+                  </div>
+                ) : (
+                  <div />
+                )}
               </Select>
             </FormControl>
           </div>

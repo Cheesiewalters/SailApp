@@ -24,7 +24,7 @@ const RaceManager = () => {
   const getData = async () => {
     try {
       const classes = (await instance.get("/boat/class")).data;
-      setYachtClasses(classes.classes);
+      setYachtClasses(classes);
       const raceRes = (await instance.get(`/race/${params.id}`)).data;
       setRace(raceRes);
       setRaceBoats(raceRes.race[0].raceboats);
