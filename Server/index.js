@@ -6,11 +6,11 @@ const { json, urlencoded } = require("body-parser");
 const cors = require("cors");
 
 const {
-	eventRouter,
-	boatRouter,
-	raceRouter,
-	clubRouter,
-	authRouter,
+  eventRouter,
+  boatRouter,
+  raceRouter,
+  clubRouter,
+  authRouter,
 } = require("./routers");
 const bodyParser = require("body-parser");
 const app = express();
@@ -27,11 +27,11 @@ app.use("/auth", authRouter);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use((err, req, res, next) => {
-	res.status(500).send(err);
+  res.status(500).send(err);
 });
 
 const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {
-	console.log(`Server listening on ${PORT}`);
+  console.log(`Server listening on ${PORT}`);
 });
