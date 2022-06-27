@@ -10,5 +10,6 @@
   {
     "ParameterKey": "DBInstance",
     "ParameterValue": "sail-app-dev"
-  }
+  },
+  {}
 ]
