@@ -1,0 +1,14 @@
+[
+  {
+    "ParameterKey": "ApiName",
+    "ParameterValue": "sail-app-api-dev"
+  },
+  {
+    "ParameterKey": "BucketName",
+    "ParameterValue": "sail-app-dev"
+  },
+  {
+    "ParameterKey": "DBInstance",
+    "ParameterValue": "sail-app-dev"
+  }
+]
