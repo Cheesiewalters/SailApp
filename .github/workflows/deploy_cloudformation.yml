@@ -12,7 +12,7 @@ defaults:
     working-directory: ./cloudformation
 
 jobs:
-  deploy-cf:
+  deploy:
     runs-on: ubuntu-latest
     steps:
     - name: 🛎 Checkout
