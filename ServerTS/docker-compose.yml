@@ -1,19 +1,5 @@
-version: '3'
+version: "3"
 services:
-  # ui:
-  #   build: ./frontend
-  #   ports:
-  #     - 80:80
-  #   depends_on:
-  #     - api
-  # api:
-  #   build: ./ServerTS
-  #   ports:
-  #     - 3001:3001
-  #   environment:
-  #     DATABASE_URL: postgresql://user:password@db:5432/conor?schema=public
-  #   depends_on:
-  #     - flyway
   db:
     image: postgres:latest
     restart: always
@@ -29,7 +15,7 @@ services:
     image: flyway/flyway
     command: -url=jdbc:postgresql://db/conor -schemas=public -user=postgres -password=password -connectRetries=5 migrate
     volumes:
-      - ./Migrations:/flyway/sql
+      - ./../Migrations:/flyway/sql
     depends_on:
       - db
 volumes:

@@ -24,14 +24,15 @@
     "nodemon": "^2.0.15",
     "rand-token": "^1.0.1",
     "swagger-ui-express": "^4.1.6",
+    "testcontainers": "^8.11.0",
     "yamljs": "^0.3.0"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "jest": "^27.4.7",
+    "jest": "^27.5.1",
     "prisma": "^3.5.0",
-    "supertest": "^6.2.2"
+    "supertest": "^6.2.3"
   },
   "jest": {
     "clearMocks": true

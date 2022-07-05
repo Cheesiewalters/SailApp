@@ -20,7 +20,6 @@ async function createUser(body: any) {
 async function login(body: any) {
   const user = await getUserByEmail(body);
   if (!user) {
-    console.log(user);
     throw new Error("User not found");
   }
   const checkPassword = bcrypt.compareSync(body.password, user.password);
