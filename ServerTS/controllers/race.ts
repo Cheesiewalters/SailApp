@@ -6,9 +6,7 @@ const okStatus = 200;
 async function getAllRaces(req: Request, res: Response) {
   const race = await RaceService.getRaces();
   if (!race || race.length === 0) return res.sendStatus(204);
-  res.status(okStatus).json({
-    race,
-  });
+  res.status(okStatus).json(race);
 }
 
 async function getRaceByID(req: Request, res: Response) {

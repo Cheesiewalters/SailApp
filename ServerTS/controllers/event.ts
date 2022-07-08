@@ -4,8 +4,8 @@ import { EventService } from "../services";
 const okStatus = 200;
 
 async function getAllEvents(req: Request, res: Response) {
-  const classes = await EventService.getAllEventsService();
-  return res.status(okStatus).json(classes);
+  const events = await EventService.getAllEventsService();
+  return res.status(okStatus).json(events);
 }
 
 async function getEventTypes(req: Request, res: Response) {

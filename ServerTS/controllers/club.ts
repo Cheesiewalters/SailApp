@@ -18,9 +18,7 @@ async function postClub(req: Request, res: Response) {
 async function deleteClubController(req: Request, res: Response) {
   await ClubService.deleteClub(Number(req.params.id));
 
-  res.status(okStatus).json({
-    message: `Successfully deleted club with id: ${req.params.id}`,
-  });
+  return res.sendStatus(204);
 }
 
 async function updateClubController(req: Request, res: Response) {
@@ -28,9 +26,7 @@ async function updateClubController(req: Request, res: Response) {
     req.body,
     Number(req.params.id)
   );
-  res.status(okStatus).json({
-    updatedClub,
-  });
+  res.sendStatus(204);
 }
 
 async function getClubByIDController(req: Request, res: Response) {
