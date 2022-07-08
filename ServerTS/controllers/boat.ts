@@ -35,7 +35,7 @@ async function updateBoat(req: Request, res: Response) {
 async function deleteBoat(req: Request, res: Response) {
   const { id } = req.params;
   await BoatService.removeBoat(Number(id));
-  return res.status(204);
+  return res.sendStatus(204);
 }
 
 export {
